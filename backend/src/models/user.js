@@ -3,7 +3,7 @@ const bcrypt = require('mongoose-bcrypt')
 const timestamp = require('mongoose-timestamp')
 
 
-export const UserSchema = new mongoose.Schema(
+var UserSchema = new mongoose.Schema(
     {
         Name: {
             type: String,
@@ -42,8 +42,7 @@ export const UserSchema = new mongoose.Schema(
             trim: true,
             default: '',
         },
-    },
-    { collection: 'users'}
+    }    
 );
 
 // UserSchema.pre('save', (next) => {
@@ -85,4 +84,4 @@ UserSchema.plugin(timestamp);
 
 UserSchema.index({ Email: 1, Name: 1})
 
-module.exports = exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);

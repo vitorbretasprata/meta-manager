@@ -6,11 +6,33 @@ class LoginApp extends Component{
     constructor(){
         super();
         this.login = this.login.bind(this);
+        this.state = {
+            paramEmail: '',
+            paramPassword: ''
+        }
     }
 
-    login(){
-        Axios.get('http://localhost:200/api/auth/getUser', () => {
-            
+    login(e){
+        console.log(e);
+
+        this.setState({
+            paramEmail: e.target.email.value,
+            paramPassword: e.target.password.value
+        });
+
+        Axios.get('http://localhost:200/api/auth/getUser', {
+            params: {
+                email: `${paramEmail}`,
+                password: `${paramPassword}`
+            }
+        }, (response) => {
+            if(response){
+                
+            }
+        }).catch(error => {
+            console.log(error);
+        }).then(() => {
+
         })
     }
 

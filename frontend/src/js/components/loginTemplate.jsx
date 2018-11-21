@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => (    
     <div className="loginTemplate">
-        <form>
+        <form onSubmit={loginFunc}>
             <span>
                 <img src={sourcePathImage} width={size} height={size}/>
             </span>
@@ -16,7 +16,7 @@ const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => (
             </div>
             <div className="form-group row">
                 <div className="col-sm-10">
-                    <button type="submit" className="btn btn-primary" onClick={loginFunc}>Submit</button>
+                    <button type="submit" className="btn btn-dark">Submit</button>
                 </div>
             </div>
         </form>

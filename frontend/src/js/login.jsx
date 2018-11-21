@@ -21,6 +21,6 @@ if(module.hot){
     module.hot.accept('./loginApp', () => {
         const NextApp = require('./loginApp').default
 
-        renderApp(NextApp)
+        Login(NextApp)
     })
 }

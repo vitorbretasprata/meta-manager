@@ -7,10 +7,10 @@ module.exports = {
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
-        path.join(__dirname, 'src', 'js', 'login.jsx')        
+        path.join(__dirname, 'src', 'js', 'login')        
     ],    
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
         publicPath: '/dist/'
     },
@@ -41,13 +41,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.html$/,
-                use: [{
-                    loader: "html-loader"
-                }]
-            },
+            },            
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,

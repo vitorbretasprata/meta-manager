@@ -31,7 +31,7 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/getUser', (req, res) => {
 
     var token  = req.headers['x-access-token'];
 

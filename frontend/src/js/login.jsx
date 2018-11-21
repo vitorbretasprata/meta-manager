@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import 'modules/bootstrap/dist/css/bootstrap.min.css';
-import 'modules/font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 import LoginApp from './loginApp.jsx';
 

@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     devtool: 'source-map',
@@ -22,11 +21,7 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebPackPlugin({
-            template: "./src/html/login.html",
-            filename: "login.html"
-        })
+        new webpack.HotModuleReplacementPlugin(),        
     ],
     devServer: {
         contentBase: './dist',
@@ -42,6 +37,10 @@ module.exports = {
                 use:{
                     loader: 'standard-loader'
                 } 
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.html$/,

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class LoginApp extends Component{
     render(){
         return(
-            <div>Teate</div>
+            <div className="form-control">Teate</div>
         )
     }
 }

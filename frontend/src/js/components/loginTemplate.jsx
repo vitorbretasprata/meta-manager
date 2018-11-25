@@ -1,23 +1,20 @@
 import React from 'react';
+import Input from './inputs';
+import Button from './button';
 
 const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => (    
     <div className="loginTemplate">
         <form onSubmit={loginFunc}>
-            <span>
+            <div>
                 <img src={sourcePathImage} width={size} height={size}/>
-            </span>
-            <div className="form-group">
-                <label htmlFor="email">Email Address</label>
-                <input id="email" type="email" className="form-control" placeholder="Enter your Email"/>
             </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input id="password" type="password" className="form-control" placeholder="Enter your Password"/>
-            </div>
+            <Input type="email" text="Email Address" placeholder="Please enter your Email" />
+            <Input type="password" text="Password" placeholder="Please enter your Password"/>
             <div className="form-group row">
-                <div className="col-sm-10">
-                    <button type="submit" className="btn btn-dark">Submit</button>
-                </div>
+                <Button type="submit"
+                 divClass="col-sm-10"
+                 buttonClass="btn btn-dark"
+                 textButton="Submit"/>                
             </div>
         </form>
     </div>    

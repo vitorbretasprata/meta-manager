@@ -31,22 +31,64 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.get('/getUser', (req, res) => {
+router.get('/tokenAuth', (req, res, next) => {
 
-    var token  = req.headers['x-access-token'];
-
+    var token  = req.body.token || req.query.token;
     if(!token){
-        return res.status(401).send('Token not provided!')
+        return res.status.send('Must pass Token!');
     }
 
-    jwt.verify(token, config.secret, (err, decoded) => {
-        if(err){
-            return res.status(500).send({ auth: false, message: 'Failed to authenticate token!'});
+    jwt.verify(token, config.secret, (err, user) => {
+        if(err) throw err;
+
+        User.findById({
+            id: user._id
+        }, (err, user) => {
+            if(err) throw err;
+
+            return res.status(200).send({
+                user: user,
+                token: token
+            })
+        })
+    })
+    
+});
+
+router.post('/login', (req, res) => {
+    User.findOne({
+        email: req.body.email
+    }).exec((err, user) => {
+        if(err) {
+            throw err;
         }
 
-        res.status(200).send(decoded);
-     
-    });
-});
+        if(!user){
+            return res.status(404).json({
+                error: true, 
+                message: 'User not found'
+            });
+        }
+
+        bcrypt.compare(req.body.password, user.password, (err, valid) => {
+            if (!valid){
+                return res.status(404).json({
+                    error: true,
+                    message: 'Username or Password is wrong'
+                });
+            }
+
+            var token = jwt.sign({ id: User._id}, config.secret, { expiresIn: 432000 });
+
+            res.status(200).send({ auth: true, token: token, user: User });
+        })
+    })
+})
+
+router.get('/protected', () => {
+    
+})
+
+
 
 module.exports = router

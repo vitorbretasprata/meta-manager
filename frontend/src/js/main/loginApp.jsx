@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginTemplate from './components/loginTemplate';
+import LoginTemplate from '../components/loginTemplate';
 import Axios from 'axios';
 
 class LoginApp extends Component{
@@ -20,7 +20,7 @@ class LoginApp extends Component{
             paramPassword: e.target.password.value
         });
 
-        Axios.get('http://localhost:200/api/auth/getUser', {
+        Axios.get('http://localhost:2000/api/auth/getUser', {
             params: {
                 email: `${paramEmail}`,
                 password: `${paramPassword}`
@@ -31,9 +31,7 @@ class LoginApp extends Component{
             }
         }).catch(error => {
             console.log(error);
-        }).then(() => {
-
-        })
+        }).then((res) => localStorage.setItem('Teste-jwt', res.data));
     }
 
     render(){

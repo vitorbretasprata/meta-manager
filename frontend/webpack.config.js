@@ -1,31 +1,38 @@
 const path = require('path')
 const webpack = require('webpack')
 
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
+
 module.exports = {
     devtool: 'source-map',
     entry: [
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
-        path.join(__dirname, 'src', 'js', 'index')        
+        path.resolve(__dirname, 'src', 'js', 'index')        
     ],    
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/dist/'
+        publicPath: '/'     
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         alias: {
-            modules: path.join(__dirname, 'node_modules')
+            modules: path.resolve(__dirname, 'node_modules')
         }
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),        
+        new webpack.HotModuleReplacementPlugin(),  
+        new webpack.NamedModulesPlugin(),  
+        new HtmlWebpackPlugin({
+            template: './public/index.html'
+        })    
     ],
     devServer: {
-        contentBase: './dist',
-        hot: true
+        contentBase: 'public',               
     },
     module: {        
         rules: [

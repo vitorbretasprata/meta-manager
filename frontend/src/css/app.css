@@ -3,18 +3,21 @@
     padding: 0;
 }
 
-body, html, .center-bg{
-    background-color: rgba(190, 53, 53, 0.795);
-    height: 100%;   
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.center-bg{
     display:flex; 
-    align-items: center;
-    justify-content: center;
+    align-self: center;
+    justify-self: center;
 }
 
 .loginTemplate {
     width: 400px;
     padding: 35px;
-    background-color: white;
+    
     border-radius: 10px;
     height: 500px;
 }

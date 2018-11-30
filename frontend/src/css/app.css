@@ -3,26 +3,27 @@
     padding: 0;
 }
 
-html, body {
+html, body, #app {
     height: 100%;
     width: 100%;
+    background-color: rgba(72, 37, 105, 0.411)
 }
 
-.center-bg{
+#app{
     display:flex; 
-    align-self: center;
-    justify-self: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .loginTemplate {
     width: 400px;
-    padding: 35px;
-    
+    padding: 35px;    
     border-radius: 10px;
     height: 500px;
+    background-color: #fff;
+    opacity:0.6;
 }
 
 .loginImage{
     width: 100%;
-    text-align: center;
 }

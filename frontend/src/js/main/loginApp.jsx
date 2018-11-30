@@ -37,7 +37,7 @@ class LoginApp extends Component{
     render(){
         return(
             <LoginTemplate 
-            sourcePathImage="../../imajghgges/logo.jpg" 
+            sourcePathImage="../../images/logo.jpg" 
             size="70" 
             classname="loginImage" 
             loginFunc={this.login}/>

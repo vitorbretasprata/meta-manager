@@ -8,7 +8,7 @@ const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => (
             <div>
                 <img src={sourcePathImage} width={size} height={size}/>
             </div>
-            <Input type="email" text="Address" placeholder="Please enter your Email" />
+            <Input type="email" text="Email Address" placeholder="Please enter your Email" />
             <Input type="password" text="Password" placeholder="Please enter your Password"/>
             <div className="form-group row">
                 <Button type="submit"

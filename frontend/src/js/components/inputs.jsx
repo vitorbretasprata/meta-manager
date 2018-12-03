@@ -1,9 +1,8 @@
 import React from 'react';
 
-const Input = ({ type, placeholder, text }) => (
-    <div className="form-group">
-        <label htmlFor={type}>{text}</label>
-        <input id={type} type={type} className="form-control" placeholder={placeholder}/>
+const Input = ({ type, placeholder, id, name }) => (
+    <div className="form-group">        
+        <input id={id} type={type} name={name} className="form-control" placeholder={placeholder}/>
     </div>
 )
 

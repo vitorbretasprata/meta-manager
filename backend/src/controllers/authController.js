@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors')
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -8,28 +9,50 @@ const config = require('../config/config');
 
 const router = express();
 
-router.post('/register', (req, res) => {
+router.post('/register' ,(req, res) => {
 
-    var encryptedPassword = bcrypt.hashSync(req.body.password);
+    var encryptedPassword = bcrypt.hashSync(req.body.userInfo.password);
 
     User.create({
-        Name: req.body.name,
-        Email: req.body.email,
+        Name: req.body.userInfo.name,
+        Email: req.body.userInfo.email,
         Password: encryptedPassword,
-        Ocupation: req.body.ocupation,
-        Permission: req.body.permission,
-        Team: req.body.team,
+        Ocupation: req.body.userInfo.ocupation,
+        Permission: req.body.userInfo.permission,
+        Team: req.body.userInfo.team
     },
     (err, User) => {
         if(err){
             return res.status(500).send("Problem while registering the user.");
-        }
+        }       
 
-        var token = jwt.sign({ id: User._id}, config.secret, { expiresIn: 432000 });
-
-        res.status(200).send({ auth: true, token: token, user: User });
+        res.status(200).send({ user: User });
     });
 });
+
+
+
+router.get('/getUsers', (req, res) => {
+    User.find({}, (err, users) => {
+        if(!err){
+            res.status(200).send({ Users: users });
+        }
+        else{
+            throw err;
+        }
+    })
+})
+
+router.delete('/deleteUsers', (req, res) => {
+    User.deleteMany({}, (err, users) => {
+        if(!err){
+            res.status(200).send({ Users: users });
+        }
+        else{
+            throw err;
+        }
+    })
+})
 
 router.get('/tokenAuth', (req, res, next) => {
 
@@ -55,9 +78,10 @@ router.get('/tokenAuth', (req, res, next) => {
     
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res) => {    
+
     User.findOne({
-        email: req.body.email
+        email: req.body.email        
     }).exec((err, user) => {
         if(err) {
             throw err;
@@ -76,7 +100,7 @@ router.post('/login', (req, res) => {
                     error: true,
                     message: 'Username or Password is wrong'
                 });
-            }
+            }    
 
             var token = jwt.sign({ id: User._id}, config.secret, { expiresIn: 432000 });
 

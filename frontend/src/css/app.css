@@ -3,10 +3,38 @@
     padding: 0;
 }
 
+body{
+    background-image: url('../images/bg.jpg');
+    background-position: center;
+
+}
+
 html, body, #app {
     height: 100%;
+    width: 100%;    
+}
+
+.loginButton{
     width: 100%;
-    background-color: rgba(72, 37, 105, 0.411)
+}
+
+.alignCenter{
+    align-self: center;
+    padding-bottom: 10px;
+}
+
+.textColor{
+    color: #fff;
+}
+
+form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;   
+}
+
+form div{
+    padding-top: 15px;
 }
 
 #app{
@@ -19,9 +47,10 @@ html, body, #app {
     width: 400px;
     padding: 35px;    
     border-radius: 10px;
-    height: 500px;
-    background-color: #fff;
-    opacity:0.6;
+    height: auto;
+    background-color:#000;
+    opacity:0.8;
+    border: 0.5px solid rgba(255, 255, 255, 0.705);
 }
 
 .loginImage{

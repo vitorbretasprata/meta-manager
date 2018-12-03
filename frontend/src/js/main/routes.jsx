@@ -12,7 +12,8 @@ class Routes extends Component {
         return (    
             <BrowserRouter>        
                 <Switch>
-                    <Route path='/' component={LoginApp} exact />    
+                    <Route path='/' component={LoginApp} exact />
+                    <Route path='/login' component={LoginApp} />      
                     <Route path='/register' component={RegisterApp} />
                     <Route path='/home' component={HomeApp} />  
                     <Route component={error} />                                              

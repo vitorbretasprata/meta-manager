@@ -1,23 +1,33 @@
 import React from 'react';
 import Input from './inputs';
 import Button from './button';
+import { Link } from 'react-router-dom';
 
-const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => (    
+const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => (   
+        
     <div className="loginTemplate">
         <form onSubmit={loginFunc}>
-            <div>
+            <div className="alignCenter">
                 <img src={sourcePathImage} width={size} height={size}/>
             </div>
-            <Input type="email" text="Email Address" placeholder="Please enter your Email" />
-            <Input type="password" text="Password" placeholder="Please enter your Password"/>
+            <Input type="email" placeholder="Email Address" name="email" id="emailLogin"/>
+            <Input type="password" placeholder="Password" name="password" id="passwordLogin"/>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                <label class="custom-control-label textColor" for="customCheck1">Remember me</label>
+            </div>
             <div className="form-group row">
                 <Button type="submit"
-                 divClass="col-sm-10"
-                 buttonClass="btn btn-dark"
-                 textButton="Submit"/>                
-            </div>
+                divClass="col-sm-12"
+                buttonClass="btn btn-dark loginButton"
+                textButton="Submit"/>               
+            </div>  
+            <div className="alignCenter">
+                <Link to="/register">Register</Link> | <Link to="/reset">Reset Password</Link>
+            </div>          
         </form>
-    </div>    
+    </div>     
+       
 )
 
-export default LoginTemplate
+export default LoginTemplate;

@@ -6,15 +6,20 @@ const jwt = require('jsonwebtoken')
 
 const server = express();
 
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 const auth = require('./controllers/authController')
 const db = require('./config/database')
 const config = require('./config/config')
 
 const port = process.env.PORT || 2000;
 
-server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
+server.use(cors(corsOptions));
 server.use((req, res, next) => {
     var token = req.headers['authorization'];
     if(!token) return next();

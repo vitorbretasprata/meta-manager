@@ -1,12 +1,12 @@
 import React from 'react';
 import Input from './inputs';
 import Button from './button';
-import SuccessLogin from './succesLogin';
+import SuccessRegistration from './successRegistration';
 import { Link } from 'react-router-dom';
 
 const registerTemplate = ({ registerFunc, successMessage }) => (
     <div>
-        {!!successMessage && <SuccessLogin />}  
+        {!!successMessage && <SuccessRegistration />}  
         <div className="loginTemplate">
             <div>
                 <h2>Register</h2>

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 const bcrypt = require('mongoose-bcrypt')
-const timestamp = require('mongoose-timestamp')
-
 
 var UserSchema = new mongoose.Schema(
     {
@@ -13,14 +11,14 @@ var UserSchema = new mongoose.Schema(
         },
         Email: {
             type: String,
+            unique: true,
             required: true,
             index: true,
             trim: true
         },
         Password: {
             type: String,
-            required: true,
-            bcrypt: true
+            required: true            
         },
         Ocupation: {
             type: String,
@@ -79,8 +77,6 @@ var UserSchema = new mongoose.Schema(
 // });
 
 
-UserSchema.plugin(bcrypt);
-UserSchema.plugin(timestamp);
 
 UserSchema.index({ Email: 1, Name: 1})
 

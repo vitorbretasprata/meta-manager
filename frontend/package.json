@@ -40,6 +40,7 @@
     "webpack": "^4.25.1"
   },
   "dependencies": {
+    "AsyncStorage": "^0.1.5",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
     "create-react-class": "^15.6.3",

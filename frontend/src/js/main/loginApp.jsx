@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoginTemplate from '../components/loginTemplate';
 import Axios from 'axios';
-
+import { Redirect } from 'react-router-dom';
 
 const URL = 'http://localhost:2000/api/auth/login'
 class LoginApp extends Component{
@@ -20,26 +20,29 @@ class LoginApp extends Component{
         this.setState({
             paramEmail: e.target.email.value,
             paramPassword: e.target.password.value
+        }, () => {
+            Axios.post(URL, 
+                {
+                    email: this.state.paramEmail,
+                    password: this.state.paramPassword
+                    
+                }).then((response) => { 
+                    console.log(response);
+                    const token = response.data.token;  
+                    console.log(token);
+                    localStorage.setItem('token_id', token);
+                }).catch(error => {
+                    console.log(error);
+            })
         });
 
-        Axios.post(URL, 
-        {
-            email: this.state.paramEmail,
-            password: this.state.paramPassword
-            
-        }, (response) => {            
-            console.log(response) 
-            this.setToken(res.token)           
-        }).catch(error => {
-            console.log(error);
-        }).then((res) => localStorage.setItem('Teste-jwt', res));
+        
     }
 
     render(){
         return(
-            <LoginTemplate 
-            successMessage={success}
-            sourcePathImage="../../images/logo.jpg" 
+            <LoginTemplate             
+            sourcePathImage="../src/images/logo.jpg" 
             size="70" 
             classname="loginImage" 
             loginFunc={this.login}/>

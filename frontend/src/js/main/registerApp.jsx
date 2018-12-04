@@ -41,8 +41,7 @@ class RegisterApp extends Component {
                 this.setState({
                     success: true
                 })
-                console.log(response);
-                
+                console.log(response);                
             })
         });        
     }
@@ -50,7 +49,7 @@ class RegisterApp extends Component {
     render(){
         return(
             <RegisterTemplate 
-            successMessage={success}
+            successMessage={this.state.success}
             registerFunc={this.register} />
         )
     }

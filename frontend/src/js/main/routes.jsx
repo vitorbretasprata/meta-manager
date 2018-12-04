@@ -7,8 +7,8 @@ import HomeApp from './homeApp';
 import error from '../components/error';
 
 class Routes extends Component {
-
-    render(){
+    
+    render(){        
         return (    
             <BrowserRouter>        
                 <Switch>

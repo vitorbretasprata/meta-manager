@@ -23,6 +23,11 @@ html, body, #app {
     padding-bottom: 10px;
 }
 
+.alignContent{
+    text-align: center;
+    padding: 5px 0;
+}
+
 .textColor{
     color: #fff;
 }
@@ -34,7 +39,7 @@ form{
 }
 
 form div{
-    padding-top: 15px;
+    padding-top: 5px;
 }
 
 #app{
@@ -43,9 +48,15 @@ form div{
     justify-content: center;
 }
 
+.gridName{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
 .loginTemplate {
-    width: 400px;
-    padding: 35px;    
+    width: 450px;
+    padding: 0 35px;
     border-radius: 10px;
     height: auto;
     background-color:#000;

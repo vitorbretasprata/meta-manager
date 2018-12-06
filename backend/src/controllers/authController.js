@@ -97,7 +97,7 @@ router.post('/login', (req, res) => {
         if(!bcrypt.compareSync(req.body.password, user.Password)){
             return res.status(404).json({
                 error: true,
-                message: 'Password does not match'   
+                message: 'Password or email does not match'   
             })
         }
 

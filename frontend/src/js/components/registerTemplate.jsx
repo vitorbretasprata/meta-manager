@@ -3,22 +3,49 @@ import Input from './inputs';
 import Button from './button';
 import SuccessRegistration from './successRegistration';
 import { Link } from 'react-router-dom';
+import Select from 'react-select';
+
+const ocupation = [
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'support', label: 'Support' },
+    { value: 'attendance', label: 'Attendance' }
+  ];
+
+const team = [    
+    { value: 'dev', label: 'Dev' },
+    { value: 'support', label: 'Support' },
+    { value: 'attendance', label: 'Attendance' }
+  ];
 
 const registerTemplate = ({ registerFunc, successMessage }) => (
     <div>
         {!!successMessage && <SuccessRegistration />}  
         <div className="loginTemplate">
-            <div>
+            <div className="alignTitleContent">
                 <h2>Register</h2>
             </div>
             <form onSubmit={registerFunc} method='POST'>
-                <Input type="name" placeholder="Full Name" id="nameRegister" name="name"/>
+                <div className="gridName">
+                    <div>
+                        <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName"/>
+                    </div>
+                    <div>
+                        <Input type="text" placeholder="Last Name" id="lastNameRegister" name="lastName"/>
+                    </div>    
+                </div>                
                 <Input type="email" placeholder="Email Address" id="emailRegister" name="email"/>           
                 <Input type="password" placeholder="Password" id="passwordRegister" name="password"/>
                 <Input type="password" placeholder="Confirm Password" id="passwordConf" name="confirm"/>
-                <Input type="text" placeholder="Ocupation"  id="ocupationRegister" name="ocupation"/>
-                <Input type="text" placeholder="Permission" id="permissionRegister" name="permission"/>
-                <Input type="text" placeholder="Related Team" id="teamRegister" name="team"/>            
+                <div className="gridName selects">
+                    <div>
+                        <Select options={team} placeholder="Team" name="team" />                         
+                    </div>
+                    <div>
+                        <Select options={ocupation} placeholder="Ocupation" name="ocupation" />
+                    </div>    
+                </div>
+                          
                 <div className="form-group row">
                     <Button type="submit"
                     divClass="col-sm-12"

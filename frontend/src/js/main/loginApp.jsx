@@ -34,9 +34,7 @@ class LoginApp extends Component{
                 }).catch(error => {
                     console.log(error);
             })
-        });
-
-        
+        });        
     }
 
     render(){

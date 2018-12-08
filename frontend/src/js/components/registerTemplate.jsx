@@ -17,7 +17,14 @@ const team = [
     { value: 'attendance', label: 'Attendance' }
   ];
 
-const registerTemplate = ({ registerFunc, successMessage }) => (
+const options = [
+    { value: 'manager', label: 'Manager' },
+    { value: 'developer', label: 'Developer' },
+    { value: 'support', label: 'Support' },
+    { value: 'commercial', label: 'Commercial' }
+];
+
+const registerTemplate = ({ registerFunc, successMessage, selectOption, handleSelectChange }) => (
     <div>
         {!!successMessage && <SuccessRegistration />}  
         <div className="loginTemplate">

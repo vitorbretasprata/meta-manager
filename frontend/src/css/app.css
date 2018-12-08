@@ -22,6 +22,11 @@ html, body, #app {
     padding-bottom: 10px;
 }
 
+.alignContent{
+    text-align: center;
+    padding: 5px 0;
+}
+
 .textColor{
     color: #fff;
 }

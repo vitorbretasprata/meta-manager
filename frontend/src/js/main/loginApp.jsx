@@ -24,8 +24,7 @@ class LoginApp extends Component{
             Axios.post(URL, 
                 {
                     email: this.state.paramEmail,
-                    password: this.state.paramPassword
-                    
+                    password: this.state.paramPassword                    
                 }).then((response) => { 
                     console.log(response);
                     const token = response.data.token;  

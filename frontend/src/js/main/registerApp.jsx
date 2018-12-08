@@ -22,7 +22,7 @@ class RegisterApp extends Component {
         }
         this.setState({
             userInfo: {
-                name: data.name.value,
+                name: `${data.firstName.value} ${data.lastName.value}`,
                 email: data.email.value,
                 password: data.password.value,                
                 ocupation: data.ocupation.value,

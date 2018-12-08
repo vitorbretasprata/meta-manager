@@ -70,3 +70,13 @@ form{
     margin-top: 10px; 
     width: 100%;
 }
+
+.inputForm{
+    border-radius: 50px;
+    background-color: rgba(68, 67, 67, 0.514);
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    border: none;
+    padding-left: 10px;
+}

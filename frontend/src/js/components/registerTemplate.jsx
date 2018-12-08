@@ -8,8 +8,7 @@ import Select from 'react-select';
 const ocupation = [
     { value: 'manager', label: 'Manager' },
     { value: 'developer', label: 'Developer' },
-    { value: 'support', label: 'Support' },
-    { value: 'attendance', label: 'Attendance' }
+    { value: 'support', label: 'Support' }
   ];
 
 const team = [    

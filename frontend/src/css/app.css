@@ -8,6 +8,20 @@ body{
     background-position: center;
 }
 
+*:focus {
+    outline: none;
+}
+.centerDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.contentPadding{
+    padding: 0 1000px;
+}
+
 html, body, #app {
     height: 100%;
     width: 100%;    
@@ -38,15 +52,13 @@ form{
 }
 
 
+
+
 .selects{
     margin-bottom: 15px;
 }
 
-#app{
-    display:flex; 
-    align-items: center;
-    justify-content: center;
-}
+
 
 .alignTitleContent{
     align-self: center;
@@ -67,8 +79,7 @@ form{
     border-radius: 10px;
     height: auto;
     background-color:#000;
-    opacity:0.8;
-    border: 0.5px solid rgba(255, 255, 255, 0.705);
+    opacity:0.8;    
 }
 
 .loginImage{

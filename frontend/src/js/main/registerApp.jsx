@@ -8,19 +8,13 @@ const URL = 'http://localhost:2000/api/auth/register'
 class RegisterApp extends Component {
     constructor(){
         super();
-        this.register = this.register.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this)
+        this.register = this.register.bind(this);        
         this.state = {
             userInfo: null ,
             success: false,
             selectedOption: null
         }
     }    
-
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
-    }
 
     register(e){
         const data = e.target;

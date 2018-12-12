@@ -13,7 +13,7 @@ export default () => (
                         {!!context.isAuth ? (
                             <button class="btn btn-outline-success my-2 my-sm-0" onClick={context.logout}>Logout</button>                        
                         ) : (
-                            <button class="btn btn-outline-success my-2 my-sm-0" onClick={context.login}>Login</button>
+                            <Link to="/login" class="btn btn-outline-success my-2 my-sm-0">Login</Link>
                         )}                                               
                     </nav>        
                 </div>                

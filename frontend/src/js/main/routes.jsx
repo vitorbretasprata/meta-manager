@@ -13,12 +13,14 @@ class Routes extends Component {
     render(){        
         return (    
             <BrowserRouter>   
-                <AuthProvider>
-                    <Header />
-                    <Route path='/login' component={LoginApp} />      
-                    <Route path='/register' component={RegisterApp} />
+                <AuthProvider>                    
                     <Switch>
-                        <Route path='/' component={LoginApp} exact />                        
+                        <Route path='/login' component={LoginApp} />      
+                        <Route path='/register' component={RegisterApp} />
+                    </Switch> 
+                    <Header />                   
+                    <Switch>
+                        <Route path='/' component={HomeApp} exact />                        
                         <ProtectedRoute path='/home' component={HomeApp} />  
                         <Route component={error} />                                              
                     </Switch>

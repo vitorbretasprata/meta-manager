@@ -17,7 +17,8 @@ class AuthProvider extends Component{
     }
 
     login(){
-        this.hisstory.pushState(null, 'login');
+        console.log("Login acionado");
+        <Redirect to="/login" />
     }
 
     logout(){

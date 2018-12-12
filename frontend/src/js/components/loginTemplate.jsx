@@ -2,14 +2,16 @@ import React from 'react';
 import Input from './inputs';
 import Button from './button';
 import { Link } from 'react-router-dom';
+import Failed from './failed'
 
 
-const LoginTemplate = ({ sourcePathImage, size, loginFunc }) => ( 
+const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin }) => ( 
     <div className="centerDiv">
+        {!!failedLogin && <Failed message="Failed to login: incorrect Email or Password!"/>}
         <div className="loginTemplate">
             <form onSubmit={loginFunc}>
                 <div className="alignTitleContent">
-                    <img src={sourcePathImage} width={size} height={size}/>
+                    <img src={sourcePathImage} width={width} height={height}/>
                 </div>
                 <Input type="email" placeholder="Email Address" name="email" id="emailLogin"/>
                 <Input type="password" placeholder="Password" name="password" id="passwordLogin"/>

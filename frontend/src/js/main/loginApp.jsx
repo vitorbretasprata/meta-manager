@@ -10,7 +10,8 @@ class LoginApp extends Component{
         this.login = this.login.bind(this);
         this.state = {
             paramEmail: '',
-            paramPassword: ''            
+            paramPassword: '',
+            failedLogin: false          
         }
     }
 
@@ -31,6 +32,7 @@ class LoginApp extends Component{
                     console.log(token);
                     localStorage.setItem('token_id', token);
                 }).catch(error => {
+                    this.setState({ failedLogin: true })
                     console.log(error);
             })
         });        
@@ -38,9 +40,11 @@ class LoginApp extends Component{
 
     render(){
         return(
-            <LoginTemplate             
-            sourcePathImage="../src/images/logo.jpg" 
-            size="70" 
+            <LoginTemplate 
+            failedLogin={this.state.failedLogin}            
+            sourcePathImage="../src/images/logo.png" 
+            height="80" 
+            width="250"
             classname="loginImage" 
             loginFunc={this.login}/>
         )

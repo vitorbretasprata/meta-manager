@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RegisterTemplate from '../components/registerTemplate';
+import RegisterTemplate from '../components/templates/registerTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import Select from 'react-select';

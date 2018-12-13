@@ -1,8 +1,8 @@
 import React from 'react';
-import Input from './inputs';
-import Button from './button';
+import Input from '../inputs';
+import Button from '../button';
 import { Link } from 'react-router-dom';
-import Failed from './failed'
+import Failed from '../failed'
 
 
 const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin }) => ( 
@@ -16,7 +16,7 @@ const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin 
                 <Input type="email" placeholder="Email Address" name="email" id="emailLogin"/>
                 <Input type="password" placeholder="Password" name="password" id="passwordLogin"/>
                 <div class="custom-control custom-checkbox selects">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="rememberMe" />
                     <label class="custom-control-label textColor" for="customCheck1">Remember me</label>
                 </div>
                 <div className="form-group row">

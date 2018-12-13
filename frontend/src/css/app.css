@@ -19,10 +19,6 @@ body{
     height: 100%;
 }
 
-.contentPadding{
-    padding: 0 1000px;
-}
-
 html, body, #app {
     height: 100%;
     width: 100%;    
@@ -52,14 +48,9 @@ form{
     flex-direction: column;   
 }
 
-
-
-
 .selects{
     margin-bottom: 15px;
 }
-
-
 
 .alignTitleContent{
     align-self: center;

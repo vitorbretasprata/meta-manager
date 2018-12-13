@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginTemplate from '../components/loginTemplate';
+import LoginTemplate from '../components/templates/loginTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 

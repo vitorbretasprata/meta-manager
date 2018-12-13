@@ -11,6 +11,11 @@ body{
 *:focus {
     outline: none;
 }
+
+.carousel-item > img{
+    height: 500px;
+    width: 100%;
+}
 .centerDiv{
     display: flex;
     justify-content: center;
@@ -52,14 +57,19 @@ form{
     flex-direction: column;   
 }
 
-
-
-
 .selects{
     margin-bottom: 15px;
 }
 
+.AccessButtons {   
+    width: 160px;
+    display: flex;
+    justify-content: space-between;
+}
 
+.AccessButtons a{   
+    border: none;
+}
 
 .alignTitleContent{
     align-self: center;

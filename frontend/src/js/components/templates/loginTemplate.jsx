@@ -1,8 +1,8 @@
 import React from 'react';
-import Input from './inputs';
-import Button from './button';
+import Input from '../inputs';
+import Button from '../button';
 import { Link } from 'react-router-dom';
-import Failed from './failed'
+import Failed from '../failed'
 
 
 const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin }) => ( 

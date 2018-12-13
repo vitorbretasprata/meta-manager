@@ -8,6 +8,7 @@ import error from '../components/error';
 import { AuthProvider } from './AuthContext';
 import Header from '../components/header';
 import ProtectedRoute from './protectedRoute';
+import DashboardApp from './dashboardApp'
 
 class Routes extends Component {    
     render(){        
@@ -21,7 +22,7 @@ class Routes extends Component {
                     <Header />                   
                     <Switch>
                         <Route path='/' component={HomeApp} exact />                        
-                        <ProtectedRoute path='/home' component={HomeApp} />  
+                        <ProtectedRoute path='/dashboard' component={DashboardApp} />  
                         <Route component={error} />                                              
                     </Switch>
                 </AuthProvider>                                                 

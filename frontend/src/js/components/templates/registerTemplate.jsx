@@ -1,7 +1,7 @@
 import React from 'react';
-import Input from './inputs';
-import Button from './button';
-import SuccessRegistration from './successRegistration';
+import Input from '../inputs';
+import Button from '../button';
+import SuccessRegistration from '../successRegistration';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 

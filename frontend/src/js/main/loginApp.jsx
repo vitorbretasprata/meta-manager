@@ -31,7 +31,7 @@ class LoginApp extends Component{
                     console.log(response);
                     const token = response.data.token;                      
                     localStorage.setItem('token_id', token);
-                    SetAuthorizationToken(localStorage.token);
+                    <Redirect to="/dashboard" />
                 }).catch(error => {
                     this.setState({ failedLogin: true })
                     console.log(error);

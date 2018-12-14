@@ -35,15 +35,15 @@ class Header extends Component {
             <header>
                 <AuthConsumer>
                     {(context) => (                                            
-                    <Navbar className="navbar-dark bg-dark" expand="md" onLoad={context.refresh}>
+                    <Navbar className="navbar-dark bg-dark" expand="md">
                         <div className="container-fluid">
-                            <Link to="/home" className="navbar-brand button">Home</Link>
+                            <Link to="/" className="navbar-brand button">Home</Link>
                             <Link to="/dashboard" className="navbar-brand button">Dashboard</Link>
                             <NavbarToggler onClick={this.toggle} className="mr-2" data-target/>
 
                             <Collapse isOpen={!this.state.collapsed} navbar>
                                 <Nav className="ml-auto" navbar>                                    
-                                        {!!context.isAuth ? (
+                                    {!!context.isAuthenticated() ? (
                                             <NavItem>
                                                 <button class="btn btn-outline-success my-2 my-sm-0" onClick={context.logout}>Logout</button>
                                             </NavItem>                                                                    

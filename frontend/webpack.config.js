@@ -22,6 +22,10 @@ module.exports = {
             modules: path.resolve(__dirname, 'node_modules')
         }
     },
+    node: {
+        net: 'empty',
+        dns: 'empty'
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),  
         new webpack.NamedModulesPlugin(),  

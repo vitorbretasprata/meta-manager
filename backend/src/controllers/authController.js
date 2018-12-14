@@ -9,7 +9,7 @@ const config = require('../config/config');
 
 const router = express();
 
-router.post('/register' ,(req, res) => {
+router.post('/register', (req, res) => {
 
     var encryptedPassword = bcrypt.hashSync(req.body.userInfo.password, 10);
 

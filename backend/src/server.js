@@ -12,7 +12,8 @@ var corsOptions = {
 }
 
 const auth = require('./controllers/authController')
-const db = require('./config/database')
+const userDB = require('./databases/userDatabase')
+const ticketDB = require('./databases/ticketDatabase')
 const config = require('./config/config')
 
 const port = process.env.PORT || 2000;

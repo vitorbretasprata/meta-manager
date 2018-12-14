@@ -6,27 +6,35 @@ const AuthContext = React.createContext();
 class AuthProvider extends Component{
     state = { 
         isSession: false,
-        isAuth: false
+        isAuth: false,
+        toggle: () => {
+            this.setState({isAuth: !this.state.isAuth});
+        }
     }
 
     constructor(){
-        super();
-        this.login = this.login.bind(this);
+        super();        
         this.logout = this.logout.bind(this);
         this.refresh = this.refresh.bind(this);
     }
-
-    login(){
-        console.log("Login acionado");
-        <Redirect to="/login" />
-    }
-
+    
     logout(){
         if(this.state.isSession == true){
             sessionStorage.removeItem("token_id");
+
+            this.setState({
+                isAuth: false
+            });
+
             this.refresh();
+
         } else {
             localStorage.removeItem("token_id");
+
+            this.setState({
+                isAuth: false
+            });
+
             this.refresh();
         }
     }

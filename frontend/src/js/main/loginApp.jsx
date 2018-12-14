@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginTemplate from '../components/templates/loginTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import SetAuthorizationToken from '../components/utils/setAuthorizationToken'
 
 const URL = 'http://localhost:2000/api/auth/login'
 class LoginApp extends Component{
@@ -28,9 +29,9 @@ class LoginApp extends Component{
                     password: this.state.paramPassword                    
                 }).then((response) => { 
                     console.log(response);
-                    const token = response.data.token;  
-                    console.log(token);
+                    const token = response.data.token;                      
                     localStorage.setItem('token_id', token);
+                    SetAuthorizationToken(localStorage.token);
                 }).catch(error => {
                     this.setState({ failedLogin: true })
                     console.log(error);

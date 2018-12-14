@@ -24,12 +24,7 @@ var UserSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true
-        },
-        Permission: {
-            type: String,
-            required: true,
-            trim: true
-        },
+        },        
         Team: {
             type: String,
             required: true,

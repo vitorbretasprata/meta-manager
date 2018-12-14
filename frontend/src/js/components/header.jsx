@@ -13,6 +13,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -29,14 +30,15 @@ class Header extends Component {
         });
     }
 
-    render(){
+    render(){        
         return (
             <header>
                 <AuthConsumer>
-                    {(context) => (                        
-                    <Navbar className="navbar-dark bg-dark" expand="md">
+                    {(context) => (                                            
+                    <Navbar className="navbar-dark bg-dark" expand="md" onLoad={context.refresh}>
                         <div className="container-fluid">
                             <Link to="/home" className="navbar-brand button">Home</Link>
+                            <Link to="/dashboard" className="navbar-brand button">Dashboard</Link>
                             <NavbarToggler onClick={this.toggle} className="mr-2" data-target/>
 
                             <Collapse isOpen={!this.state.collapsed} navbar>

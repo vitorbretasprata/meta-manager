@@ -50,7 +50,9 @@ var TicketSchema = new mongoose.Schema(
             type: Array,
             default: [],
             Comment: {
-                type: String,
+                Description:{
+                    type: String
+                },
                 Author: {
                     type: String                
                 },

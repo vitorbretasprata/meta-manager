@@ -12,7 +12,7 @@ const items = [
     src: '../src/images/pudim1.JPG',
     altText: "I don't know why I added",
     caption: "I don't know why I added"
-  },
+  }, 
   {
     src: '../src/images/pudim2.jpg',
     altText: "I don't even need a carousel",

@@ -46,7 +46,7 @@ router.post('/createTicket', (req, res) => {
     })
 })
 
-router.put('/addComment/:id', (req, res) => {
+router.post('/addComment/:id', (req, res) => {
 
     Ticket.findById(req.params.id, (err, Ticket) => {
         if(err){

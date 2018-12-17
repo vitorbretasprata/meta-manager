@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+var connTicket = mongoose.createConnection('mongodb://localhost/tickets', { useNewUrlParser: true })
+
 var TicketSchema = new mongoose.Schema(
     {
         Title: {
@@ -46,8 +48,18 @@ var TicketSchema = new mongoose.Schema(
         },
         Comments:{
             type: Array,
-            default: []
+            default: [],
+            Comment: {
+                type: String,
+                Author: {
+                    type: String                
+                },
+                DateComment: {
+                    type: Date,
+                    default: Date.now
+                }
+            }  
         }
 })
 
-module.exports = mongoose.model('Ticket', TicketSchema);
+module.exports = connTicket.model('Ticket', TicketSchema);

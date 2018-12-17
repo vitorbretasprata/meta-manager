@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+var connUser = mongoose.createConnection('mongodb://localhost/users', { useNewUrlParser: true })
+
 var UserSchema = new mongoose.Schema(
     {
         Name: {
@@ -39,4 +41,4 @@ var UserSchema = new mongoose.Schema(
 
 UserSchema.index({ Email: 1, Name: 1})
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = connUser.model('User', UserSchema);

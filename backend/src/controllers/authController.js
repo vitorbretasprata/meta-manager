@@ -111,6 +111,4 @@ router.get('/protected', () => {
     
 })
 
-
-
 module.exports = router

@@ -12,8 +12,9 @@ var corsOptions = {
 }
 
 const auth = require('./controllers/authController')
-const userDB = require('./databases/userDatabase')
-const ticketDB = require('./databases/ticketDatabase')
+const tickets = require('./controllers/ticketController')
+const userDB = require('./models/user')
+const ticketDB = require('./models/ticket')
 const config = require('./config/config')
 
 const port = process.env.PORT || 2000;
@@ -41,6 +42,7 @@ server.use((req, res, next) => {
 });
 
 server.use('/api/auth', auth);
+server.use('/api/tickets', tickets);
 
 server.listen(port, () => {
     console.log(`Express listening on port ${port}...`)

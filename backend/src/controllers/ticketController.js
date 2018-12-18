@@ -46,19 +46,31 @@ router.post('/createTicket', (req, res) => {
     })
 })
 
-router.post('/addComment/:id', (req, res) => {
+router.put('/addComment/:id', (req, res) => {
 
-    Ticket.findById(req.params.id, (err, Ticket) => {
+    let Comment = {         
+        Title: req.body.Title,
+        Description: req.body.Description,
+        Author: req.body.Author              
+    }
+
+    Ticket.findByIdAndUpdate(req.params.id, 
+    {
+        $push: {
+            Comments: [{
+                Comment: Comment 
+            }]            
+        }
+    }, { new: true } ,
+    (err, Ticket) => {
         if(err){
             return res.status(500).send({ error: err })
-        }
-        Ticket.Comments.push(req.body.commentInfo)        
-    });
-
-    return res.status(200).send({ Comments: Ticket.Comments })
+        }  
+        return res.status(200).send({ Comments: Ticket.Comments });               
+    });    
 });
 
-router.delete('/deleteTicket/:id', (req, res) => {
+router.delete('/deleteTicket/:id',  (req, res) => {
 
     Ticket.findByIdAndDelete(req.params.id, (err, Ticket) => {
         if(err){
@@ -71,7 +83,7 @@ router.delete('/deleteTicket/:id', (req, res) => {
 
 router.put('/alterTicket/:id', (req, res) => {
 
-    Ticket.findById(req.params.id, {
+    Ticket.findByIdAndUpdate(req.params.id, {
 
         Title: req.body.ticketInfo.title,
         Description: req.body.ticketInfo.description,
@@ -81,12 +93,11 @@ router.put('/alterTicket/:id', (req, res) => {
         Term: req.body.ticketInfo.term,
         State: req.body.ticketInfo.state
 
-     }, (err, Ticket) => {
+     }, { new: true } , (err, Ticket) => {
         if(err){
-            return res.status(500).send({ error: err })
+            return res.status(500).send({ error: err });
         }
-
-        return res.status(200).send({ Ticket: Ticket })     
+        return res.status(200).send({ Ticket: Ticket }) ;    
     });    
 });
 

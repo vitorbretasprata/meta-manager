@@ -46,22 +46,14 @@ var TicketSchema = new mongoose.Schema(
             type: Boolean,
             default: false            
         },
-        Comments:{
-            type: Array,
-            default: [],
-            Comment: {
-                Description:{
-                    type: String
-                },
-                Author: {
-                    type: String                
-                },
-                DateComment: {
-                    type: Date,
-                    default: Date.now
-                }
-            }  
-        }
+        Comments:[{
+            Comment:{
+                Title: String,
+                Description: String,
+                Author: String,
+                DateCreated: {type: Date, default: Date.now}
+            }
+        }]
 })
 
 module.exports = connTicket.model('Ticket', TicketSchema);

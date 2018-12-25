@@ -17,23 +17,15 @@ class DashboardTemplate extends Component {
 
     loadData = () => {
         this.setState({ loading: true })
-        Axios.get(URL).then(res => {
+        Axios.get(URL).then(res => {            
             console.log(res.data.Tickets);
-            this.setState({
-                [tickets]: res.data.Tickets.map(tickets => ({
-                    ID: tickets._id,
-                    Title: tickets.Title,
-                    Description: tickets.Description,
-                    Client: tickets.Client,
-                    Author: tickets.Author,
-                    Importance: tickets.Importance,
-                    State: tickets.State,
-                    Term: tickets.Term,
-                    DateCreated: tickets.DateCreated
-                })),
+            res.data.Tickets.map(ticket => {
+                this.state.tickets.push(ticket);
+            }, console.log(this.state.tickets));
+            this.setState({                
                 loading: false,
                 error: false
-            }, console.log(this.state.tickets));      
+            });      
         }).catch(err => {
             this.setState({
                 error: `${err}`,
@@ -64,14 +56,14 @@ class DashboardTemplate extends Component {
         } 
                
         return (
-            <div className="container-fluid">
-                <div className="row">
-                    <section className="col-sm-8">
+            <div className="row container-fluid">
+                <div>
+                    <section className="col-sm-7">
                     <ScrollPanel className="hidden-scrollbar"
                     style={{ backgroundColor: "white", height: 600, overflow: "scroll" }}
                     >
                     <ul className="list-group list-group-flush">
-                        {tickets.map(ticket => <li key={ticket.ID} className="list-group-item">{ticket.Name}</li>)}
+                        {tickets.map(ticket => <li key={ticket._id} className="list-group-item">{ticket.Title}</li>)}
                         <li className="list-group-item">Teste</li>
                     </ul>
                     </ScrollPanel>

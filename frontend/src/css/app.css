@@ -12,9 +12,8 @@ body{
     outline: none;
 }
 
-.hidden-scrollba{
-    overflow-y: "scroll";
-    overflow-x: "hidden";
+.marginRow{
+    padding: 0 15px;    
 }
 
 /* width */

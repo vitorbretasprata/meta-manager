@@ -12,8 +12,12 @@ class DashboardTemplate extends Component {
             error: '',
             loading: false
        }
-    }       
+    }  
+    
+    loadUsers = () => {
+
         
+    }        
 
     loadData = () => {
         this.setState({ loading: true })
@@ -36,6 +40,7 @@ class DashboardTemplate extends Component {
 
     componentDidMount(){
         this.loadData();
+        this.loadUsers();
     }              
 
     render(){ 
@@ -56,20 +61,21 @@ class DashboardTemplate extends Component {
         } 
                
         return (
-            <div className="row container-fluid">
-                <div>
-                    <section className="col-sm-7">
+            <div className="container">
+                <div className="row marginRow justify-content-between">
+                    <section className="col-auto">
                     <ScrollPanel className="hidden-scrollbar"
-                    style={{ backgroundColor: "white", height: 600, overflow: "scroll" }}
+                    style={{ backgroundColor: "white", height: 300, width: 700, overflow: "auto" }}
                     >
                     <ul className="list-group list-group-flush">
                         {tickets.map(ticket => <li key={ticket._id} className="list-group-item">{ticket.Title}</li>)}
-                        <li className="list-group-item">Teste</li>
                     </ul>
                     </ScrollPanel>
                     
                     </section>
-                    <aside className="col-sm-3">
+                    <section className="col">
+                    </section>
+                    <aside className="col-1">
 
                     </aside>
                 </div>        

@@ -16,6 +16,20 @@ body{
     padding: 0 15px;    
 }
 
+.userName{
+    padding: 3px;
+    border: 0.5px solid black;
+    margin: 2px 0; 
+}
+
+.containerMargin{
+    margin-top: 20px;
+}
+
+.usersSpace{
+
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;    

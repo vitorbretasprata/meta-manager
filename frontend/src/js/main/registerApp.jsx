@@ -27,8 +27,7 @@ class RegisterApp extends Component {
                 name: `${data.firstName.value} ${data.lastName.value}`,
                 email: data.email.value,
                 password: data.password.value,                
-                ocupation: data.ocupation.value,
-                permission: data.permission.value,
+                ocupation: data.ocupation.value,                
                 team: data.team.value
             }            
             

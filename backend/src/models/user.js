@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const bcrypt = require('mongoose-bcrypt')
+
+var connUser = mongoose.createConnection('mongodb://localhost/users', { useNewUrlParser: true })
 
 var UserSchema = new mongoose.Schema(
     {
@@ -24,12 +25,7 @@ var UserSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true
-        },
-        Permission: {
-            type: String,
-            required: true,
-            trim: true
-        },
+        },        
         Team: {
             type: String,
             required: true,
@@ -43,41 +39,6 @@ var UserSchema = new mongoose.Schema(
     }    
 );
 
-// UserSchema.pre('save', (next) => {
-//     if(!this.isNew){
-//         next();
-//     }
-
-//     Email({
-//         type: 'Registration complete!',
-//         Email: this.Email
-//     }).then(() => {
-//         next();
-//     }).catch(err => {
-//         loggers.console.error(err);
-//         next();
-//     });
-// });
-
-// UserSchema.pre('findOneAndUpdate', (next) => {
-//     if(!this._update.recoveryCode){
-//         return next();
-//     }
-
-//     Email({
-//         type: 'password',
-//         Email: this._condition.Email,
-//         passcode: this._update.recoveryCode
-//     }).the(() => {
-//         next();
-//     }).catch(err => {
-//         loggers.error(err);
-//         next();
-//     });
-// });
-
-
-
 UserSchema.index({ Email: 1, Name: 1})
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = connUser.model('User', UserSchema);

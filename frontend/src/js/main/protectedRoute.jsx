@@ -4,10 +4,10 @@ import { AuthConsumer } from './AuthContext'
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <AuthConsumer>
-    {({ isAuth }) => (
+    {({ isAuthenticated }) => (
       <Route
         render={props =>
-          isAuth ? <Component {...props} /> : <Redirect to="/" />
+          isAuthenticated() ? <Component {...props} /> : <Redirect to="/" />
         }
         {...rest}
       />

@@ -11,6 +11,41 @@ body{
 *:focus {
     outline: none;
 }
+
+.hidden-scrollba{
+    overflow-y: "scroll";
+    overflow-x: "hidden";
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;    
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+section, aside{
+    background-color: #fff;
+    height: 100%;
+}
+
+.carousel-item > img{
+    height: 500px;
+    width: 100%;
+}
 .centerDiv{
     display: flex;
     justify-content: center;
@@ -50,6 +85,16 @@ form{
 
 .selects{
     margin-bottom: 15px;
+}
+
+.AccessButtons {   
+    width: 160px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.AccessButtons a{   
+    border: none;
 }
 
 .alignTitleContent{

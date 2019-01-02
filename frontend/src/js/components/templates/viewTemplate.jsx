@@ -20,17 +20,19 @@ const ViewTemplate = ({ titleTicket, importanceTicket, importance, authorTicket,
                             {descriptionTicket}
                         </p>
                     </div>
-                    
+                    <div className="d-flex justify-content-end">
+                        <Link to={linkToEdit} className="marginButtons btn btn-dark">Edit</Link>
+                        <button onClick={deleteTicket} className="marginButtons btn btn-dark">Delete</button>
+                    </div>    
                 </div>
-                <div className="ticketButtons d-flex justify-content-end">
-                    <Link to={linkToEdit} />
-                    <button onClick={deleteTicket}>Delete</button>
-                </div>
-                <div className="ticketComments">
-                    {commentsTicket}
+                
+                <div className="ticketComments">                    
                     <div className="addComment d-flex justify-content-end">
-                        <button onClick={addComment}>Add a comment</button>
+                        <button onClick={addComment} className="marginButtons btn btn-dark">Add a comment</button>
                     </div>
+                    <div className="Comments">
+                        {commentsTicket}
+                    </div>                    
                 </div>
             </form>            
         </div>

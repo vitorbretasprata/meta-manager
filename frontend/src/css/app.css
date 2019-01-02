@@ -35,13 +35,18 @@ body{
 
 .ticketInfo,
 .ticketDescription,
-.ticketButtons {
+.ticketButtons,
+.ticketComments {
     width:99%;
     margin: auto;
     background-color: #fff; 
     margin: 5px 5px;
     padding: 3px;
     border-radius: 10px;    
+}
+.marginButtons,
+.ticketComments{
+    margin: 5px;
 }
 
 /* width */

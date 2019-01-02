@@ -32,7 +32,7 @@ var TicketSchema = new mongoose.Schema(
         Term:{
             type: Date,
             required: true,
-            default: Date.now           
+            default: Date.now        
         },
         DateCreated: {
             type: Date,            
@@ -47,8 +47,7 @@ var TicketSchema = new mongoose.Schema(
             default: false            
         },
         Comments:[{
-            Comment:{
-                Title: String,
+            Comment:{                
                 Description: String,
                 Author: String,
                 DateCreated: {type: Date, default: Date.now}

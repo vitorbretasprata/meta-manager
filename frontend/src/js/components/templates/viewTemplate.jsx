@@ -8,8 +8,8 @@ const ViewTemplate = ({ titleTicket, importanceTicket, importance, authorTicket,
             <form>                
                 <div className="ticketInfo">
                     <div className="ticketTitle"><h2>{titleTicket}</h2> <h3>(<strong className={importance}>{importanceTicket}</strong>)</h3></div>
-                    <div className="information">Status: {stateTicket} Author: {authorTicket} Client: {clientTicket}</div>
-                    <div className="information">Term: {termTicket} Date of creation: {dateTicket}</div>
+                    <div className="information"><strong>Status: </strong> {stateTicket} <strong>Author:</strong> {authorTicket} <strong>Client:</strong> {clientTicket}</div>
+                    <div className="information"><strong>Term:</strong>  {termTicket} <strong>Date of creation:</strong> {dateTicket}</div>
                 </div>
                 <div className="ticketDescription">
                     <div className="descriptionTitle">

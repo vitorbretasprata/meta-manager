@@ -10,7 +10,7 @@ class ViewApp extends Component {
 
     render(){
         return (
-            <ViewTemplate />
+            <ViewTemplate linkToEdit='/'/>
         )
     }
 }

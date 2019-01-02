@@ -26,8 +26,22 @@ body{
     margin-top: 20px;
 }
 
-.usersSpace{
+.ticketWindow {
+    width: 100%; 
+    margin-top: 50px;
+    background-color:rgb(236, 230, 230);
+    border-radius: 10px;
+}
 
+.ticketInfo,
+.ticketDescription,
+.ticketButtons {
+    width:99%;
+    margin: auto;
+    background-color: #fff; 
+    margin: 5px 5px;
+    padding: 3px;
+    border-radius: 10px;    
 }
 
 /* width */

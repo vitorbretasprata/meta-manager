@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import ViewTemplate from '../components/templates/viewTemplate';
+import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 
 const TICKET = 'http://localhost:2000/api/tickets/getTicket'
-class ViewApp extends Component {
+class EditApp extends Component {
     constructor(){
         super();
+        this.saveEdition = this.saveEdition.bind(this);
+
         this.state = {
             Title: '',
             Client: '',
@@ -51,6 +53,10 @@ class ViewApp extends Component {
         })
     };
 
+    saveEdition(){
+
+    }
+
 
     render(){
 
@@ -70,8 +76,8 @@ class ViewApp extends Component {
         
         const val = this.state;
         return (
-            <ViewTemplate 
-            linkToEdit='/'
+            <EditTemplate 
+            editTicket={this.saveEdition}
             titleTicket={val.Title}
             importanceTicket={val.Importance}
             authorTicket={val.Author}
@@ -81,8 +87,8 @@ class ViewApp extends Component {
             stateTicket={val.State}
             descriptionTicket={val.Description}
             commentsTicket={Comments}
-            linkToEdit={{ 
-                pathname: '/edit',
+            cancelEdit={{ 
+                pathname: '/view',
                 state: { ID: this.props.location.state.ID }
             }}
             />
@@ -90,4 +96,4 @@ class ViewApp extends Component {
     }
 }
 
-export default ViewApp;
+export default EditApp;

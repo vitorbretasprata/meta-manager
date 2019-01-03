@@ -55,6 +55,24 @@ body{
     font-weight: bold;
 }
 
+.commentComent{
+    margin-top: 5px;
+}
+
+.editInputs{
+    border-radius: 5px;
+    border: 0.5px solid black;
+}
+
+.sizeInput{
+    width: 300px;    
+    padding: 5px;
+}
+
+.information{
+    font-weight: bold;
+}
+
 .ticketWindow h3{
     font-size: 1em;
 }

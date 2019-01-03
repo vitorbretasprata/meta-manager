@@ -57,7 +57,7 @@ class ViewApp extends Component {
         const Comments = this.state.Comments.map(UserComment => {
             return (
                     <div className="form-group">
-                        <div>{UserComment.Comment.Author}</div> 
+                        <div className="authorComment">{UserComment.Comment.Author}</div> 
                         <div>{UserComment.Comment.Description}</div>
                         <div className="d-flex justify-content-end">{UserComment.Comment.DateCreated}</div>
                         <hr/>

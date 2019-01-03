@@ -57,6 +57,6 @@
     "react-spy-scroll": "^0.2.2",
     "reactstrap": "^6.5.0",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.14"
   }
 }

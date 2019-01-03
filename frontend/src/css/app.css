@@ -41,12 +41,22 @@ body{
     margin: auto;
     background-color: #fff; 
     margin: 5px 5px;
-    padding: 3px;
+    padding: 20px;
     border-radius: 10px;    
 }
 .marginButtons,
-.ticketComments{
+.ticketComments,
+.Comments{
     margin: 5px;
+}
+
+.authorComment{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ticketWindow h3{
+    font-size: 1em;
 }
 
 /* width */

@@ -13,7 +13,7 @@ const ViewTemplate = ({ titleTicket, importanceTicket, importance, authorTicket,
                 </div>
                 <div className="ticketDescription">
                     <div className="descriptionTitle">
-                        <h3>Description: </h3>
+                        <h4>Description</h4>
                     </div>
                     <div className="description">
                         <p>
@@ -27,8 +27,8 @@ const ViewTemplate = ({ titleTicket, importanceTicket, importance, authorTicket,
                 </div>
                 
                 <div className="ticketComments">                    
-                    <div className="addComment d-flex justify-content-end">
-                        <button onClick={addComment} className="marginButtons btn btn-dark">Add a comment</button>
+                    <div className="addComment">
+                        <button onClick={addComment} className="btn btn-dark">Add a comment</button>
                     </div>
                     <div className="Comments">
                         {commentsTicket}

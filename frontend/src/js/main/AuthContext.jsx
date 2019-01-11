@@ -20,18 +20,24 @@ class AuthProvider extends Component{
     }
 
     isAuthenticated(){        
-        const token = localStorage.getItem('token_id');
-        const refreshToken = localStorage.getItem('token_id');
-
-        if(!token) {            
+        const localToken = localStorage.getItem('token_id');
+        const sessionToken = sessionStorage.getItem('token_id');
+        let decodedToken = null;
+        if(!localToken && !sessionToken) {            
             return false;
         }
       
-        try{
-
-          const decodedToken = decode(refreshToken, { complete: true });      
-          console.log(decodedToken);
+        try{        
+            if(localToken){
+                decodedToken = decode(localToken, { complete: true });
+            } else {
+                decodedToken = decode(sessionToken, { complete: true });
+            }
+                  
+            console.log(decodedToken);
+            
         } catch (e) {
+            console.log(e);
             return false;
         }
       
@@ -39,24 +45,15 @@ class AuthProvider extends Component{
     }
     
     logout(){        
-        if(this.state.isSession == true){
-            sessionStorage.removeItem("token_id");
+        
+        sessionStorage.removeItem("token_id");
+        localStorage.removeItem("token_id");
+        this.setState({
+            isAuth: false,
+            isSession: false
+        });
 
-            this.setState({
-                isAuth: false
-            });
-
-            this.refresh();
-
-        } else {
-            localStorage.removeItem("token_id");
-
-            this.setState({
-                isAuth: false
-            });
-
-            this.refresh();
-        }
+        this.refresh();
     }
 
     refresh(){

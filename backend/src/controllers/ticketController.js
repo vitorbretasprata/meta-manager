@@ -29,13 +29,14 @@ router.get('/getTicket/:id', (req, res) => {
 router.post('/createTicket', (req, res) => {
 
     Ticket.create({
-        Title: req.body.ticketInfo.title,
-        Description: req.body.ticketInfo.description,
-        Importance: req.body.ticketInfo.importance,
-        Author: req.body.ticketInfo.author,
-        Client: req.body.ticketInfo.client,
-        Term: req.body.ticketInfo.term,
-        State: req.body.ticketInfo.state,
+        Title: req.body.Title,
+        Description: req.body.Description,
+        Importance: req.body.Importance,
+        Author: req.body.Author,
+        Client: req.body.Client,
+        Term: req.body.Term,
+        State: req.body.State,
+        Category: req.body.Category,
         Comments: []
     }, (err, Ticket) => {
         if(err){
@@ -48,10 +49,9 @@ router.post('/createTicket', (req, res) => {
 
 router.put('/addComment/:id', (req, res) => {
 
-    let Comment = {         
-        Title: req.body.Title,
+    let Comment = {    
         Description: req.body.Description,
-        Author: req.body.Author              
+        User: req.body.User              
     }
 
     Ticket.findByIdAndUpdate(req.params.id, 
@@ -81,18 +81,29 @@ router.delete('/deleteTicket/:id',  (req, res) => {
     });
 });
 
+router.delete('/deleteTickets', (req, res) => {
+    Ticket.deleteMany({}, (err, ticket) => {
+        if(!err){
+            res.status(200).send({ Tickets: ticket });
+        }
+        else{
+            throw err;
+        }
+    });
+});
+
 router.put('/alterTicket/:id', (req, res) => {
 
     Ticket.findByIdAndUpdate(req.params.id, {
 
-        Title: req.body.ticketInfo.title,
-        Description: req.body.ticketInfo.description,
-        Importance: req.body.ticketInfo.importance,
-        Author: req.body.ticketInfo.author,
-        Client: req.body.ticketInfo.client,
-        Term: req.body.ticketInfo.term,
-        State: req.body.ticketInfo.state
-
+        Title: req.body.Title,
+        Description: req.body.Description,
+        Importance: req.body.Importance,
+        Author: req.body.Author,
+        Client: req.body.Client,
+        Term: req.body.Term,
+        State: req.body.State,
+        Category: req.body.Category
      }, { new: true } , (err, Ticket) => {
         if(err){
             return res.status(500).send({ error: err });

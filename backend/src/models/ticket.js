@@ -46,10 +46,14 @@ var TicketSchema = new mongoose.Schema(
             type: Boolean,
             default: false            
         },
+        Category:{
+            type: String,
+            required: true
+        },
         Comments:[{
             Comment:{                
                 Description: String,
-                Author: String,
+                User: String,
                 DateCreated: {type: Date, default: Date.now}
             }
         }]

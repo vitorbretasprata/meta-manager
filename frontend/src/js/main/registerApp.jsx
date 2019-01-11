@@ -49,13 +49,19 @@ class RegisterApp extends Component {
 
     render(){
         const { selectedOption } = this.state;
-        return(
-            <RegisterTemplate 
-            selectOption={selectedOption}
-            handleSelectChange={this.handleSelectChange}
-            successMessage={this.state.success}
-            registerFunc={this.register} />
-        )
+
+        if(localStorage.getItem('token_id') || sessionStorage.getItem('token_id')){
+            return <Redirect to='/home' />
+        } else {
+            return(
+                <RegisterTemplate 
+                selectOption={selectedOption}
+                handleSelectChange={this.handleSelectChange}
+                successMessage={this.state.success}
+                registerFunc={this.register} />
+            )
+        }
+        
     }
 }
 

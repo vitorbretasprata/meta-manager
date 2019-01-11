@@ -3,14 +3,13 @@ import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 
-const ALTERTICKET = 'http://localhost:2000/api/tickets/alterTicket'
 const TICKET = 'http://localhost:2000/api/tickets/getTicket'
+const ADDTICKET = 'http://localhost:2000/api/tickets/createTicket'
 
-class EditApp extends Component {
+class CreateApp extends Component {
     constructor(){
-        super();
-
-        this.saveEdition = this.saveEdition.bind(this);
+        super();     
+        this.saveAdd = this.saveAdd.bind(this);   
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSelectedDate = this.handleSelectedDate.bind(this);
         this.handleTitle = this.handleTitle.bind(this);
@@ -28,8 +27,7 @@ class EditApp extends Component {
             Term: new Date,
             Error: '',
             Comments: [],
-            Loading: true,            
-            SuccessEdit: false,
+            Loading: true,
             SuccessAdd: false
         };
 
@@ -39,11 +37,7 @@ class EditApp extends Component {
         if(this.props.location.state){
             const { ID } = this.props.location.state; 
             Axios.get(`${TICKET}/${ID}`).then(res => {
-    
-                res.data.Ticket.Comments.map(UserComment => {
-                    this.state.Comments.push(UserComment)
-                });
-    
+        
                 this.setState({
                     Title: res.data.Ticket.Title,
                     Client: res.data.Ticket.Client,
@@ -52,9 +46,7 @@ class EditApp extends Component {
                     DateCreated: res.data.Ticket.DateCreated,
                     Importance: res.data.Ticket.Importance,
                     State: res.data.Ticket.State,
-                    Term: res.data.Ticket.Term,
-                    Category: res.data.Ticket.Category,                     
-                    Comments: res.data.Ticket.Comments,
+                    Term: res.data.Ticket.Term,                    
                     Loading: false
                 });
             }).catch(err => {
@@ -66,37 +58,36 @@ class EditApp extends Component {
         }  
     }
 
-    saveEdition(e){
-        const { ID } = this.props.location.state; 
+    saveAdd(e){        
         const data = e.target;
-        
         e.preventDefault();
         this.setState({
             Loading: true
         }, () => {
-            Axios.put(`${ALTERTICKET}/${ID}`, 
-            {
+            Axios.post(`${ADDTICKET}`, 
+            {    
                 Title: data.filterTitle.value,            
                 Client: data.filterClient.value,
+                Author: "Vitor",
                 Description: data.filterDescription.value,                
                 Importance: data.filterImportance.value,
                 State: data.filterStatus.value,
                 Term: data.filterDate.value,
-                Category: data.filterCategory.value
+                Category: data.filterCategory.value             
             }).then(res => {
-                console.log(res.data);
+                console.log(res);
                 this.setState({
-                    SuccessEdit: true
+                    Loading: false,
+                    SuccessAdd: true
                 });
-                
             }).catch(err => {
                 this.setState({
                     Error: err
                 });
             });
-        });        
+        });      
     }
-
+    
     handleDateChange(date){
         this.setState({
             Term: date
@@ -127,26 +118,25 @@ class EditApp extends Component {
 
 
     render(){        
-        const { SuccessEdit } = this.state;
+        const { SuccessAdd } = this.state;
         const val = this.state;
 
         if(val.Error){
             return <Error errorMessage={val.Error} />
-        } else if(SuccessEdit){
+        } else if(SuccessAdd){
             return (
                 <Redirect to={{
-                    pathname: '/view',
-                    state: { 
-                        ID: this.props.location.state.ID,
-                        SuccessEdit: true
+                    pathname: '/dashboard',
+                    state: {    
+                        SuccessAdd: true
                     }
                 }} />
             )
-        } else {
+        } else  if(this.props.location.state == undefined){
             return (
                 <EditTemplate 
-                method="PUT"
-                editTicket={this.saveEdition}
+                method="POST"
+                editTicket={this.saveAdd}
                 titleTicket={val.Title}
                 importanceTicket={val.Importance}
                 authorTicket={val.Author}
@@ -154,11 +144,8 @@ class EditApp extends Component {
                 termTicket={val.Term}
                 dateTicket={val.DateCreated}
                 stateTicket={val.State}
-                descriptionTicket={val.Description}    
-                cancelEdit={{ 
-                    pathname: '/view',
-                    state: { ID: this.props.location.state.ID }
-                }}
+                descriptionTicket={val.Description}                
+                cancelEdit='/dashboard'                    
                 changeDate={this.handleDateChange}
                 selectDate={this.handleSelectedDate}
                 changeTitle={this.handleTitle}
@@ -166,8 +153,8 @@ class EditApp extends Component {
                 changeDesc={this.handleDesc}
                 />
             )
-        }
+        } 
     }
 }
 
-export default EditApp;
+export default CreateApp;

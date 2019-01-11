@@ -16,8 +16,8 @@ const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin 
                 <Input type="email" placeholder="Email Address" name="email" id="emailLogin"/>
                 <Input type="password" placeholder="Password" name="password" id="passwordLogin"/>
                 <div class="custom-control custom-checkbox selects">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" />
-                    <label class="custom-control-label textColor" for="customCheck1">Remember me</label>
+                    <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe"/>
+                    <label class="custom-control-label textColor" for="rememberMe">Remember me</label>
                 </div>
                 <div className="form-group row">
                     <Button type="submit"

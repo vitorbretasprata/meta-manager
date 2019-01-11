@@ -16,9 +16,8 @@ class LoginApp extends Component{
         }
     }
 
-    login(e){        
-        e.preventDefault();
-
+    login(e){
+        const remember = e.target.rememberMe.checked;    
         this.setState({
             paramEmail: e.target.email.value,
             paramPassword: e.target.password.value
@@ -27,11 +26,15 @@ class LoginApp extends Component{
                 {
                     email: this.state.paramEmail,
                     password: this.state.paramPassword                    
-                }).then((response) => { 
-                    console.log(response);
-                    const token = response.data.token;                      
-                    localStorage.setItem('token_id', token);
-                    <Redirect to="/dashboard" />
+                }).then((response) => {
+                    const token = response.data.token;
+                    if(remember == true){
+                        localStorage.setItem('token_id', token); 
+                        this.render();                         
+                    } else if (remember == false) {
+                        sessionStorage.setItem('token_id', token);  
+                        this.render();                      
+                    }
                 }).catch(error => {
                     this.setState({ failedLogin: true })
                     console.log(error);
@@ -40,15 +43,19 @@ class LoginApp extends Component{
     }
 
     render(){
-        return(
-            <LoginTemplate 
-            failedLogin={this.state.failedLogin}            
-            sourcePathImage="../src/images/logo.png" 
-            height="80" 
-            width="250"
-            classname="loginImage" 
-            loginFunc={this.login}/>
-        )
+        if(localStorage.getItem('token_id') || sessionStorage.getItem('token_id')){
+            return <Redirect to='/home' />
+        } else {
+            return(
+                <LoginTemplate 
+                failedLogin={this.state.failedLogin}            
+                sourcePathImage="../src/images/logo.png" 
+                height="80" 
+                width="250"
+                classname="loginImage" 
+                loginFunc={this.login}/>
+            )
+        }        
     }
 }
 

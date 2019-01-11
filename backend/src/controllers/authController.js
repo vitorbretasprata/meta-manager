@@ -100,14 +100,11 @@ router.post('/login', (req, res) => {
             })
         }
 
-        var token = jwt.sign(
-            { 
-                id: User._id,
-                name: User.Name,
-                occupation: User.Ocupation,
-                team: User.team
-            }, 
-            config.secret, { expiresIn: 432000 });
+        const payload = {
+            id: User._id
+        };
+
+        var token = jwt.sign(payload, config.secret, { expiresIn: 432000 });
 
         res.status(200).send({ auth: true, token: token, user: User });
         

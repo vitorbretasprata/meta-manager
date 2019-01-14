@@ -70,6 +70,16 @@ router.put('/addComment/:id', (req, res) => {
     });    
 });
 
+router.get('/filter', (req, res) => {
+
+    Ticket.find({
+        Title: { $in: req.body.Title },
+        Client: { $in: req.body.Client },
+        Occupation: req.body.Occupation,
+        Author: req.body.Author,
+    })
+})
+
 router.delete('/deleteTicket/:id',  (req, res) => {
 
     Ticket.findByIdAndDelete(req.params.id, (err, Ticket) => {

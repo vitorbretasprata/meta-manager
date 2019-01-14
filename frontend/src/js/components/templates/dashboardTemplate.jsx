@@ -12,6 +12,7 @@ import Error from '../error'
 const TICKETS = 'http://localhost:2000/api/tickets/getTickets'
 const USERS = 'http://localhost:2000/api/auth/getUsers'
 const DELETETICKET = 'http://localhost:2000/api/tickets/deleteTicket'
+const FILTER = 'http://localhost:2000/api/tickets/filter'
 
 const ocupation = [
     { value: 'Manager', label: 'Manager' },
@@ -48,11 +49,32 @@ class DashboardTemplate extends Component {
         });
     }   
     
-    filterSearch(){
+    filterSearch(e){
         const value = e.target.value;
         const keyCode = e.which || e.keyCode;
         const ENTER = 13;
         const target = e.target; 
+        if(keyCode == ENTER){
+            this.setState({
+                tickets: [],
+                loading: true  
+            }, () => {
+                Axios.get(FILTER).then(res => {
+                    res.data.Tickets.map(ticket => {
+                        this.state.tickets.push(ticket);
+                    });
+                    this.setState({
+                        error: false,
+                        loading: false
+                    });      
+                }).catch(err => {
+                    this.setState({
+                        error: `${err}`,
+                        loading: false             
+                    });
+                });
+            });
+        }
     }
 
     deleteTicket(id, e){ 

@@ -12,11 +12,13 @@ class LoginApp extends Component{
         this.state = {
             paramEmail: '',
             paramPassword: '',
-            failedLogin: false          
+            failedLogin: false,
+            isLogged: false       
         }
     }
 
     login(e){
+        e.preventDefault();
         const remember = e.target.rememberMe.checked;    
         this.setState({
             paramEmail: e.target.email.value,
@@ -29,12 +31,13 @@ class LoginApp extends Component{
                 }).then((response) => {
                     const token = response.data.token;
                     if(remember == true){
-                        localStorage.setItem('token_id', token); 
-                        this.render();                         
+                        localStorage.setItem('token_id', token);                         
                     } else if (remember == false) {
-                        sessionStorage.setItem('token_id', token);  
-                        this.render();                      
+                        sessionStorage.setItem('token_id', token);                     
                     }
+                    this.setState({
+                        isLogged: true
+                    })
                 }).catch(error => {
                     this.setState({ failedLogin: true })
                     console.log(error);
@@ -43,7 +46,8 @@ class LoginApp extends Component{
     }
 
     render(){
-        if(localStorage.getItem('token_id') || sessionStorage.getItem('token_id')){
+        const { isLogged } = this.state;
+        if(isLogged){
             return <Redirect to='/home' />
         } else {
             return(

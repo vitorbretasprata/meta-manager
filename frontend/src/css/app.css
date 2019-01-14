@@ -23,8 +23,9 @@ body{
 }
 
 .containerMargin{
-    margin-top: 20px;
+    margin: 20px 0;
 }
+
 
 .ticketWindow {
     width: 100%; 
@@ -57,6 +58,15 @@ body{
 
 .commentComent{
     margin-top: 5px;
+}
+
+.bgHeader{
+    background-color: #000;
+    opacity: 0.7;
+}
+
+.bgHeader a.nav-link{
+    color: #fff;
 }
 
 .editInputs{

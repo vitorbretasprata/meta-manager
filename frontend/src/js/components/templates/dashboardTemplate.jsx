@@ -7,24 +7,24 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import Error from '../error'
-
+import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 const TICKETS = 'http://localhost:2000/api/tickets/getTickets'
 const USERS = 'http://localhost:2000/api/auth/getUsers'
 const DELETETICKET = 'http://localhost:2000/api/tickets/deleteTicket'
 const FILTER = 'http://localhost:2000/api/tickets/filter'
 
-const ocupation = [
-    { value: 'Manager', label: 'Manager' },
-    { value: 'Developer', label: 'Developer' },
-    { value: 'Support', label: 'Support' }
+const Category = [
+    { value: 'Dev', label: 'Dev' },
+    { value: 'Support', label: 'Support' },
+    { value: 'Attendance', label: 'Attendance' }
   ];
 
 class DashboardTemplate extends Component { 
     constructor(){
        super();
        this.filterSearch = this.filterSearch.bind(this);
-       
+
 
        this.state = {
             tickets: [],
@@ -141,37 +141,57 @@ class DashboardTemplate extends Component {
             return (
                 <div className="container containerMargin">
                     <div className="row marginRow justify-content-between">
-                        <section className="col-auto">
+                        <section className="col-8">
                         <h2 className="paddingTitle">Tickets</h2>
-                        <form onSubmit={this.filterSearch}>
-                            <div className="dashButtons gridName containerMargin"> 
-                                <div>
-                                    <input type="submit" name="search" value="Search" className="btn btn-dark"/>
-                                </div>
+                        <Form onSubmit={this.filterSearch}>
+                            <div className="dashButtons gridName containerMargin">
                                 <div>
                                     <Link to='/create' className="btn btn-dark">
-                                        Create new Ticket
+                                        New Ticket
                                     </Link>
                                 </div>
-                            </div>                        
-                            <div className="row justify-content-between containerMargin">
-                                <div className="col">
-                                    <input type="text" id="filterTitle" className="inputForm" name="filterTitle" placeholder="Title"/>
-                                </div>
-                                <div className="col">
-                                    <input type="text" id="filterClient" className="inputForm" name="filterClient" placeholder="Client"/>
-                                </div>
-                                <div className="col">
-                                    <Select options={ocupation} placeholder="Occupation" name="filterOccupation" />
-                                </div>
-                                <div className="col">
-                                    <Select options={filterOwner[0]} placeholder="Author" name="filterOwner" />
-                                </div>                            
-                            </div>
+                            </div> 
                             
-                        </form>                             
+                            <Row form>
+                                <Col md={2}>
+                                    <FormGroup>
+                                        <input type="number" id="filterID" className="inputForm" name="filterID" placeholder="Ticket ID"/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={5}>
+                                    <FormGroup>
+                                        <input type="text" id="filterTitle" className="inputForm" name="filterTitle" placeholder="Title"/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={5}>
+                                    <FormGroup>
+                                        <input type="text" id="filterClient" className="inputForm" name="filterClient" placeholder="Client"/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={4}>
+                                    <FormGroup>
+                                        <Select options={Category} placeholder="Category" name="filterOccupation" />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={4}>
+                                    <FormGroup>
+                                        <Select options={filterOwner[0]} placeholder="Author" name="filterOwner" />
+                                    </FormGroup>
+                                </Col>  
+                                <Col md={4}>
+                                    <FormGroup>
+                                        <Select options={Category} placeholder="Importance" name="filterImportance" />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={2}>
+                                    <FormGroup>                                    
+                                        <button onClick={this.open} className="btn btn-dark">Filters</button>                                
+                                    </FormGroup>
+                                </Col>                         
+                            </Row>                                                                        
+                        </Form>                             
                         <ScrollPanel className="hidden-scrollbar"
-                        style={{ backgroundColor: "white", height: 300, width: 740,  marginTop: 25, marginBottom: 20, border: "0.5px solid gray", overflow: "auto" }}
+                        style={{ backgroundColor: "white", height: 300, width: "auto", padding: "0 3px", marginTop: 25, marginBottom: 20, border: "0.5px solid gray", overflow: "auto" }}
                         >
                         <ul className="list-group list-group-flush paddingList">
                             {tickets.map(ticket => <li key={ticket._id} className="list-group-item">

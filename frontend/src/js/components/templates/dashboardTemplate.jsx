@@ -29,16 +29,16 @@ class DashboardTemplate extends Component {
             tickets: [],
             error: '',
             loading: false,
+            Deleted: false,
             users: []
        }
     }  
     
     loadUsers = () => {
-        Axios.get(USERS).then(res => {
-            console.log(res.data);
+        Axios.get(USERS).then(res => {            
             res.data.Users.map(user => {
                 this.state.users.push(user);
-            }, console.log(this.state.users));
+            });
             this.setState({ loading: false });
         }).catch(err => {
             this.setState({
@@ -49,18 +49,19 @@ class DashboardTemplate extends Component {
     }   
     
     filterSearch(){
-
+        const value = e.target.value;
+        const keyCode = e.which || e.keyCode;
+        const ENTER = 13;
+        const target = e.target; 
     }
 
-    deleteTicket(id){        
+    deleteTicket(id, e){ 
+        e.preventDefault();      
         this.setState({
             Loading: true 
         }, () => {
             Axios.delete(`${DELETETICKET}/${id}`).then(res => {
-                console.log(res);
-                this.setState({
-                    Deleted: true
-                });
+                this.loadData();
             }).catch(err => {
                 this.setState({
                     Error: err
@@ -70,26 +71,30 @@ class DashboardTemplate extends Component {
     }
 
     loadData = () => {
-        this.setState({ loading: true })
-        Axios.get(TICKETS).then(res => {            
-            console.log(res.data.Tickets);
-            res.data.Tickets.map(ticket => {
-                this.state.tickets.push(ticket);
-            }, console.log(this.state.tickets));
-            this.setState({
-                error: false
-            });      
-        }).catch(err => {
-            this.setState({
-                error: `${err}`,
-                loading: false             
+        this.setState({
+            tickets: [],
+            loading: true
+        }, () => {
+            Axios.get(TICKETS).then(res => {       
+                res.data.Tickets.map(ticket => {
+                    this.state.tickets.push(ticket);
+                });
+                this.setState({
+                    error: false,
+                    loading: false
+                });      
+            }).catch(err => {
+                this.setState({
+                    error: `${err}`,
+                    loading: false             
+                });
             });
-        });
+        });    
     }
 
-    componentDidMount(){
+    componentDidMount(){        
         this.loadData();
-        this.loadUsers();
+        this.loadUsers();        
     }              
 
     render(){ 
@@ -99,114 +104,114 @@ class DashboardTemplate extends Component {
             return {
                 value: user._id, label: user.Name
             }     
-        })];       
+        })];     
 
         if(loading){
             return <p><strong>Loading...</strong></p>
-        }
-
-        if(error){
+        } else if(error){
             return(
                 <p>
                     <Error errorMessage={error} />
                     <button onClick={this.loadData} className="btn btn-black">Try again</button>
                 </p>
             )
-        } 
-               
-        return (
-            <div className="container containerMargin">
-                <div className="row marginRow justify-content-between">
-                    <section className="col-auto">
-                    <h2 className="paddingTitle">Tickets</h2>
-                    <form onSubmit={this.filterSearch}>
-                        <div className="dashButtons gridName containerMargin"> 
-                            <div>
-                                <input type="submit" name="search" value="Search" className="btn btn-dark"/>
-                            </div>
-                            <div>
-                                <Link to='/create' className="btn btn-dark">
-                                    Create new Ticket
-                                </Link>
-                            </div>
-                        </div>                        
-                        <div className="row justify-content-between containerMargin">
-                            <div className="col">
-                                <input type="text" id="filterTitle" className="inputForm" name="filterTitle" placeholder="Title"/>
-                            </div>
-                            <div className="col">
-                                <input type="text" id="filterClient" className="inputForm" name="filterClient" placeholder="Client"/>
-                            </div>
-                            <div className="col">
-                                <Select options={ocupation} placeholder="Occupation" name="filterOccupation" />
-                            </div>
-                            <div className="col">
-                                <Select options={filterOwner[0]} placeholder="Owner" name="filterOwner" />
-                            </div>                            
-                        </div>
-                        
-                    </form>                             
-                    <ScrollPanel className="hidden-scrollbar"
-                    style={{ backgroundColor: "white", height: 300, width: 740,  marginTop: 25, marginBottom: 20, border: "0.5px solid gray", overflow: "auto" }}
-                    >
-                    <ul className="list-group list-group-flush paddingList">
-                        {tickets.map(ticket => <li key={ticket._id} className="list-group-item">
-                            <div className="d-flex justify-content-between">
+        } else {
+            return (
+                <div className="container containerMargin">
+                    <div className="row marginRow justify-content-between">
+                        <section className="col-auto">
+                        <h2 className="paddingTitle">Tickets</h2>
+                        <form onSubmit={this.filterSearch}>
+                            <div className="dashButtons gridName containerMargin"> 
                                 <div>
-                                    <Link to={
-                                    { 
-                                        pathname: '/view',
-                                        state: { ID: ticket._id }
-                                    }} className="linkColor">{ticket.Title}
-                                    </Link>
-                                </div>                                
-                                <div>
-                                    <div className="icons d-flex justify-content-between">
-                                        <div>
-                                            <Link to={
-                                            { 
-                                                pathname: '/view',
-                                                state: { ID: ticket._id }
-                                            }} className="linkColor">
-                                                <FontAwesomeIcon icon={faEye} />
-                                            </Link>                                            
-                                        </div>
-                                        <div>
-                                            <Link to={
-                                            { 
-                                                pathname: '/edit',
-                                                state: { ID: ticket._id }
-                                            }} className="linkColor">
-                                                <FontAwesomeIcon icon={faEdit} />
-                                            </Link>                                            
-                                        </div>
-                                        <div>
-                                            <button className="nonButton" onClick={() => this.deleteTicket(ticket._id)}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>                                            
-                                        </div>
-                                    </div>                            
+                                    <input type="submit" name="search" value="Search" className="btn btn-dark"/>
                                 </div>
+                                <div>
+                                    <Link to='/create' className="btn btn-dark">
+                                        Create new Ticket
+                                    </Link>
+                                </div>
+                            </div>                        
+                            <div className="row justify-content-between containerMargin">
+                                <div className="col">
+                                    <input type="text" id="filterTitle" className="inputForm" name="filterTitle" placeholder="Title"/>
+                                </div>
+                                <div className="col">
+                                    <input type="text" id="filterClient" className="inputForm" name="filterClient" placeholder="Client"/>
+                                </div>
+                                <div className="col">
+                                    <Select options={ocupation} placeholder="Occupation" name="filterOccupation" />
+                                </div>
+                                <div className="col">
+                                    <Select options={filterOwner[0]} placeholder="Author" name="filterOwner" />
+                                </div>                            
                             </div>
-                        </li>)}
-                    </ul>
-                    </ScrollPanel>                   
-                    
-                    </section>
-                    
-                    <aside className="col-3">
-                        <div className="usersSpace">
-                            <div className="userTitle">
-                                <h2>Users</h2>
-                            </div>
-                            <div >
-                                {users.map(user => <div key={user._id} className="userName">{user.Name}</div>)}
-                            </div>
-                        </div>                        
-                    </aside>
-                </div>        
-            </div>
-        )
+                            
+                        </form>                             
+                        <ScrollPanel className="hidden-scrollbar"
+                        style={{ backgroundColor: "white", height: 300, width: 740,  marginTop: 25, marginBottom: 20, border: "0.5px solid gray", overflow: "auto" }}
+                        >
+                        <ul className="list-group list-group-flush paddingList">
+                            {tickets.map(ticket => <li key={ticket._id} className="list-group-item">
+                                <div className="d-flex justify-content-between">
+                                    <div>
+                                        <Link to={
+                                        { 
+                                            pathname: '/view',
+                                            state: { ID: ticket._id }
+                                        }} className="linkColor">{ticket.Title}
+                                        </Link>
+                                    </div>                                
+                                    <div>
+                                        <div className="icons d-flex justify-content-between">
+                                            <div>
+                                                <Link to={
+                                                { 
+                                                    pathname: '/view',
+                                                    state: { ID: ticket._id }
+                                                }} className="linkColor">
+                                                    <FontAwesomeIcon icon={faEye} />
+                                                </Link>                                            
+                                            </div>
+                                            <div>
+                                                <Link to={
+                                                { 
+                                                    pathname: '/edit',
+                                                    state: { ID: ticket._id }
+                                                }} className="linkColor">
+                                                    <FontAwesomeIcon icon={faEdit} />
+                                                </Link>                                            
+                                            </div>
+                                            <div>
+                                                <button className="nonButton" onClick={(e) => this.deleteTicket(ticket._id, e)}>
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>                                            
+                                            </div>
+                                        </div>                            
+                                    </div>
+                                </div>
+                            </li>)}
+                        </ul>
+                        </ScrollPanel>                   
+                        
+                        </section>
+                        
+                        <aside className="col-3">
+                            <div className="usersSpace">
+                                <div className="userTitle">
+                                    <h2>Users</h2>
+                                </div>
+                                <div >
+                                    {users.map(user => <div key={user._id} className="userName">{user.Name}</div>)}
+                                </div>
+                            </div>                        
+                        </aside>
+                    </div>        
+                </div>
+            )
+        }
+               
+        
     }
 }
 

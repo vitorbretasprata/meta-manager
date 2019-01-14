@@ -32,10 +32,7 @@ class AuthProvider extends Component{
                 decodedToken = decode(localToken, { complete: true });
             } else {
                 decodedToken = decode(sessionToken, { complete: true });
-            }
-                  
-            console.log(decodedToken);
-            
+            }            
         } catch (e) {
             console.log(e);
             return false;

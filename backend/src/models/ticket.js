@@ -36,7 +36,7 @@ var TicketSchema = new mongoose.Schema(
         },
         DateCreated: {
             type: Date,            
-            default: Date.now
+            default: Date.now('dd.mm.yyyy')
         },
         State:{
             type: String,

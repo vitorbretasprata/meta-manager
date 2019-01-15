@@ -5,7 +5,7 @@ const router = express();
 
 var query = {
 
-}
+};
 
 router.get('/getTickets', (req, res) => {
 
@@ -75,31 +75,33 @@ router.put('/addComment/:id', (req, res) => {
 });
 
 router.get('/filter', (req, res) => {
+    query = {};
+
     if(req.body.ID){
         query.filterID = req.body.ID;    
     }
     if(req.body.Title){
-        query.Title = req.body.Title;    
+        query.Title = { $regex: '.*' + req.body.Title + '.*' };    
     }
     if(req.body.Client){
-        query.Client = req.body.Client;    
+        query.Client = { $regex: '.*' + req.body.Client + '.*' };    
     }
-    if(req.body.Occupation){
-        query.Occupation = req.body.Occupation;    
-    }
-    if(req.body.Author){
-        query.Author = req.body.Author;    
+    if(req.body.Importance){
+        query.Importance = req.body.Importance;    
     }
     if(req.body.Author){
         query.Author = req.body.Author;    
+    }
+    if(req.body.Category){
+        query.Category = req.body.Category;    
     }    
     
     Ticket.find(query, (err, Ticket) => {
         if(err){
             return res.status(500).send({ error: err });
-        }
+        }        
 
-        return res.status(200).send({ Ticket: Ticket, query: query });
+        return res.status(200).send({ Ticket: Ticket, Query: query });
     });
 });
 

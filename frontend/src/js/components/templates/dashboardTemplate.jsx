@@ -154,7 +154,7 @@ class DashboardTemplate extends Component {
             )
         } else {
             return (
-                <div className="container containerMargin">
+                <div className="container  container-fluid containerMargin">
                     <div className="row marginRow justify-content-between">
                         <section className="col-lg-8 col-12">
                         <h2 className="paddingTitle">Tickets</h2>

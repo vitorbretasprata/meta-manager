@@ -73,12 +73,19 @@ router.put('/addComment/:id', (req, res) => {
 router.get('/filter', (req, res) => {
 
     Ticket.find({
-        Title: { $in: req.body.Title },
-        Client: { $in: req.body.Client },
-        Occupation: req.body.Occupation,
-        Author: req.body.Author,
-    })
-})
+        'Title': { $in: req.body.Title },
+        'Client': { $in: req.body.Client },
+        'Occupation': req.body.Occupation,
+        'Author': req.body.Author,
+        'Importance': req.body.Importance
+    }, (err, Ticket) => {
+        if(err){
+            return res.status(500).send({ error: err });
+        }
+
+        return res.status(200).send({ Ticket: Ticket });
+    });
+});
 
 router.delete('/deleteTicket/:id',  (req, res) => {
 

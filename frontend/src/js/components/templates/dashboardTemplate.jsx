@@ -20,6 +20,13 @@ const Category = [
     { value: 'Attendance', label: 'Attendance' }
   ];
 
+const Importance = [
+    { value: 'Low', label: 'Low' },
+    { value: 'Medium', label: 'Medium' },
+    { value: 'High', label: 'High' },
+    { value: 'Emergency', label: 'Emergency' }
+  ];
+
 class DashboardTemplate extends Component { 
     constructor(){
        super();
@@ -50,16 +57,24 @@ class DashboardTemplate extends Component {
     }   
     
     filterSearch(e){
-        const value = e.target.value;
+        const value = e.target;
         const keyCode = e.which || e.keyCode;
-        const ENTER = 13;
-        const target = e.target; 
+        const ENTER = 13;         
         if(keyCode == ENTER){
             this.setState({
                 tickets: [],
                 loading: true  
             }, () => {
-                Axios.get(FILTER).then(res => {
+                Axios.get(FILTER, {
+                    params: {
+                        ID: value.filterID.value,
+                        Title: value.filterTitle.value,
+                        Client: value.filterClient.value,
+                        Category: value.filterCategory.value,
+                        Author: value.filterOwner.value,
+                        Importance: value.filterImportance.value
+                    }
+                }).then(res => {
                     res.data.Tickets.map(ticket => {
                         this.state.tickets.push(ticket);
                     });
@@ -141,7 +156,7 @@ class DashboardTemplate extends Component {
             return (
                 <div className="container containerMargin">
                     <div className="row marginRow justify-content-between">
-                        <section className="col-8">
+                        <section className="col-lg-8 col-12">
                         <h2 className="paddingTitle">Tickets</h2>
                         <Form onSubmit={this.filterSearch}>
                             <div className="dashButtons gridName containerMargin">
@@ -180,12 +195,12 @@ class DashboardTemplate extends Component {
                                 </Col>  
                                 <Col md={4}>
                                     <FormGroup>
-                                        <Select options={Category} placeholder="Importance" name="filterImportance" />
+                                        <Select options={Importance} placeholder="Importance" name="filterImportance" />
                                     </FormGroup>
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup>                                    
-                                        <button onClick={this.open} className="btn btn-dark">Filters</button>                                
+                                        <input type="submit" className="btn btn-dark" value="Search"/>                               
                                     </FormGroup>
                                 </Col>                         
                             </Row>                                                                        
@@ -238,7 +253,7 @@ class DashboardTemplate extends Component {
                         
                         </section>
                         
-                        <aside className="col-3">
+                        <aside className="col-lg-3 d-none d-sm-block d-md-block">
                             <div className="usersSpace">
                                 <div className="userTitle">
                                     <h2>Users</h2>

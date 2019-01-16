@@ -12,13 +12,8 @@ class LoginApp extends Component{
         this.state = {
             paramEmail: '',
             paramPassword: '',
-<<<<<<< HEAD
             paramRemember: '',
             failedLogin: false          
-=======
-            failedLogin: false,
-            isLogged: false       
->>>>>>> test-design
         }
     }
 
@@ -36,6 +31,7 @@ class LoginApp extends Component{
                     password: this.state.paramPassword                    
 <<<<<<< HEAD
                 }).then((response) => { 
+<<<<<<< HEAD
                     const token = response.data.token;  
 
                     if(paramRemember == true){
@@ -57,6 +53,12 @@ class LoginApp extends Component{
                         isLogged: true
                     })
 >>>>>>> test-design
+=======
+                    console.log(response);
+                    const token = response.data.token;                      
+                    localStorage.setItem('token_id', token);
+                    <Redirect to="/dashboard" />
+>>>>>>> ab7da5c21274cc89c8610848436ca4aecafcd698
                 }).catch(error => {
                     this.setState({ failedLogin: true })
                     console.log(error);

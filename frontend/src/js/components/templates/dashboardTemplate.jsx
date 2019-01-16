@@ -38,8 +38,7 @@ class DashboardTemplate extends Component {
             error: '',
             loading: false,
             Deleted: false,
-            users: [],
-            params: null
+            users: []            
        }
     }  
     
@@ -66,21 +65,25 @@ class DashboardTemplate extends Component {
         
         this.setState({
             tickets: [],
-            loading: true ,
-            params: {
-                ID: value.filterID.value,
-                Title: value.filterTitle.value,
-                Client: value.filterClient.value,
-                Category: value.filterCategory.value,
-                Author: value.filterOwner.value,
-                Importance: value.filterImportance.value
-            }
+            loading: true            
         }, () => {
-            Axios.get(FILTER, this.state.params).then(res => {
+            Axios.get(FILTER, 
+            {   
+                headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+                },
+                params: {
+                    ID: value.filterID.value,
+                    Title: value.filterTitle.value,
+                    Client: value.filterClient.value,
+                    Category: value.filterCategory.value,
+                    Author: value.filterOwner.value,
+                    Importance: value.filterImportance.value
+                }
+             }).then(res => {
+                console.log(res.data);
                 res.data.Ticket.map(ticket => {
-
-                    this.state.tickets.push(ticket);
-                    console.log(ticket);
+                    this.state.tickets.push(ticket);                    
                 });
                 this.setState({
                     error: false,
@@ -161,16 +164,16 @@ class DashboardTemplate extends Component {
                     <div className="row marginRow justify-content-between">
                         <section className="col-lg-8 col-12">
                         <h2 className="paddingTitle">Tickets</h2>
-                        
-                        <div className="dashButtons gridName containerMargin">
-                            <div>
-                                <Link to='/create' className="btn btn-dark">
-                                    New Ticket
-                                </Link>
-                            </div>
-                        </div> 
+                    
                         <Form onSubmit={this.filterSearch}>    
                             <Row form>
+                                <Col md={12}>
+                                    <FormGroup>
+                                        <Link to='/create' className="btn btn-dark">
+                                            New Ticket
+                                        </Link>   
+                                    </FormGroup>
+                                </Col>
                                 <Col md={2}>
                                     <FormGroup>
                                         <input type="number" id="filterID" className="form-control" name="filterID" placeholder="Ticket ID"/>

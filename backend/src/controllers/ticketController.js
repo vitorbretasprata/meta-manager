@@ -76,7 +76,7 @@ router.put('/addComment/:id', (req, res) => {
 
 router.get('/filter', (req, res) => {
     query = {};
-
+    console.log(req.body);
     if(req.body.ID){
         query.filterID = req.body.ID;    
     }

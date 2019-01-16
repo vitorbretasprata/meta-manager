@@ -66,6 +66,10 @@ body{
     z-index: 999;
 }
 
+.visibleContent{
+    opacity: 1;
+}
+
 .bgHeader a.nav-link{
     color: #fff;
 }

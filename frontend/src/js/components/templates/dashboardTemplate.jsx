@@ -67,19 +67,15 @@ class DashboardTemplate extends Component {
             tickets: [],
             loading: true            
         }, () => {
-            Axios.get(FILTER, 
-            {   
-                headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-                },
-                params: {
-                    ID: value.filterID.value,
-                    Title: value.filterTitle.value,
-                    Client: value.filterClient.value,
-                    Category: value.filterCategory.value,
-                    Author: value.filterOwner.value,
-                    Importance: value.filterImportance.value
-                }
+            Axios.post(FILTER, 
+            {      
+                ID: value.filterID.value,
+                Title: value.filterTitle.value,
+                Client: value.filterClient.value,
+                Category: value.filterCategory.value,
+                Author: value.filterOwner.value,
+                Importance: value.filterImportance.value
+                
              }).then(res => {
                 console.log(res.data);
                 res.data.Ticket.map(ticket => {

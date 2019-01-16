@@ -36,7 +36,7 @@ class Header extends Component {
                 <AuthConsumer>
                     {(context) => (                                            
                     <Navbar className="navbar-dark bgHeader" expand="md">
-                        <div className="container-fluid">
+                        <div className="container-fluid visibleContent">
                             <Link to="/" className="navbar-brand button">Home</Link>
                             
                             <NavbarToggler onClick={this.toggle} className="mr-2" data-target/>

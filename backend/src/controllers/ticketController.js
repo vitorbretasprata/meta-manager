@@ -74,7 +74,7 @@ router.put('/addComment/:id', (req, res) => {
     });    
 });
 
-router.get('/filter', (req, res) => {
+router.post('/filter', (req, res) => {
     query = {};
     console.log(req.body);
     if(req.body.ID){

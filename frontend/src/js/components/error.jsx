@@ -1,8 +1,10 @@
 import React from 'react'
 
-const Error = () => (
-    <div>
-        Ops, url does not exist
+const Error = ({ errorMessage }) => (
+    <div className="container">
+        <div className="ticketWindow">
+            {errorMessage}
+        </div>        
     </div>
 )
 

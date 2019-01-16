@@ -1,34 +1,56 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import decode from 'jwt-decode';
 
 const AuthContext = React.createContext();
 
 class AuthProvider extends Component{
     state = { 
         isSession: false,
-        isAuth: false
+        isAuth: false,
+        toggle: () => {
+            this.setState({ isAuth: !this.state.isAuth });
+        }
     }
 
     constructor(){
-        super();
-        this.login = this.login.bind(this);
+        super();        
         this.logout = this.logout.bind(this);
         this.refresh = this.refresh.bind(this);
     }
 
-    login(){
-        console.log("Login acionado");
-        <Redirect to="/login" />
-    }
-
-    logout(){
-        if(this.state.isSession == true){
-            sessionStorage.removeItem("token_id");
-            this.refresh();
-        } else {
-            localStorage.removeItem("token_id");
-            this.refresh();
+    isAuthenticated(){        
+        const localToken = localStorage.getItem('token_id');
+        const sessionToken = sessionStorage.getItem('token_id');
+        let decodedToken = null;
+        if(!localToken && !sessionToken) {            
+            return false;
         }
+      
+        try{        
+            if(localToken){
+                decodedToken = decode(localToken, { complete: true });
+            } else {
+                decodedToken = decode(sessionToken, { complete: true });
+            }            
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+      
+        return true;
+    }
+    
+    logout(){        
+        
+        sessionStorage.removeItem("token_id");
+        localStorage.removeItem("token_id");
+        this.setState({
+            isAuth: false,
+            isSession: false
+        });
+
+        this.refresh();
     }
 
     refresh(){
@@ -66,7 +88,8 @@ class AuthProvider extends Component{
                     state: this.state,
                     login: this.login,
                     logout: this.logout,
-                    refresh: this.refresh                    
+                    refresh: this.refresh,
+                    isAuthenticated: this.isAuthenticated                   
                 }}>
                 {this.props.children}
             </AuthContext.Provider>

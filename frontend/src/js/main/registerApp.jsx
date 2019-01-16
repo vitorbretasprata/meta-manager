@@ -27,8 +27,7 @@ class RegisterApp extends Component {
                 name: `${data.firstName.value} ${data.lastName.value}`,
                 email: data.email.value,
                 password: data.password.value,                
-                ocupation: data.ocupation.value,
-                permission: data.permission.value,
+                ocupation: data.ocupation.value,                
                 team: data.team.value
             }            
             
@@ -50,13 +49,19 @@ class RegisterApp extends Component {
 
     render(){
         const { selectedOption } = this.state;
-        return(
-            <RegisterTemplate 
-            selectOption={selectedOption}
-            handleSelectChange={this.handleSelectChange}
-            successMessage={this.state.success}
-            registerFunc={this.register} />
-        )
+
+        if(localStorage.getItem('token_id') || sessionStorage.getItem('token_id')){
+            return <Redirect to='/home' />
+        } else {
+            return(
+                <RegisterTemplate 
+                selectOption={selectedOption}
+                handleSelectChange={this.handleSelectChange}
+                successMessage={this.state.success}
+                registerFunc={this.register} />
+            )
+        }
+        
     }
 }
 

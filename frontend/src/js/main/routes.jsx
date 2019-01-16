@@ -8,6 +8,10 @@ import error from '../components/error';
 import { AuthProvider } from './AuthContext';
 import Header from '../components/header';
 import ProtectedRoute from './protectedRoute';
+import DashboardApp from './dashboardApp'
+import ViewApp from './viewApp'
+import EditApp from './editApp'
+import CreateApp from './createApp'
 
 class Routes extends Component {    
     render(){        
@@ -20,8 +24,12 @@ class Routes extends Component {
                     </Switch> 
                     <Header />                   
                     <Switch>
-                        <Route path='/' component={HomeApp} exact />                        
-                        <ProtectedRoute path='/home' component={HomeApp} />  
+                        <Route path='/' component={HomeApp} exact />
+                        <Route path='/home' component={HomeApp} />                      
+                        <ProtectedRoute path='/dashboard' component={DashboardApp} />  
+                        <ProtectedRoute path='/view' component={ViewApp} />
+                        <ProtectedRoute path='/edit' component={EditApp} />
+                        <ProtectedRoute path='/create' component={CreateApp} />
                         <Route component={error} />                                              
                     </Switch>
                 </AuthProvider>                                                 

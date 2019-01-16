@@ -11,6 +11,111 @@ body{
 *:focus {
     outline: none;
 }
+
+.marginRow{
+    padding: 0 15px;    
+}
+
+.userName{
+    padding: 3px;
+    border: 0.5px solid black;
+    margin: 2px 0; 
+}
+
+.containerMargin{
+    margin: 20px 0;
+}
+
+
+.ticketWindow {
+    width: 100%; 
+    margin-top: 50px;
+    background-color:rgb(236, 230, 230);
+    border-radius: 10px;
+}
+
+.ticketInfo,
+.ticketDescription,
+.ticketButtons,
+.ticketComments {
+    width:99%;
+    margin: auto;
+    background-color: #fff; 
+    margin: 5px 5px;
+    padding: 20px;
+    border-radius: 10px;    
+}
+.marginButtons,
+.ticketComments,
+.Comments{
+    margin: 5px;
+}
+
+.authorComment{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.commentComent{
+    margin-top: 5px;
+}
+
+.bgHeader{
+    background-color: #000;
+    opacity: 0.7;
+}
+
+.bgHeader a.nav-link{
+    color: #fff;
+}
+
+.editInputs{
+    border-radius: 5px;
+    border: 0.5px solid black;
+}
+
+.sizeInput{
+    width: 300px;    
+    padding: 5px;
+}
+
+.information{
+    font-weight: bold;
+}
+
+.ticketWindow h3{
+    font-size: 1em;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;    
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+section, aside{
+    background-color: #fff;
+    height: 100%;
+}
+
+.carousel-item > img{
+    height: 500px;
+    width: 100%;
+}
 .centerDiv{
     display: flex;
     justify-content: center;
@@ -38,6 +143,10 @@ html, body, #app {
     padding: 5px 0;
 }
 
+.paddingTitle{
+    padding: 5px;
+}
+
 .textColor{
     color: #fff;
 }
@@ -52,6 +161,16 @@ form{
     margin-bottom: 15px;
 }
 
+.AccessButtons {   
+    width: 160px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.AccessButtons a{   
+    border: none;
+}
+
 .alignTitleContent{
     align-self: center;
     text-align: center;
@@ -64,6 +183,22 @@ form{
     grid-template-columns: 1fr 1fr;
     grid-gap: 5px;
 }
+
+.paddingList{
+    padding-left: 3px; 
+}
+
+.content {
+    overflow: hidden;   
+}
+
+.marginComment{
+    margin: 10px 0;
+}
+  
+.content-wrapper {
+   padding: 5px 8px 20px 8px;
+}  
 
 .loginTemplate {
     width: 400px;
@@ -87,4 +222,30 @@ form{
     height: 40px;
     border: none;
     padding-left: 10px;
+}
+
+.usersSpace{
+    padding: 5px;
+}
+
+.icons{
+    width: 80px;
+}
+
+.nonButton {
+     background:none!important;
+     color:inherit;
+     border:none;
+}
+
+.nonButton:focus{
+    outline: none;
+}
+
+.linkColor{
+    color: #000!important;
+}
+
+.dashButtons{
+    width: 150px;
 }

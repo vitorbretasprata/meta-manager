@@ -9,7 +9,7 @@ const config = require('../config/config');
 
 const router = express();
 
-router.post('/register' ,(req, res) => {
+router.post('/register', (req, res) => {
 
     var encryptedPassword = bcrypt.hashSync(req.body.userInfo.password, 10);
 
@@ -18,7 +18,6 @@ router.post('/register' ,(req, res) => {
         Email: req.body.userInfo.email,
         Password: encryptedPassword,
         Ocupation: req.body.userInfo.ocupation,
-        Permission: req.body.userInfo.permission,
         Team: req.body.userInfo.team
     },
     (err, User) => {
@@ -101,7 +100,11 @@ router.post('/login', (req, res) => {
             })
         }
 
-        var token = jwt.sign({ id: User._id}, config.secret, { expiresIn: 432000 });
+        const payload = {
+            id: User._id
+        };
+
+        var token = jwt.sign(payload, config.secret, { expiresIn: 432000 });
 
         res.status(200).send({ auth: true, token: token, user: User });
         
@@ -111,7 +114,5 @@ router.post('/login', (req, res) => {
 router.get('/protected', () => {
     
 })
-
-
 
 module.exports = router

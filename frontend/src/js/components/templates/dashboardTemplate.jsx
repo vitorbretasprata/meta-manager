@@ -38,7 +38,8 @@ class DashboardTemplate extends Component {
             error: '',
             loading: false,
             Deleted: false,
-            users: []
+            users: [],
+            params: null
        }
     }  
     
@@ -57,39 +58,41 @@ class DashboardTemplate extends Component {
     }   
     
     filterSearch(e){
+        e.preventDefault();
+        
         const value = e.target;
         const keyCode = e.which || e.keyCode;
         const ENTER = 13;         
-        if(keyCode == ENTER){
-            this.setState({
-                tickets: [],
-                loading: true  
-            }, () => {
-                Axios.get(FILTER, {
-                    params: {
-                        ID: value.filterID.value,
-                        Title: value.filterTitle.value,
-                        Client: value.filterClient.value,
-                        Category: value.filterCategory.value,
-                        Author: value.filterOwner.value,
-                        Importance: value.filterImportance.value
-                    }
-                }).then(res => {
-                    res.data.Tickets.map(ticket => {
-                        this.state.tickets.push(ticket);
-                    });
-                    this.setState({
-                        error: false,
-                        loading: false
-                    });      
-                }).catch(err => {
-                    this.setState({
-                        error: `${err}`,
-                        loading: false             
-                    });
+        
+        this.setState({
+            tickets: [],
+            loading: true ,
+            params: {
+                ID: value.filterID.value,
+                Title: value.filterTitle.value,
+                Client: value.filterClient.value,
+                Category: value.filterCategory.value,
+                Author: value.filterOwner.value,
+                Importance: value.filterImportance.value
+            }
+        }, () => {
+            Axios.get(FILTER, this.state.params).then(res => {
+                res.data.Ticket.map(ticket => {
+
+                    this.state.tickets.push(ticket);
+                    console.log(ticket);
+                });
+                this.setState({
+                    error: false,
+                    loading: false
+                });      
+            }).catch(err => {
+                this.setState({
+                    error: `${err}`,
+                    loading: false             
                 });
             });
-        }
+        });        
     }
 
     deleteTicket(id, e){ 
@@ -158,34 +161,34 @@ class DashboardTemplate extends Component {
                     <div className="row marginRow justify-content-between">
                         <section className="col-lg-8 col-12">
                         <h2 className="paddingTitle">Tickets</h2>
-                        <Form onSubmit={this.filterSearch}>
-                            <div className="dashButtons gridName containerMargin">
-                                <div>
-                                    <Link to='/create' className="btn btn-dark">
-                                        New Ticket
-                                    </Link>
-                                </div>
-                            </div> 
-                            
+                        
+                        <div className="dashButtons gridName containerMargin">
+                            <div>
+                                <Link to='/create' className="btn btn-dark">
+                                    New Ticket
+                                </Link>
+                            </div>
+                        </div> 
+                        <Form onSubmit={this.filterSearch}>    
                             <Row form>
                                 <Col md={2}>
                                     <FormGroup>
-                                        <input type="number" id="filterID" className="inputForm" name="filterID" placeholder="Ticket ID"/>
+                                        <input type="number" id="filterID" className="form-control" name="filterID" placeholder="Ticket ID"/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={5}>
                                     <FormGroup>
-                                        <input type="text" id="filterTitle" className="inputForm" name="filterTitle" placeholder="Title"/>
+                                        <input type="text" id="filterTitle" className="form-control" name="filterTitle" placeholder="Title"/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={5}>
                                     <FormGroup>
-                                        <input type="text" id="filterClient" className="inputForm" name="filterClient" placeholder="Client"/>
+                                        <input type="text" id="filterClient" className="form-control" name="filterClient" placeholder="Client"/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
                                     <FormGroup>
-                                        <Select options={Category} placeholder="Category" name="filterOccupation" />
+                                        <Select options={Category} placeholder="Category" name="filterCategory" />
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
@@ -258,8 +261,11 @@ class DashboardTemplate extends Component {
                                 <div className="userTitle">
                                     <h2>Users</h2>
                                 </div>
-                                <div >
-                                    {users.map(user => <div key={user._id} className="userName">{user.Name}</div>)}
+                                <div>
+                                <ul class="list-group">
+                                    {users.map(user => <li class="list-group-item" key={user._id}>{user.Name}</li>)}        
+                                </ul>
+                                    
                                 </div>
                             </div>                        
                         </aside>

@@ -3,11 +3,11 @@ import { AnchorLink, AnchorElement, ScrollPanel } from "react-spy-scroll";
 import Axios from 'axios';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import Error from '../error'
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import ListContent from '../list';
 
 const TICKETS = 'http://localhost:2000/api/tickets/getTickets'
 const USERS = 'http://localhost:2000/api/auth/getUsers'
@@ -38,7 +38,8 @@ class DashboardTemplate extends Component {
             error: '',
             loading: false,
             Deleted: false,
-            users: []            
+            users: [],
+            ContentLoading: false           
        }
     }  
     
@@ -57,15 +58,12 @@ class DashboardTemplate extends Component {
     }   
     
     filterSearch(e){
-        e.preventDefault();
-        
-        const value = e.target;
-        const keyCode = e.which || e.keyCode;
-        const ENTER = 13;         
+        e.preventDefault();        
+        const value = e.target;           
         
         this.setState({
             tickets: [],
-            loading: true            
+            ContentLoading: true            
         }, () => {
             Axios.post(FILTER, 
             {      
@@ -83,12 +81,12 @@ class DashboardTemplate extends Component {
                 });
                 this.setState({
                     error: false,
-                    loading: false
+                    ContentLoading: false
                 });      
             }).catch(err => {
                 this.setState({
                     error: `${err}`,
-                    loading: false             
+                    ContentLoading: false              
                 });
             });
         });        
@@ -136,9 +134,8 @@ class DashboardTemplate extends Component {
         this.loadUsers();        
     }              
 
-    render(){ 
-        
-        const { loading, error, tickets, users } = this.state;
+    render(){       
+        const { loading, error, tickets, users, ContentLoading } = this.state;
         const filterOwner = [users.map(user => { 
             return {
                 value: user._id, label: user.Name
@@ -159,100 +156,107 @@ class DashboardTemplate extends Component {
                 <div className="container  container-fluid containerMargin">
                     <div className="row marginRow justify-content-between">
                         <section className="col-lg-8 col-12">
-                        <h2 className="paddingTitle">Tickets</h2>
-                    
-                        <Form onSubmit={this.filterSearch}>    
-                            <Row form>
-                                <Col md={12}>
-                                    <FormGroup>
-                                        <Link to='/create' className="btn btn-dark">
-                                            New Ticket
-                                        </Link>   
-                                    </FormGroup>
-                                </Col>
-                                <Col md={2}>
-                                    <FormGroup>
-                                        <input type="number" id="filterID" className="form-control" name="filterID" placeholder="Ticket ID"/>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={5}>
-                                    <FormGroup>
-                                        <input type="text" id="filterTitle" className="form-control" name="filterTitle" placeholder="Title"/>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={5}>
-                                    <FormGroup>
-                                        <input type="text" id="filterClient" className="form-control" name="filterClient" placeholder="Client"/>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={4}>
-                                    <FormGroup>
-                                        <Select options={Category} placeholder="Category" name="filterCategory" />
-                                    </FormGroup>
-                                </Col>
-                                <Col md={4}>
-                                    <FormGroup>
-                                        <Select options={filterOwner[0]} placeholder="Author" name="filterOwner" />
-                                    </FormGroup>
-                                </Col>  
-                                <Col md={4}>
-                                    <FormGroup>
-                                        <Select options={Importance} placeholder="Importance" name="filterImportance" />
-                                    </FormGroup>
-                                </Col>
-                                <Col md={2}>
-                                    <FormGroup>                                    
-                                        <input type="submit" className="btn btn-dark" value="Search"/>                               
-                                    </FormGroup>
-                                </Col>                         
-                            </Row>                                                                        
-                        </Form>                             
-                        <ScrollPanel className="hidden-scrollbar"
-                        style={{ backgroundColor: "white", height: 300, width: "auto", padding: "0 3px", marginTop: 25, marginBottom: 20, border: "0.5px solid gray", overflow: "auto" }}
-                        >
-                        <ul className="list-group list-group-flush paddingList">
-                            {tickets.map(ticket => <li key={ticket._id} className="list-group-item">
-                                <div className="d-flex justify-content-between">
-                                    <div>
-                                        <Link to={
-                                        { 
-                                            pathname: '/view',
-                                            state: { ID: ticket._id }
-                                        }} className="linkColor">{ticket.Title}
-                                        </Link>
-                                    </div>                                
-                                    <div>
-                                        <div className="icons d-flex justify-content-between">
-                                            <div>
-                                                <Link to={
-                                                { 
-                                                    pathname: '/view',
-                                                    state: { ID: ticket._id }
-                                                }} className="linkColor">
-                                                    <FontAwesomeIcon icon={faEye} />
-                                                </Link>                                            
-                                            </div>
-                                            <div>
-                                                <Link to={
-                                                { 
-                                                    pathname: '/edit',
-                                                    state: { ID: ticket._id }
-                                                }} className="linkColor">
-                                                    <FontAwesomeIcon icon={faEdit} />
-                                                </Link>                                            
-                                            </div>
-                                            <div>
-                                                <button className="nonButton" onClick={(e) => this.deleteTicket(ticket._id, e)}>
-                                                    <FontAwesomeIcon icon={faTrash} />
-                                                </button>                                            
-                                            </div>
-                                        </div>                            
-                                    </div>
-                                </div>
-                            </li>)}
-                        </ul>
-                        </ScrollPanel>                   
+                            <h2 className="paddingTitle">Tickets</h2>
                         
+                            <Form onSubmit={this.filterSearch}>    
+                                <Row form>
+                                    <Col md={12}>
+                                        <FormGroup>
+                                            <Link to='/create' className="btn btn-dark">
+                                                New Ticket
+                                            </Link>   
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={2}>
+                                        <FormGroup>
+                                            <input type="number" id="filterID" className="form-control" name="filterID" placeholder="Ticket ID"/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={5}>
+                                        <FormGroup>
+                                            <input type="text" id="filterTitle" className="form-control" name="filterTitle" placeholder="Title"/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={5}>
+                                        <FormGroup>
+                                            <input type="text" id="filterClient" className="form-control" name="filterClient" placeholder="Client"/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Select options={Category} placeholder="Category" name="filterCategory" />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Select options={filterOwner[0]} placeholder="Author" name="filterOwner" />
+                                        </FormGroup>
+                                    </Col>  
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Select options={Importance} placeholder="Importance" name="filterImportance" />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={2}>
+                                        <FormGroup>                                    
+                                            <input type="submit" className="btn btn-dark" value="Search"/>                               
+                                        </FormGroup>
+                                    </Col>                         
+                                </Row>                                                                        
+                            </Form>                             
+                            <ScrollPanel className="hidden-scrollbar"
+                            style={{ backgroundColor: "white", height: 300, width: "auto", padding: "0 3px", marginTop: 25, marginBottom: 20, border: "0.5px solid gray", overflow: "auto" }}
+                            >
+                                <ListContent isLoading={ContentLoading}>
+                                    <ul className="list-group list-group-flush paddingList">
+                                        {tickets.map(ticket => <li key={ticket._id} className="list-group-item">
+                                            <div className="gridContent">
+                                                <div id="overflowTitle">
+                                                    <Link to={
+                                                    { 
+                                                        pathname: '/view',
+                                                        state: { ID: ticket._id }
+                                                    }} className="linkColor">{ticket.Title}
+                                                    </Link>
+                                                </div> 
+                                                <div className="marginRow">
+                                                    {ticket.Category}
+                                                </div>
+                                                <div className="marginRow">
+                                                    {ticket.Author}
+                                                </div>                               
+                                                <div>
+                                                    <div className="icons d-flex justify-content-around">
+                                                        <div>
+                                                            <Link to={
+                                                            { 
+                                                                pathname: '/view',
+                                                                state: { ID: ticket._id }
+                                                            }} className="linkColor">
+                                                                <FontAwesomeIcon icon={faEye} />
+                                                            </Link>                                            
+                                                        </div>
+                                                        <div>
+                                                            <Link to={
+                                                            { 
+                                                                pathname: '/edit',
+                                                                state: { ID: ticket._id }
+                                                            }} className="linkColor">
+                                                                <FontAwesomeIcon icon={faEdit} />
+                                                            </Link>                                            
+                                                        </div>
+                                                        <div>
+                                                            <button className="nonButton" onClick={(e) => this.deleteTicket(ticket._id, e)}>
+                                                                <FontAwesomeIcon icon={faTrash} />
+                                                            </button>                                            
+                                                        </div>
+                                                    </div>                            
+                                                </div>
+                                            </div>
+                                        </li>)}
+                                    </ul>
+                                </ListContent>                        
+                            </ScrollPanel>              
                         </section>
                         
                         <aside className="col-lg-3 d-none d-sm-block d-md-block">

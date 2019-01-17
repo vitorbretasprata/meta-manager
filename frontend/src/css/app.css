@@ -129,10 +129,6 @@ section, aside{
     height: 100%;
 }
 
-.contentPadding{
-    padding: 0 1000px;
-}
-
 html, body, #app {
     height: 100%;
     width: 100%;    
@@ -193,6 +189,20 @@ form{
     grid-gap: 5px;
 }
 
+.gridContent{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1px;
+}
+
+#overflowTitle{
+    overflow: hidden;
+    width:152px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
 .paddingList{
     padding-left: 3px; 
 }
@@ -238,7 +248,8 @@ form{
 }
 
 .icons{
-    width: 80px;
+    width: 100%;
+    float: right;
 }
 
 .nonButton {

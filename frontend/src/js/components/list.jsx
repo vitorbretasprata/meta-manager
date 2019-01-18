@@ -4,11 +4,7 @@ import Loading from './loading';
 class ListContent extends Component {
     render(){
         if(this.props.isLoading){
-            return(
-                <div>
-                    <p><strong>Loading...</strong></p>
-                </div>            
-            )
+            return <Loading /> 
         } else {
             return (
                 <div>

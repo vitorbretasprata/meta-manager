@@ -3,9 +3,9 @@ import { Spinner } from 'reactstrap'
 
 const Loading = () => (
     <div className="container">
-        <div>
-            <Spinner style={{ width: '3rem', height: '3rem' }} />
-        </div>        
+        <div className="d-flex justify-content-center align-items-center">
+            <p><strong>Loading...</strong></p>
+        </div>       
     </div>
 )
 

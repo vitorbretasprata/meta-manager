@@ -21,7 +21,7 @@ export const Status = [
     { value: 'Archived', label: 'Archived' }
 ];
 
-export const ocupation = [
+export const occupation = [
     { value: 'manager', label: 'Manager' },
     { value: 'developer', label: 'Developer' },
     { value: 'support', label: 'Support' }

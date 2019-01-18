@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import { Category, Importance, Status } from '../utils/consts';
 
 const EditTemplate = ({ titleTicket, clientTicket, selectDate, changeTitle, 
-            termTicket, changeDate, descriptionTicket, editTicket, cancelEdit, changeClient, changeDesc, method}) => (
+            termTicket, changeDate, descriptionTicket, editTicket, cancelEdit, changeClient, changeDesc, method, selectedStatus, selectedCategory, selectedImportance}) => (
     <div className="container">
         <div className="ticketWindow">
             <form onSubmit={editTicket} method={method}>                
@@ -16,15 +16,15 @@ const EditTemplate = ({ titleTicket, clientTicket, selectDate, changeTitle,
                     <div className="gridName selects">
                         <div className="information form-group">
                             <label for="importance">Importance</label>
-                            <Select options={Importance} placeholder="Select" name="filterImportance" id="importance" />
+                            <Select options={Importance} placeholder="Select" name="filterImportance" id="importance"  value={selectedImportance}/>
                         </div>
                         <div className="information form-group">
                             <label for="status">Status</label> 
-                            <Select options={Status} placeholder="Select" name="filterStatus" id="status" />                                            
+                            <Select options={Status} placeholder="Select" name="filterStatus" id="status" value={selectedStatus}/>                                            
                         </div>
                         <div className="information form-group">
                             <label for="status">Category</label> 
-                            <Select options={Category} placeholder="Select" name="filterCategory" id="category" />                                            
+                            <Select options={Category} placeholder="Select" name="filterCategory" id="category" value={selectedCategory} />                                            
                         </div>
                         <div className="information form-group">
                             <label for="client">Client</label>

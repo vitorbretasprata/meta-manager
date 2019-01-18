@@ -60,17 +60,22 @@ body{
     margin-top: 5px;
 }
 
-.bgHeader{
-    background-color: #000;
+.navbar-dark{
+    background-color: rgba(0, 0, 0, 0.788);
     opacity: 0.7;
-    z-index: 999;
+    
+    z-index: 999;     
 }
 
-.visibleContent{
-    opacity: 1;
+.navbar-dark div{
+    padding: 5px 0;
 }
 
-.bgHeader a.nav-link{
+a.nav-link{
+    color: #fff;
+}
+
+a.nav-link:hover{
     color: #fff;
 }
 
@@ -82,6 +87,10 @@ body{
 .sizeInput{
     width: 300px;    
     padding: 5px;
+}
+
+.list-group{
+    padding: 10px 0;
 }
 
 .information{

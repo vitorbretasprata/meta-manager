@@ -35,8 +35,8 @@ class Header extends Component {
             <header>
                 <AuthConsumer>
                     {(context) => (                                            
-                    <Navbar className="navbar-dark bgHeader" expand="md">
-                        <div className="container-fluid visibleContent">
+                    <Navbar className="navbar-dark" expand="md">
+                        <div className="container">
                             <Link to="/" className="navbar-brand button">Home</Link>
                             
                             <NavbarToggler onClick={this.toggle} className="mr-2" data-target/>
@@ -44,6 +44,9 @@ class Header extends Component {
                                 <Nav>
                                     <NavItem>
                                         <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                                    </NavItem>
+                                    <NavItem>
+                                        <Link to="/about" className="nav-link">About</Link>
                                     </NavItem>
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 

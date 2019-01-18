@@ -17,8 +17,9 @@ router.post('/register', (req, res) => {
         Name: req.body.userInfo.name,
         Email: req.body.userInfo.email,
         Password: encryptedPassword,
-        Ocupation: req.body.userInfo.ocupation,
-        Team: req.body.userInfo.team
+        Occupation: req.body.userInfo.occupation,
+        Team: req.body.userInfo.team,
+        Login: req.body.userInfo.login
     },
     (err, User) => {
         if(err){

@@ -26,8 +26,9 @@ class RegisterApp extends Component {
                 name: `${data.firstName.value} ${data.lastName.value}`,
                 email: data.email.value,
                 password: data.password.value,                
-                ocupation: data.ocupation.value,                
-                team: data.team.value
+                occupation: data.occupation.value,                
+                team: data.team.value,
+                login: data.login.value
             }
         }, () => {
             const userInfo = this.state.userInfo;

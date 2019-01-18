@@ -152,9 +152,7 @@ class EditApp extends Component {
                 importanceTicket={val.Importance}
                 authorTicket={val.Author}
                 clientTicket={val.Client}
-                termTicket={val.Term}
-                dateTicket={val.DateCreated}
-                stateTicket={val.State}
+                termTicket={val.Term}                    
                 descriptionTicket={val.Description}    
                 cancelEdit={{ 
                     pathname: '/view',
@@ -165,6 +163,9 @@ class EditApp extends Component {
                 changeTitle={this.handleTitle}
                 changeClient={this.handleClient}
                 changeDesc={this.handleDesc}
+                selectedImportance={val.Importance}
+                selectedStatus={val.State}
+                selectedCategory={val.Category}
                 />
             )
         }

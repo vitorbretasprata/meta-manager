@@ -77,9 +77,10 @@ router.put('/addComment/:id', (req, res) => {
 
 router.post('/filter', (req, res) => {
     query = {};
+
     console.log(req.body);
     if(req.body.ID){        
-        query.FilterID = { $regex: '.*' + req.body.ID + '.*' };    
+        query.FilterID = req.body.ID;    
     }
     if(req.body.Title){
         query.Title = { $regex: '.*' + req.body.Title + '.*' };    
@@ -95,7 +96,10 @@ router.post('/filter', (req, res) => {
     }
     if(req.body.Category){
         query.Category = req.body.Category;    
-    }    
+    }   
+    if(req.body.State){
+        query.State = req.body.State;    
+    }  
     
     Ticket.find(query, (err, Ticket) => {
         if(err){

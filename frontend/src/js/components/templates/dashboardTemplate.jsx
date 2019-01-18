@@ -113,12 +113,17 @@ class DashboardTemplate extends Component {
         });    
     }
 
-    componentDidMount(){        
+    componentDidMount(){
         this.loadData();
         this.loadUsers();        
     }              
 
-    render(){       
+    render(){
+        if(this.props == undefined){
+            const teste = this.props;
+            console.log(teste); 
+        }
+            
         const { loading, error, tickets, users, ContentLoading } = this.state;
         const filterOwner = [users.map(user => { 
             return {
@@ -138,10 +143,11 @@ class DashboardTemplate extends Component {
         } else {
             return (
                 <div className="container  container-fluid containerMargin">
+                    
                     <div className="row marginRow justify-content-between">
-                        <section className="col-lg-9 col-lg-offset-1 col-12">
+                        <section className="col-lg-8 col-12">
                             <h2 className="paddingTitle">Tickets</h2>
-                        
+                            <hr/>
                             <Form onSubmit={this.filterSearch}>    
                                 <Row form>
                                     <Col md={12}>
@@ -256,9 +262,10 @@ class DashboardTemplate extends Component {
                                 <div className="userTitle">
                                     <h2>Users</h2>
                                 </div>
+                                <hr/>
                                 <div>
                                 <ul class="list-group">
-                                    {users.map(user => <li class="list-group-item" key={user._id}>{user.Name}</li>)}        
+                                    {users.map(user => <li class="list-group-item" key={user._id}>{user.Login}</li>)}        
                                 </ul>
                                     
                                 </div>

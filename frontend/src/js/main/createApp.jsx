@@ -28,7 +28,8 @@ class CreateApp extends Component {
             Error: '',
             Comments: [],
             Loading: true,
-            SuccessAdd: false
+            SuccessAdd: false,
+            idCreated: null
         };
 
     }
@@ -74,11 +75,11 @@ class CreateApp extends Component {
                 State: data.filterStatus.value,
                 Term: data.filterDate.value,
                 Category: data.filterCategory.value             
-            }).then(res => {
-                console.log(res);
+            }).then(res => {                
                 this.setState({
                     Loading: false,
-                    SuccessAdd: true
+                    SuccessAdd: true,
+                    idCreated: res.data.FilterID
                 });
             }).catch(err => {
                 this.setState({
@@ -128,7 +129,8 @@ class CreateApp extends Component {
                 <Redirect to={{
                     pathname: '/dashboard',
                     state: {    
-                        SuccessAdd: true
+                        SuccessAdd: true,
+                        idCreated: this.state.idCreated
                     }
                 }} />
             )

@@ -4,18 +4,7 @@ import Button from '../button';
 import SuccessRegistration from '../successRegistration';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
-
-const ocupation = [
-    { value: 'manager', label: 'Manager' },
-    { value: 'developer', label: 'Developer' },
-    { value: 'support', label: 'Support' }
-  ];
-
-const team = [    
-    { value: 'dev', label: 'Dev' },
-    { value: 'support', label: 'Support' },
-    { value: 'attendance', label: 'Attendance' }
-  ];
+import { occupation, team } from '../utils/consts'
 
 const registerTemplate = ({ registerFunc, successMessage}) => (
     <div className="centerDiv">
@@ -33,15 +22,21 @@ const registerTemplate = ({ registerFunc, successMessage}) => (
                         <Input type="text" placeholder="Last Name" id="lastNameRegister" name="lastName"/>
                     </div>    
                 </div>                
-                <Input type="email" placeholder="Email Address" id="emailRegister" name="email"/>           
-                <Input type="password" placeholder="Password" id="passwordRegister" name="password"/>
-                <Input type="password" placeholder="Confirm Password" id="passwordConf" name="confirm"/>
+                <Input type="email" placeholder="Email Address" id="emailRegister" name="email"/> 
+                <Input type="text" placeholder="Login Name" id="loginRegister" name="login"/>   
+                <div className="gridName">
+                    <div>
+                        <Input type="password" placeholder="Password" id="passwordRegister" name="password"/>                    </div>
+                    <div>
+                        <Input type="password" placeholder="Confirm Password" id="passwordConf" name="confirm"/>
+                    </div>    
+                </div>                
                 <div className="gridName selects">
                     <div>
                         <Select options={team} placeholder="Team" name="team" />                         
                     </div>
                     <div>
-                        <Select options={ocupation} placeholder="Ocupation" name="ocupation" />
+                        <Select options={occupation} placeholder="Occupation" name="occupation" />
                     </div>    
                 </div>
                           

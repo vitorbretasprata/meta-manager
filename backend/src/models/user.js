@@ -10,6 +10,11 @@ var UserSchema = new mongoose.Schema(
             index: true,
             trim: true
         },
+        Login:{
+            type: String,
+            required: true,    
+            trim: true
+        },
         Email: {
             type: String,
             unique: true,
@@ -21,7 +26,7 @@ var UserSchema = new mongoose.Schema(
             type: String,
             required: true            
         },
-        Ocupation: {
+        Occupation: {
             type: String,
             required: true,
             trim: true

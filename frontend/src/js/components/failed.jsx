@@ -6,4 +6,4 @@ const Failed = ({ message }) => (
     </div>
 )
 
-export default Failed
+export default Failed;

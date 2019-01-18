@@ -60,12 +60,22 @@ body{
     margin-top: 5px;
 }
 
-.bgHeader{
-    background-color: #000;
+.navbar-dark{
+    background-color: rgba(0, 0, 0, 0.788);
     opacity: 0.7;
+    
+    z-index: 999;     
 }
 
-.bgHeader a.nav-link{
+.navbar-dark div{
+    padding: 5px 0;
+}
+
+a.nav-link{
+    color: #fff;
+}
+
+a.nav-link:hover{
     color: #fff;
 }
 
@@ -77,6 +87,10 @@ body{
 .sizeInput{
     width: 300px;    
     padding: 5px;
+}
+
+.list-group{
+    padding: 10px 0;
 }
 
 .information{
@@ -184,6 +198,20 @@ form{
     grid-gap: 5px;
 }
 
+.gridContent{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 2fr;
+    grid-gap: 1px;
+}
+
+#overflowTitle{
+    overflow: hidden;
+    width:152px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
 .paddingList{
     padding-left: 3px; 
 }
@@ -229,7 +257,8 @@ form{
 }
 
 .icons{
-    width: 80px;
+    width: 100%;
+    float: right;
 }
 
 .nonButton {

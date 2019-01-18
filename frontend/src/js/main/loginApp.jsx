@@ -3,8 +3,8 @@ import LoginTemplate from '../components/templates/loginTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import SetAuthorizationToken from '../components/utils/setAuthorizationToken'
+import { URL } from '../components/utils/consts'
 
-const URL = 'http://localhost:2000/api/auth/login'
 class LoginApp extends Component{
     constructor(){
         super();

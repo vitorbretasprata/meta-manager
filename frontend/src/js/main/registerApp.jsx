@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import RegisterTemplate from '../components/templates/registerTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
-import Select from 'react-select';
+import { REGISTER } from '../components/utils/consts'
 
-const URL = 'http://localhost:2000/api/auth/register'
 class RegisterApp extends Component {
     constructor(){
         super();
@@ -27,14 +26,14 @@ class RegisterApp extends Component {
                 name: `${data.firstName.value} ${data.lastName.value}`,
                 email: data.email.value,
                 password: data.password.value,                
-                ocupation: data.ocupation.value,                
-                team: data.team.value
-            }            
-            
+                occupation: data.occupation.value,                
+                team: data.team.value,
+                login: data.login.value
+            }
         }, () => {
             const userInfo = this.state.userInfo;
             
-            Axios.post(URL, 
+            Axios.post(REGISTER, 
             {
                 userInfo
             })
@@ -61,7 +60,6 @@ class RegisterApp extends Component {
                 registerFunc={this.register} />
             )
         }
-        
     }
 }
 

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
-import { ALTERTICKET, TICKET } from '../components/utils';
+
+
+const ALTERTICKET = 'http://localhost:2000/api/tickets/alterTicket'
+const TICKET = 'http://localhost:2000/api/tickets/getTicket'
 
 class EditApp extends Component {
     constructor(){

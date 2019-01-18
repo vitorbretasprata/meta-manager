@@ -4,6 +4,10 @@ var connTicket = mongoose.createConnection('mongodb://localhost/tickets', { useN
 
 var TicketSchema = new mongoose.Schema(
     {
+        FilterID:{
+            type: Number,
+            required: true
+        },
         Title: {
             type: String,
             required: true,

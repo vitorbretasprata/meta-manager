@@ -4,7 +4,6 @@ import Button from '../button';
 import { Link } from 'react-router-dom';
 import Failed from '../failed'
 
-
 const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin }) => ( 
     <div className="centerDiv">
         {!!failedLogin && <Failed message="Failed to login: incorrect Email or Password!"/>}

@@ -2,29 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
-
-const Importance = [
-    { value: 'Low', label: 'Low' },
-    { value: 'Medium', label: 'Medium' },
-    { value: 'High', label: 'High' },
-    { value: 'Emergency', label: 'Emergency' }
-  ];
-
-const Category = [
-    { value: 'Dev', label: 'Dev' },
-    { value: 'Support', label: 'Support' },
-    { value: 'Attendance', label: 'Attendance' }
-  ];
-
-const Status = [
-    { value: 'To Do', label: 'To Do' },
-    { value: 'Doing', label: 'Doing' },
-    { value: 'On Hold', label: 'On Hold' },
-    { value: 'Done', label: 'Done' },
-    { value: 'Delivered', label: 'Delivered' },
-    { value: 'Archived', label: 'Archived' }
-  ];
-
+import { Category, Importance, Status } from '../utils/consts';
 
 const EditTemplate = ({ titleTicket, clientTicket, selectDate, changeTitle, 
             termTicket, changeDate, descriptionTicket, editTicket, cancelEdit, changeClient, changeDesc, method}) => (

@@ -8,30 +8,13 @@ import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import Error from '../error'
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import ListContent from '../list';
-
-const TICKETS = 'http://localhost:2000/api/tickets/getTickets'
-const USERS = 'http://localhost:2000/api/auth/getUsers'
-const DELETETICKET = 'http://localhost:2000/api/tickets/deleteTicket'
-const FILTER = 'http://localhost:2000/api/tickets/filter'
-
-const Category = [
-    { value: 'Dev', label: 'Dev' },
-    { value: 'Support', label: 'Support' },
-    { value: 'Attendance', label: 'Attendance' }
-  ];
-
-const Importance = [
-    { value: 'Low', label: 'Low' },
-    { value: 'Medium', label: 'Medium' },
-    { value: 'High', label: 'High' },
-    { value: 'Emergency', label: 'Emergency' }
-  ];
+import { Category, Importance, Status } from '../utils/consts';
+import { TICKETS, USERS, DELETETICKET, FILTER  } from '../utils/consts'
 
 class DashboardTemplate extends Component { 
     constructor(){
        super();
        this.filterSearch = this.filterSearch.bind(this);
-
 
        this.state = {
             tickets: [],
@@ -72,7 +55,8 @@ class DashboardTemplate extends Component {
                 Client: value.filterClient.value,
                 Category: value.filterCategory.value,
                 Author: value.filterOwner.value,
-                Importance: value.filterImportance.value
+                Importance: value.filterImportance.value,
+                State: value.filterState.value
                 
              }).then(res => {
                 console.log(res.data);
@@ -140,7 +124,7 @@ class DashboardTemplate extends Component {
             return {
                 value: user._id, label: user.Name
             }     
-        })];     
+        })];  
 
         if(loading){
             return <p><strong>Loading...</strong></p>
@@ -155,7 +139,7 @@ class DashboardTemplate extends Component {
             return (
                 <div className="container  container-fluid containerMargin">
                     <div className="row marginRow justify-content-between">
-                        <section className="col-lg-8 col-12">
+                        <section className="col-lg-9 col-lg-offset-1 col-12">
                             <h2 className="paddingTitle">Tickets</h2>
                         
                             <Form onSubmit={this.filterSearch}>    
@@ -182,19 +166,24 @@ class DashboardTemplate extends Component {
                                             <input type="text" id="filterClient" className="form-control" name="filterClient" placeholder="Client"/>
                                         </FormGroup>
                                     </Col>
-                                    <Col md={4}>
+                                    <Col md={3}>
                                         <FormGroup>
                                             <Select options={Category} placeholder="Category" name="filterCategory" />
                                         </FormGroup>
                                     </Col>
-                                    <Col md={4}>
+                                    <Col md={3}>
                                         <FormGroup>
                                             <Select options={filterOwner[0]} placeholder="Author" name="filterOwner" />
                                         </FormGroup>
                                     </Col>  
-                                    <Col md={4}>
+                                    <Col md={3}>
                                         <FormGroup>
                                             <Select options={Importance} placeholder="Importance" name="filterImportance" />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={3}>
+                                        <FormGroup>
+                                            <Select options={Status} placeholder="State" name="filterState" />
                                         </FormGroup>
                                     </Col>
                                     <Col md={2}>
@@ -211,6 +200,9 @@ class DashboardTemplate extends Component {
                                     <ul className="list-group list-group-flush paddingList">
                                         {tickets.map(ticket => <li key={ticket._id} className="list-group-item">
                                             <div className="gridContent">
+                                                <div>
+                                                    {ticket.FilterID}
+                                                </div>
                                                 <div id="overflowTitle">
                                                     <Link to={
                                                     { 
@@ -223,7 +215,7 @@ class DashboardTemplate extends Component {
                                                     {ticket.Category}
                                                 </div>
                                                 <div className="marginRow">
-                                                    {ticket.Author}
+                                                    {ticket.State}
                                                 </div>                               
                                                 <div>
                                                     <div className="icons d-flex justify-content-around">

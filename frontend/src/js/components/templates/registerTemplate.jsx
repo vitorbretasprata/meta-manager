@@ -4,18 +4,7 @@ import Button from '../button';
 import SuccessRegistration from '../successRegistration';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
-
-const ocupation = [
-    { value: 'manager', label: 'Manager' },
-    { value: 'developer', label: 'Developer' },
-    { value: 'support', label: 'Support' }
-  ];
-
-const team = [    
-    { value: 'dev', label: 'Dev' },
-    { value: 'support', label: 'Support' },
-    { value: 'attendance', label: 'Attendance' }
-  ];
+import { ocupation, team } from '../utils/consts'
 
 const registerTemplate = ({ registerFunc, successMessage}) => (
     <div className="centerDiv">

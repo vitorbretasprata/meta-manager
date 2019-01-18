@@ -31,8 +31,9 @@ router.get('/getTicket/:id', (req, res) => {
 })
 
 router.post('/createTicket', (req, res) => {
-
+    const filterID = Math.floor(Math.random() * 100000);
     Ticket.create({
+        FilterID: filterID,
         Title: req.body.Title,
         Description: req.body.Description,
         Importance: req.body.Importance,
@@ -77,8 +78,8 @@ router.put('/addComment/:id', (req, res) => {
 router.post('/filter', (req, res) => {
     query = {};
     console.log(req.body);
-    if(req.body.ID){
-        query.filterID = req.body.ID;    
+    if(req.body.ID){        
+        query.FilterID = { $regex: '.*' + req.body.ID + '.*' };    
     }
     if(req.body.Title){
         query.Title = { $regex: '.*' + req.body.Title + '.*' };    

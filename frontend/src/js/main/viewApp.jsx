@@ -3,10 +3,7 @@ import ViewTemplate from '../components/templates/viewTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import Error from '../components/error'
-
-const TICKET = 'http://localhost:2000/api/tickets/getTicket'
-const DELETETICKET = 'http://localhost:2000/api/tickets/deleteTicket'
-const ADDCOMMENT = 'http://localhost:2000/api/tickets/addComment'
+import { TICKET, DELETETICKET, ADDCOMMENT } from '../components/utils/consts'
 
 class ViewApp extends Component {
     constructor(){

@@ -38,6 +38,8 @@ export const team = [
 export const URL = 'http://localhost:2000/api/auth/login'
 export const USERS = 'http://localhost:2000/api/auth/getUsers'
 export const REGISTER = 'http://localhost:2000/api/auth/register'
+export const RESETPASS = 'http://localhost:2000/api/auth/resetPassword'
+export const SENDCODE = 'http://localhost:2000/api/auth/sendCode'
 
 /* API TICKETS */
 

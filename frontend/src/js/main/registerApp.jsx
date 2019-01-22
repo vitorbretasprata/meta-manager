@@ -40,9 +40,12 @@ class RegisterApp extends Component {
             .then(response => {
                 this.setState({
                     success: true
-                })
-                console.log(response);                
-            })
+                }, () => {
+                    console.log(response);
+                });                                
+            }).catch(err => {
+                console.log(err);
+            });
         });        
     }
 

@@ -16,15 +16,15 @@ const EditTemplate = ({ titleTicket, clientTicket, selectDate, changeTitle,
                     <div className="gridName selects">
                         <div className="information form-group">
                             <label for="importance">Importance</label>
-                            <Select options={Importance} placeholder="Select" name="filterImportance" id="importance"  value={selectedImportance}/>
+                            <Select options={Importance} placeholder="Select" name="filterImportance" id="importance"  defaultValue={selectedImportance}/>
                         </div>
                         <div className="information form-group">
                             <label for="status">Status</label> 
-                            <Select options={Status} placeholder="Select" name="filterStatus" id="status" value={selectedStatus}/>                                            
+                            <Select options={Status} placeholder="Select" name="filterStatus" id="status" defaultValue={selectedStatus}/>                                            
                         </div>
                         <div className="information form-group">
                             <label for="status">Category</label> 
-                            <Select options={Category} placeholder="Select" name="filterCategory" id="category" value={selectedCategory} />                                            
+                            <Select options={Category} placeholder="Select" name="filterCategory" id="category" defaultValue={selectedCategory} />                                            
                         </div>
                         <div className="information form-group">
                             <label for="client">Client</label>

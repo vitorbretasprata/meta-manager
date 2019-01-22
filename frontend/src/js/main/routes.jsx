@@ -13,6 +13,7 @@ import ViewApp from './viewApp';
 import EditApp from './editApp';
 import CreateApp from './createApp';
 import AboutApp from './aboutApp';
+import ResetApp from './resetApp';
 
 class Routes extends Component {    
     render(){        
@@ -21,6 +22,8 @@ class Routes extends Component {
                 <AuthProvider>                    
                     <Switch>
                         <Route path='/login' component={LoginApp} />      
+                        <Route path='/register' component={RegisterApp} />
+                        <Route path='/resetPassword' component={ResetApp} />
                         <Route path='/register' component={RegisterApp} />
                     </Switch> 
                     <Header />                   

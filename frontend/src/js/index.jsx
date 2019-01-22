@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-datepicker/dist/react-datepicker.css";
+import 'jquery-mask-plugin/src/jquery.mask.js';
 
 import Routes from './main/routes';
 

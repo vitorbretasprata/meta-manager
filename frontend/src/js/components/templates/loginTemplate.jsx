@@ -25,7 +25,7 @@ const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin 
                     textButton="Submit"/>               
                 </div>  
                 <div className="alignCenter">
-                    <Link to="/register">Register</Link> | <Link to="/reset">Reset Password</Link>
+                    <Link to="/register">Register</Link> | <Link to="/resetPassword">Reset Password</Link>
                 </div>          
             </form>
         </div>  

@@ -3,7 +3,6 @@ import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 
-
 const ALTERTICKET = 'http://localhost:2000/api/tickets/alterTicket'
 const TICKET = 'http://localhost:2000/api/tickets/getTicket'
 
@@ -84,14 +83,15 @@ class EditApp extends Component {
                 State: data.filterStatus.value,
                 Term: data.filterDate.value,
                 Category: data.filterCategory.value
-            }).then(res => {
-                console.log(res.data);
+            }).then(res => {                
                 this.setState({
+                    Loading: false,
                     SuccessEdit: true
                 });
                 
             }).catch(err => {
                 this.setState({
+                    Loading: false,
                     Error: err
                 });
             });
@@ -144,7 +144,7 @@ class EditApp extends Component {
                 }} />
             )
         } else {
-            return (
+            return (                
                 <EditTemplate 
                 method="PUT"
                 editTicket={this.saveEdition}
@@ -166,7 +166,7 @@ class EditApp extends Component {
                 selectedImportance={val.Importance}
                 selectedStatus={val.State}
                 selectedCategory={val.Category}
-                />
+                />                                
             )
         }
     }

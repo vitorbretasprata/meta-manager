@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
     },
     (err, User) => {
         if(err){
-            return res.status(500).send("Problem while registering the user.");
+            return res.status(500).send(err);
         }       
 
         res.status(200).send({ user: User });
@@ -107,13 +107,28 @@ router.post('/login', (req, res) => {
 
         var token = jwt.sign(payload, config.secret, { expiresIn: 432000 });
 
-        res.status(200).send({ auth: true, token: token, user: User });
-        
-    })
-})
+        res.status(200).send({ auth: true, token: token, user: User });        
+    });
+});
 
-router.get('/protected', () => {
+router.post('/sendCode', (req, res) => {
     
-})
+     
+    return res.status(200).send({ Resp: req.body.phoneParam });
+});
+
+router.put('/resetPassword', (req, res) => {
+
+    const encryptedPassword = bcrypt.hashSync(req.body.password, 10);
+
+    User.findOneAndUpdate(req.body.email, { $set: { Password: encryptedPassword }}, 
+        { new: true } , (err, User) => {
+        if(err){
+            return res.status(500).send({ error: err });
+        }
+        return res.status(200).send({ User: User }) ;    
+    });
+
+});
 
 module.exports = router

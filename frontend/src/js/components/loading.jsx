@@ -1,12 +1,10 @@
 import React from 'react'
-import { Spinner } from 'reactstrap'
+import ReactLoading from 'react-loading';
 
-const Loading = () => (
-    <div className="container">
-        <div className="d-flex justify-content-center align-items-center">
-            <p><strong>Loading...</strong></p>
-        </div>       
-    </div>
+const Loading = ({ classname, type, color, size }) => (    
+    <div className={classname}>
+        <ReactLoading type={type} color={color} height={size} width={size} />
+    </div>   
 )
 
 export default Loading;

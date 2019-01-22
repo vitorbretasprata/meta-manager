@@ -4,7 +4,7 @@ import Loading from './loading';
 class ListContent extends Component {
     render(){
         if(this.props.isLoading){
-            return <Loading /> 
+            return <Loading type="spin" color="#000" size="10%" classname="centerDiv" /> 
         } else {
             return (
                 <div>

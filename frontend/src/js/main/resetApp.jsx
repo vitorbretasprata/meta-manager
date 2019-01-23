@@ -7,7 +7,11 @@ import { SENDCODE, RESETPASS } from '../components/utils/consts';
 class ResetApp extends Component{
     constructor(){
         super();
+        this.handleChange = this.handleChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.verifyCode = this.verifyCode.bind(this);
+        this.resetPassword = this.resetPassword.bind(this);
+
         this.state = {
             paramEmail: '',
             resetCode: '',
@@ -15,7 +19,8 @@ class ResetApp extends Component{
             confirmedCode: false,
             passwordReseted: false,            
             error: null,
-            failed: false         
+            failed: false,
+            currentValue: ''       
         }
     }
 
@@ -30,69 +35,79 @@ class ResetApp extends Component{
                 }).then(res => {
                    this.setState({
                        resetCode: res.data.Code,
-                       Sended: true
+                       Sended: true,
+                       currentValue: '',
+                       failed: false
                    });                     
-                }).catch(err => {
+                }).catch(err => {                    
                     this.setState({ 
-                        error: err,
+                        error: err.response.data.message,
                         failed: true
-                     })
-                    console.log(error);
-            })
+                     });                    
+            });
         });        
     }
 
     verifyCode(e){
         e.preventDefault(); 
         const code = e.target.code.value;   
-        if(this.state.confirmedCode == code){
+        if(this.state.resetCode == code){
             this.setState({
                 Sended: false,
-                confirmedCode: true 
+                confirmedCode: true,
+                currentValue: '',
+                failed: false
             });
         } else {
             this.setState({
-                error: "Reset code does not match.",
+                error: "Invalid Code.",
                 failed: true
             });
         }      
+    }
+
+    handleChange(e){
+        this.setState({
+            currentValue: e.target.value
+        });
     }
 
     resetPassword(e){
         e.preventDefault();
         const passvalue = e.target;
         
-        if(passvalue.passwordvalue != passvalue.confirm.value){
+        if(passvalue.password.value != passvalue.confirm.value){
             this.setState({
                 error: "Password does not match the confirmation.",
                 failed: true
             });
         } else {
             this.setState({
-                password: passvalue.passwordvalue,                                  
+                password: passvalue.password.value,                                  
             }, () => {
-                Axios.post(RESETPASS, 
+                Axios.put(RESETPASS, 
                     {
                         email: this.state.paramEmail,
                         password: this.state.password                                     
                     }).then(res => {
                        this.setState({                       
                            passwordReseted: true,
-                           confirmedCode: false
+                           confirmedCode: false,
+                           currentValue: '',
+                           failed: false
                        });                     
                     }).catch(err => {
                         this.setState({ 
-                            error: err,
+                            error: err.response.data.message,
                             failed: true
-                         })
-                        console.log(err);
-                })
+                         });                        
+                });
             });
         }                
     }
 
     render(){
-        const { error, failed, Sended, confirmedCode, passwordReseted } = this.state;
+        const { error, failed, Sended, confirmedCode, passwordReseted, currentValue } = this.state;
 
         if(localStorage.getItem('token_id') || sessionStorage.getItem('token_id')){
             return <Redirect to='/home' />
@@ -107,22 +122,25 @@ class ResetApp extends Component{
                 name="code"
                 placeholder="Reset Code"
                 id="code"
+                currentValue={currentValue}
                 buttonTitle="Next"  
-                ResetPassword={false}                 
+                ResetPassword={false} 
+                handleChange={this.handleChange}                 
                 loginFunc={this.verifyCode}/>
             )
         } else if(confirmedCode){
             return (
                 <ResetTemplate 
                 failed={failed}
-                errorMessage={(failed) ? error : ""}            
+                errorMessage={(failed) ? error : ""}             
                 message="Please inform the new password below" 
                 type="password"
                 name="password"
                 placeholder="Password"
                 ResetPassword={true}
                 id="passwordParam"
-                buttonTitle="Submit"                
+                buttonTitle="Submit"
+                handleChange={this.handleChange}                 
                 loginFunc={this.resetPassword}/>
             )
         } else if(passwordReseted){
@@ -131,14 +149,15 @@ class ResetApp extends Component{
             return(
                 <ResetTemplate 
                 failed={failed}
-                errorMessage={(failed) ? error : ""}           
+                errorMessage={(failed) ? error : ""}            
                 message="Please inform your Email" 
                 type="email"
                 name="email"
                 placeholder="Email Address"
                 id="emailParam"
                 buttonTitle="Next"  
-                ResetPassword={false}              
+                ResetPassword={false}
+                handleChange={this.handleChange}            
                 loginFunc={this.sendMessage}/>
             )
         }       

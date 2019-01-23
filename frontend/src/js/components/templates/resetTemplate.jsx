@@ -1,11 +1,11 @@
 import React from 'react';
 import Input from '../inputs';
 import Button from '../button';
-import { Link } from 'react-router-dom';
+import Failed from '../failed';
 
-const ResetTemplate = ({ loginFunc, errorMessage, failed, ResetPassword,  message, type, placeholder, name, id, buttonTitle }) => ( 
+const ResetTemplate = ({ loginFunc, errorMessage, currentValue, failed, ResetPassword,  message, type, placeholder, name, id, buttonTitle, handleChange }) => ( 
     <div className="centerDiv"> 
-    {!!failed && <Failed message={Message}/>}       
+    {!!failed && <Failed message={errorMessage}/>}       
         <div className="loginTemplate">
             <form onSubmit={loginFunc}>
                 <div className="alignTitleContent">
@@ -14,7 +14,7 @@ const ResetTemplate = ({ loginFunc, errorMessage, failed, ResetPassword,  messag
                 <div className="alignContent textColor">
                     {message}
                 </div>
-                <Input type={type} placeholder={placeholder} name={name} id={id}/>
+                <input className="inputForm selects" type={type} placeholder={placeholder} name={name} id={id} value={currentValue} onChange={handleChange}/>
                 {!!ResetPassword &&
                     <Input type="password" placeholder="Confirm" name="confirm" id="confirmParam"/>}
                 <div className="form-group row">

@@ -130,14 +130,11 @@ router.post('/sendCode', (req, res) => {
         Email: req.body.email
     }, (err, user) => {
         if(err){
-            return res.status(500).send({ error: err });
+            return res.status(500).send({ message: "Something failed while validating the email, try again later. If it persist, contact the support." });
         }
-        if(!user){
-            console.log(user);
-            return res.status(404).send({ Message: "Email not found!" });
+        if(typeof user == undefined || user.length == 0){
+            return res.status(404).send({ message: "Email not found!" });
         }
-
-        console.log(user);
 
         const codeNumber = Math.floor(Math.random() * 10000);
 
@@ -171,7 +168,7 @@ router.put('/resetPassword', (req, res) => {
     User.findOneAndUpdate(req.body.email, { $set: { Password: encryptedPassword }}, 
         { new: true } , (err, User) => {
         if(err){
-            return res.status(500).send({ error: err });
+            return res.status(500).send({ message: "Failed in updating password, try again later. If it persist, contact the support." });
         }
         return res.status(200).send({ User: User }) ;    
     });

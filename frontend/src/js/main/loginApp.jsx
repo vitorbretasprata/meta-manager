@@ -38,8 +38,6 @@ class LoginApp extends Component{
                     }
                     this.setState({
                         isLogged: true
-                    }, () => {
-                       return <Redirect to="/dashboard" />
                     });  
                 }).catch(error => {
                     this.setState({ failedLogin: true })

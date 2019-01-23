@@ -47,7 +47,8 @@ body{
 }
 .marginButtons,
 .ticketComments,
-.Comments{
+.Comments,
+.Space{
     margin: 5px;
 }
 
@@ -62,8 +63,7 @@ body{
 
 .navbar-dark{
     background-color: rgba(0, 0, 0, 0.788);
-    opacity: 0.7;
-    
+    opacity: 0.7;    
     z-index: 999;     
 }
 

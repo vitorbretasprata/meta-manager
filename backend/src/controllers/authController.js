@@ -3,11 +3,24 @@ var cors = require('cors')
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 
 const User = require('../models/user');
 const config = require('../config/config');
 
 const router = express();
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: 'falloutnewvegas10@gmail.com', 
+        pass: 'falloutnewvegas'
+    }
+});
+
+  
 
 router.post('/register', (req, res) => {
 
@@ -112,9 +125,43 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/sendCode', (req, res) => {
-       
-     
-    return res.status(200).send({ Resp: req.body.phoneParam });
+
+    User.find({
+        Email: req.body.email
+    }, (err, user) => {
+        if(err){
+            return res.status(500).send({ error: err });
+        }
+        if(!user){
+            console.log(user);
+            return res.status(404).send({ Message: "Email not found!" });
+        }
+
+        console.log(user);
+
+        const codeNumber = Math.floor(Math.random() * 10000);
+
+        let mailOptions = {
+            from: '"Ticket Manager 👻"',
+            to: req.body.email,
+            subject: 'Hello ✔',
+            text: 'Hello world?',
+            html: `
+            <b>Your reset code is: ${codeNumber}.</b>
+            <p style="color: red"><b>If you didn't request a code to reset your password, ignore this message.</b></p>
+            `
+        };         
+    
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log("Error: " + error);
+            } else {
+                console.log('Email enviado: ' + info.response);
+            }
+        });
+         
+        return res.status(200).send({ Email: req.body.email, Code: codeNumber });
+    });
 });
 
 router.put('/resetPassword', (req, res) => {

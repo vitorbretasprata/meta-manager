@@ -3,9 +3,9 @@ import Input from '../inputs';
 import Button from '../button';
 import { Link } from 'react-router-dom';
 
-const ResetTemplate = ({ loginFunc, failed, ResetPassword,  message, type, placeholder, name, id, buttonTitle }) => ( 
+const ResetTemplate = ({ loginFunc, errorMessage, failed, ResetPassword,  message, type, placeholder, name, id, buttonTitle }) => ( 
     <div className="centerDiv"> 
-    {!!failed && <Failed message="An Error has occured while sending the code."/>}       
+    {!!failed && <Failed message={Message}/>}       
         <div className="loginTemplate">
             <form onSubmit={loginFunc}>
                 <div className="alignTitleContent">

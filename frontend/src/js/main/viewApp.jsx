@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ViewTemplate from '../components/templates/viewTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
-import Error from '../components/error'
+import Failed from '../components/failed'
 import { TICKET, DELETETICKET, ADDCOMMENT } from '../components/utils/consts'
 
 class ViewApp extends Component {
@@ -108,7 +108,7 @@ class ViewApp extends Component {
         const val = this.state;
         if(val.Error){
             return (
-                <Error errorMessage={val.Error} />
+                <Failed message={val.Error} />
             )
         } else if(val.Deleted){
             return (

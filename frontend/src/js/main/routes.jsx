@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginApp from './loginApp';
 import RegisterApp from './registerApp';
 import HomeApp from './homeApp';
-import error from '../components/error';
+import Failed from '../components/failed';
 import { AuthProvider } from './AuthContext';
 import Header from '../components/header';
 import ProtectedRoute from './protectedRoute';
@@ -35,7 +35,7 @@ class Routes extends Component {
                         <ProtectedRoute path='/view' component={ViewApp} />
                         <ProtectedRoute path='/edit' component={EditApp} />
                         <ProtectedRoute path='/create' component={CreateApp} />
-                        <Route component={error} />                                              
+                        <Route component={Failed} />                                              
                     </Switch>
                 </AuthProvider>                                                 
             </BrowserRouter>        

@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
-import Error from '../error'
+import Failed from '../failed'
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import ListContent from '../list';
 import { Category, Importance, Status } from '../utils/consts';
@@ -136,7 +136,7 @@ class DashboardTemplate extends Component {
         } else if(error){
             return(
                 <p>
-                    <Error errorMessage={error} />
+                    <Failed message={error} />
                     <button onClick={this.loadData} className="btn btn-black">Try again</button>
                 </p>
             )
@@ -274,9 +274,7 @@ class DashboardTemplate extends Component {
                     </div>        
                 </div>
             )
-        }
-               
-        
+        }   
     }
 }
 

@@ -3,7 +3,6 @@ import ResetTemplate from '../components/templates/resetTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { SENDCODE, RESETPASS } from '../components/utils/consts';
-import $ from 'jquery';
 
 class ResetApp extends Component{
     constructor(){
@@ -19,18 +18,14 @@ class ResetApp extends Component{
         }
     }
 
-    componentDidMount(){
-        $('#phoneParam').mask('+0000000000-0000');
-    }
-
     sendMessage(e){
         e.preventDefault();           
         this.setState({
-            phoneParam: e.target.phone.value                      
+            emailParam: e.target.email.value                      
         }, () => {
             Axios.post(SENDCODE, 
                 {
-                    phone: this.state.phoneParam                                       
+                    email: this.state.emailParam                                       
                 }).then(response => {
                    this.setState({
                        resetCode: response.data.code,
@@ -89,7 +84,7 @@ class ResetApp extends Component{
             return (
                 <ResetTemplate 
                 failed={this.state.failed}            
-                message="Please inform the code recieved below" 
+                message="Please inform the code received into your Email below" 
                 type="text"
                 name="code"
                 placeholder="Reset Code"
@@ -115,11 +110,11 @@ class ResetApp extends Component{
             return(
                 <ResetTemplate 
                 failedLogin={this.state.failed}            
-                message="Please inform your your Phone Number below" 
-                type="text"
-                name="phone"
-                placeholder="+XX (XX) XXXXX-XXXX"
-                id="phoneParam"
+                message="Please inform your Email" 
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                id="emailParam"
                 buttonTitle="Next"  
                 ResetPassword={false}              
                 loginFunc={this.sendMessage}/>

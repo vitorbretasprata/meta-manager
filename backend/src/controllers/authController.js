@@ -1,5 +1,5 @@
 const express = require('express');
-var cors = require('cors')
+const cors = require('cors')
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -15,16 +15,14 @@ let transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'falloutnewvegas10@gmail.com', 
-        pass: 'falloutnewvegas'
+        user: config.email, 
+        pass: config.passEmail
     }
-});
-
-  
+});  
 
 router.post('/register', (req, res) => {
 
-    var encryptedPassword = bcrypt.hashSync(req.body.userInfo.password, 10);
+    let encryptedPassword = bcrypt.hashSync(req.body.userInfo.password, 10);
 
     User.create({
         Name: req.body.userInfo.name,
@@ -42,8 +40,6 @@ router.post('/register', (req, res) => {
         res.status(200).send({ user: User });
     });
 });
-
-
 
 router.get('/getUsers', (req, res) => {
     User.find({}, (err, users) => {
@@ -64,35 +60,10 @@ router.delete('/deleteUsers', (req, res) => {
         else{
             throw err;
         }
-    })
-})
-
-router.get('/tokenAuth', (req, res, next) => {
-
-    var token  = req.body.token || req.query.token;
-    if(!token){
-        return res.status.send('Must pass Token!');
-    }
-
-    jwt.verify(token, config.secret, (err, user) => {
-        if(err) throw err;
-
-        User.findById({
-            id: user._id
-        }, (err, user) => {
-            if(err) throw err;
-
-            return res.status(200).send({
-                user: user,
-                token: token
-            })
-        })
-    })
-    
+    });
 });
  
 router.post('/login', (req, res) => {    
-
     User.findOne({
         Email: req.body.email        
     }).exec((err, user) => {
@@ -115,14 +86,44 @@ router.post('/login', (req, res) => {
         }
 
         const payload = {
-            id: User._id
+            id : user._id,
+            name : user.Name
         };
 
-        var token = jwt.sign(payload, config.secret, { expiresIn: 432000 });
+        let token = jwt.sign({payload}, config.secret, { expiresIn: 432000 });
 
-        res.status(200).send({ auth: true, token: token, user: User });        
+        res.status(200).send({ auth: true, token: token });        
     });
 });
+
+router.post('/verify', verifyToken, (req, res) => {
+    jwt.verify(req.token, config.secret, (err, authData) => {
+        if(err) {
+            res.sendStatus(403)
+        } else {
+            res.json({
+                message: "success",
+                authData
+            });
+        }
+    });   
+});
+
+function verifyToken(req, res, next) {    
+    const bearerHeader = req.headers['authorization'];
+    if(typeof bearerHeader !== 'undefined') {
+
+        const bearer = bearerHeader.split(' ');
+        const bearerToken = bearer[1];
+
+        req.token = bearerToken;
+
+        next();
+
+    } else {
+        res.status(403);
+    }
+}
 
 router.post('/sendCode', (req, res) => {
 

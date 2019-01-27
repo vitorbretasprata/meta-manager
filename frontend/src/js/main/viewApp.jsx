@@ -3,7 +3,8 @@ import ViewTemplate from '../components/templates/viewTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import Failed from '../components/failed'
-import { TICKET, DELETETICKET, ADDCOMMENT } from '../components/utils/consts'
+import { TICKET, DELETETICKET, ADDCOMMENT } from '../components/utils/consts';
+import EncapsulationHeader from './encapusationHeader';
 
 class ViewApp extends Component {
     constructor(){
@@ -69,6 +70,17 @@ class ViewApp extends Component {
         })
     }
 
+    formatDate(date, timeToo = false){
+        let formatedDate = date.split('T').shift().split('-').reverse().join('/');
+
+        if(timeToo){  
+            let formatedHour = date.split('T').pop().split('.').shift();
+
+            formatedDate = `${formatedDate} ${formatedHour}`;
+        } 
+        return formatedDate;
+    }
+
     getList(){
         const { ID } = this.props.location.state;        
         
@@ -105,10 +117,16 @@ class ViewApp extends Component {
 
 
     render(){
+
         const val = this.state;
+        const DateCreatedFormated = this.formatDate(val.DateCreated);
+        const TermFormated = this.formatDate(val.Term);
+
         if(val.Error){
             return (
-                <Failed message={val.Error} />
+                <EncapsulationHeader>
+                    <Failed message={val.Error} />
+                </EncapsulationHeader>               
             )
         } else if(val.Deleted){
             return (
@@ -121,38 +139,41 @@ class ViewApp extends Component {
             )
         } else {
             const Comments = this.state.Comments.map(UserComment => {
+                const dateComment = this.formatDate(UserComment.Comment.DateCreated, true);
+
                 return (
                     <div className="form-group">
                         <div className="authorComment">{UserComment.Comment.User}</div> 
                         <div className="commentComent">{UserComment.Comment.Description}</div>
-                        <div className="d-flex justify-content-end">{UserComment.Comment.DateCreated}</div>
+                        <div className="d-flex justify-content-end">{dateComment}</div>
                         <hr/>
                     </div>
-                )
-    
+                )    
             });
             
             return (
-                <ViewTemplate             
-                titleTicket={val.Title}
-                importanceTicket={val.Importance}
-                authorTicket={val.Author}
-                clientTicket={val.Client}
-                termTicket={val.Term}
-                dateTicket={val.DateCreated}
-                stateTicket={val.State}
-                descriptionTicket={val.Description}
-                commentsTicket={Comments}
-                deleteTicket={this.deleteTicket}
-                addComment={this.open}
-                isOpen={this.state.open}
-                newComment={this.saveComment}
-                categoryTicket={val.Category}
-                linkToEdit={{ 
-                    pathname: '/edit',
-                    state: { ID: this.props.location.state.ID }
-                }}
-                />
+                <EncapsulationHeader>
+                    <ViewTemplate            
+                    titleTicket={val.Title}
+                    importanceTicket={val.Importance}
+                    authorTicket={val.Author}
+                    clientTicket={val.Client}
+                    termTicket={TermFormated}
+                    dateTicket={DateCreatedFormated}
+                    stateTicket={val.State}
+                    descriptionTicket={val.Description}
+                    commentsTicket={Comments}
+                    deleteTicket={this.deleteTicket}
+                    addComment={this.open}
+                    isOpen={this.state.open}
+                    newComment={this.saveComment}
+                    categoryTicket={val.Category}
+                    linkToEdit={{ 
+                        pathname: '/edit',
+                        state: { ID: this.props.location.state.ID }
+                    }}
+                    />
+                </EncapsulationHeader>                
             )
         }
 

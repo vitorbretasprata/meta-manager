@@ -51,10 +51,20 @@ class Header extends Component {
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 
                                     {!!context.isAuthenticated() ? (
-                                            <NavItem>
-                                                <button class="btn btn-outline-success my-2 my-sm-0" onClick={context.logout}>Logout</button>
-                                            </NavItem>                                                                    
-                                        ) : (
+                                            <div>
+                                                <UncontrolledDropdown nav inNavbar>
+                                                    <DropdownToggle nav caret>
+                                                    Hello {context.state.nameUser}
+                                                    </DropdownToggle>
+                                                    <DropdownMenu right>
+                                                    <DropdownItem>
+                                                        <button class="btn btn-link my-2 my-sm-0" onClick={context.logout}>Logout</button>
+                                                    </DropdownItem>                                                                                                    
+                                                    </DropdownMenu>
+                                                </UncontrolledDropdown>                                                                                
+                                            </div>                                                                    
+                                        ) : (                                                
+
                                             <div>
                                                 <UncontrolledDropdown nav inNavbar>
                                                     <DropdownToggle nav caret>

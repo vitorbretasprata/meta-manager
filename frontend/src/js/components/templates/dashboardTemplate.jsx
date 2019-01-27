@@ -9,7 +9,8 @@ import Failed from '../failed'
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import ListContent from '../list';
 import { Category, Importance, Status } from '../utils/consts';
-import { TICKETS, USERS, DELETETICKET, FILTER  } from '../utils/consts'
+import { TICKETS, USERS, DELETETICKET, FILTER  } from '../utils/consts';
+import Loading from '../loading';
 
 class DashboardTemplate extends Component { 
     constructor(){
@@ -27,11 +28,15 @@ class DashboardTemplate extends Component {
     }  
     
     loadUsers = () => {
+        console.log('users 1');
         Axios.get(USERS).then(res => {            
             res.data.Users.map(user => {
+                console.log('users 1.5');
                 this.state.users.push(user);
             });
+            console.log('users 2');
             this.setState({ loading: false });
+            console.log('users 3');
         }).catch(err => {
             this.setState({
                 error: `${err}`,
@@ -59,7 +64,6 @@ class DashboardTemplate extends Component {
                 State: value.filterState.value
                 
              }).then(res => {
-                console.log(res.data);
                 res.data.Ticket.map(ticket => {
                     this.state.tickets.push(ticket);                    
                 });
@@ -121,7 +125,6 @@ class DashboardTemplate extends Component {
     render(){
         if(this.props == undefined){
             const teste = this.props;
-            console.log(teste); 
         }
             
         const { loading, error, tickets, users, ContentLoading } = this.state;
@@ -132,7 +135,7 @@ class DashboardTemplate extends Component {
         })];  
 
         if(loading){
-            return <p><strong>Loading...</strong></p>
+            return <Loading type="spin" color="#000" size="10%" classname="centerDiv" />
         } else if(error){
             return(
                 <p>

@@ -40,6 +40,7 @@ export const USERS = 'http://localhost:2000/api/auth/getUsers'
 export const REGISTER = 'http://localhost:2000/api/auth/register'
 export const RESETPASS = 'http://localhost:2000/api/auth/resetPassword'
 export const SENDCODE = 'http://localhost:2000/api/auth/sendCode'
+export const VERIFY = 'http://localhost:2000/api/auth/verify'
 
 /* API TICKETS */
 

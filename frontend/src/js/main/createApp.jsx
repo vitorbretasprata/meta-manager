@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
+import EncapsulationHeader from './encapusationHeader'
 
 const TICKET = 'http://localhost:2000/api/tickets/getTicket'
 const ADDTICKET = 'http://localhost:2000/api/tickets/createTicket'
@@ -123,7 +124,11 @@ class CreateApp extends Component {
         const val = this.state;
 
         if(val.Error){
-            return <Error errorMessage={val.Error} />
+            return (
+                <EncapsulationHeader>
+                    <Error errorMessage={val.Error} />
+                </EncapsulationHeader>
+            )
         } else if(SuccessAdd){
             return (
                 <Redirect to={{
@@ -136,24 +141,26 @@ class CreateApp extends Component {
             )
         } else  if(this.props.location.state == undefined){
             return (
-                <EditTemplate 
-                method="POST"
-                editTicket={this.saveAdd}
-                titleTicket={val.Title}
-                importanceTicket={val.Importance}
-                authorTicket={val.Author}
-                clientTicket={val.Client}
-                termTicket={val.Term}
-                dateTicket={val.DateCreated}
-                stateTicket={val.State}
-                descriptionTicket={val.Description}                
-                cancelEdit='/dashboard'                    
-                changeDate={this.handleDateChange}
-                selectDate={this.handleSelectedDate}
-                changeTitle={this.handleTitle}
-                changeClient={this.handleClient}
-                changeDesc={this.handleDesc}
-                />
+                <EncapsulationHeader>
+                    <EditTemplate 
+                    method="POST"
+                    editTicket={this.saveAdd}
+                    titleTicket={val.Title}
+                    importanceTicket={val.Importance}
+                    authorTicket={val.Author}
+                    clientTicket={val.Client}
+                    termTicket={val.Term}
+                    dateTicket={val.DateCreated}
+                    stateTicket={val.State}
+                    descriptionTicket={val.Description}                
+                    cancelEdit='/dashboard'                    
+                    changeDate={this.handleDateChange}
+                    selectDate={this.handleSelectedDate}
+                    changeTitle={this.handleTitle}
+                    changeClient={this.handleClient}
+                    changeDesc={this.handleDesc}
+                    />
+                </EncapsulationHeader>                
             )
         } 
     }

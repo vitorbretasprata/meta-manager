@@ -7,20 +7,20 @@ const Content = posed.div({
     open: { height: 'auto' }
 });
 
-const ViewTemplate = ({ titleTicket, importanceTicket, importance, authorTicket, clientTicket, isOpen,
+const ViewTemplate = ({ titleTicket, importanceTicket, authorTicket, clientTicket, isOpen,
      termTicket, dateTicket, stateTicket, commentsTicket, descriptionTicket, linkToEdit, addComment, deleteTicket, newComment, categoryTicket}) => (
     <div className="container">
         <div className="ticketWindow">
             <form>                
                 <div className="ticketInfo">
-                    <div className="ticketTitle"><h2>{titleTicket}</h2> <h3>(<strong className={importance}>{importanceTicket}</strong>)</h3></div>
+                    <div className="ticketTitle"><h2>{titleTicket}</h2> <h3>(<span className={"color-" + importanceTicket}>{importanceTicket}</span>)</h3></div>
                     <div className="information">
-                        <strong>Status: </strong> {stateTicket} 
-                        <strong>Author:</strong> {authorTicket} 
-                        <strong>Client:</strong> {clientTicket} 
-                        <strong>Category:</strong> {categoryTicket}
+                        <span>Status: </span> {stateTicket} 
+                        <span>Author:</span> {authorTicket} 
+                        <span>Client:</span> {clientTicket} 
+                        <span>Category:</span> {categoryTicket}
                     </div>
-                    <div className="information"><strong>Term:</strong>  {termTicket} <strong>Date of creation:</strong> {dateTicket}</div>
+                    <div className="information"><span>Term:</span>  {termTicket} <span>Date of creation:</span> {dateTicket}</div>
                 </div>
                 <div className="ticketDescription">
                     <div className="descriptionTitle">

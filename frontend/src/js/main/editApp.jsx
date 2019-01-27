@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
+import EncapsulationHeader from './encapusationHeader';
 
 const ALTERTICKET = 'http://localhost:2000/api/tickets/alterTicket'
 const TICKET = 'http://localhost:2000/api/tickets/getTicket'
@@ -132,7 +133,11 @@ class EditApp extends Component {
         const val = this.state;
 
         if(val.Error){
-            return <Error errorMessage={val.Error} />
+            return(
+                <EncapsulationHeader>
+                    <Error errorMessage={val.Error} />
+                </EncapsulationHeader>
+            )           
         } else if(SuccessEdit){
             return (
                 <Redirect to={{
@@ -144,29 +149,31 @@ class EditApp extends Component {
                 }} />
             )
         } else {
-            return (                
-                <EditTemplate 
-                method="PUT"
-                editTicket={this.saveEdition}
-                titleTicket={val.Title}
-                importanceTicket={val.Importance}
-                authorTicket={val.Author}
-                clientTicket={val.Client}
-                termTicket={val.Term}                    
-                descriptionTicket={val.Description}    
-                cancelEdit={{ 
-                    pathname: '/view',
-                    state: { ID: this.props.location.state.ID }
-                }}
-                changeDate={this.handleDateChange}
-                selectDate={this.handleSelectedDate}
-                changeTitle={this.handleTitle}
-                changeClient={this.handleClient}
-                changeDesc={this.handleDesc}
-                selectedImportance={val.Importance}
-                selectedStatus={val.State}
-                selectedCategory={val.Category}
-                />                                
+            return ( 
+                <EncapsulationHeader>
+                    <EditTemplate 
+                    method="PUT"
+                    editTicket={this.saveEdition}
+                    titleTicket={val.Title}
+                    importanceTicket={val.Importance}
+                    authorTicket={val.Author}
+                    clientTicket={val.Client}
+                    termTicket={val.Term}                    
+                    descriptionTicket={val.Description}    
+                    cancelEdit={{ 
+                        pathname: '/view',
+                        state: { ID: this.props.location.state.ID }
+                    }}
+                    changeDate={this.handleDateChange}
+                    selectDate={this.handleSelectedDate}
+                    changeTitle={this.handleTitle}
+                    changeClient={this.handleClient}
+                    changeDesc={this.handleDesc}
+                    selectedImportance={val.Importance}
+                    selectedStatus={val.State}
+                    selectedCategory={val.Category}
+                    />
+                </EncapsulationHeader>                                  
             )
         }
     }

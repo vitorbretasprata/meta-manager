@@ -15,4 +15,4 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
   </AuthConsumer>
 )
 
-export default ProtectedRoute
+export default ProtectedRoute;

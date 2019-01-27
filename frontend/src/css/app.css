@@ -138,6 +138,10 @@ section, aside{
     height: 100%;
 }
 
+.centerLoading{
+    
+}
+
 html, body, #app {
     height: 100%;
     width: 100%;    
@@ -173,6 +177,18 @@ form{
 
 .selects{
     margin-bottom: 15px;
+}
+
+
+.contacts,
+.contacts .profiles{
+    color: #fff;
+    padding: 20px;
+}
+
+.profiles a{
+    margin: 20px 0;
+    margin-right: 20px;
 }
 
 .AccessButtons {   
@@ -278,4 +294,69 @@ form{
 
 .dashButtons{
     width: 150px;
+}
+
+footer{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+    background-color: #222;    
+    height: 200px;
+}
+
+.homeInfo{
+    font-weight: 300;
+    font-size: 20px;
+    padding: 15px;
+    width: 50vw;
+    color: #000;    
+    opacity: 1;
+    transition: all 500ms;
+}
+
+.homeBody section{
+    height: 300px;    
+}
+
+.fade{
+    opacity: 1.0;
+    transition: all 500ms;
+}
+
+.iconsFooter{
+    height: 100%;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.positionRight{
+    text-align: right;
+    right: 0;
+    position: absolute;
+}
+
+.color-Low{
+    font-weight: 600;
+    color:#2ea10a;
+}
+
+.color-Medium{
+    font-weight: 600;
+    color:#97b60c;
+}
+
+.color-High{
+    font-weight: 600;
+    color:#aa5815;
+}
+
+.color-Emergency{
+    font-weight: 600;
+    color:#bd0e0e;
+}
+
+.information span{
+    font-size: 20px;
+    margin: 0 5px;
 }

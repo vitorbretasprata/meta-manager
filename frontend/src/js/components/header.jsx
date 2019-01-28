@@ -50,7 +50,7 @@ class Header extends Component {
                                     </NavItem>
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 
-                                    {!!context.isAuthenticated() ? (
+                                    {!!context.simpleAuth() ? (
                                             <div>
                                                 <UncontrolledDropdown nav inNavbar>
                                                     <DropdownToggle nav caret>

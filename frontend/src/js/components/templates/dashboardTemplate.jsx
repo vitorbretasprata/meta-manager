@@ -28,15 +28,11 @@ class DashboardTemplate extends Component {
     }  
     
     loadUsers = () => {
-        console.log('users 1');
         Axios.get(USERS).then(res => {            
             res.data.Users.map(user => {
-                console.log('users 1.5');
                 this.state.users.push(user);
             });
-            console.log('users 2');
             this.setState({ loading: false });
-            console.log('users 3');
         }).catch(err => {
             this.setState({
                 error: `${err}`,

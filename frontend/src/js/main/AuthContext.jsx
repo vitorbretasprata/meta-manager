@@ -50,9 +50,21 @@ class AuthProvider extends Component{
                 }                            
             });
         }).catch(err => {
+            console.log(this.state.isAuth);
             console.log(err.message);
         });
         return true; 
+    }
+
+    simpleAuth(){
+        const localToken = localStorage.getItem('token_id');
+        const sessionToken = sessionStorage.getItem('token_id');
+        console.log(this.state.nameUser);
+        if(!localToken && !sessionToken) {            
+            return false;
+        } else {
+            return true;
+        }
     }
 
     login(e){
@@ -91,7 +103,8 @@ class AuthProvider extends Component{
                     state: this.state,                    
                     logout: this.logout,                    
                     isAuthenticated: this.isAuthenticated, 
-                    login: this.login                  
+                    login: this.login,
+                    simpleAuth: this.simpleAuth                 
                 }}>
                 {this.props.children}
             </AuthContext.Provider>

@@ -8,7 +8,7 @@ There are two repositories for this application, this in the frontend, you need 
  
 ## Start Backend 
  
-<code>npm i</code> to install dependencies and <code>npm start</code> to run the backend.
+Download the code from <code>https://github.com/vitorbretasprata/ticket-manager-backend</code> then type <code>npm i</code> to install dependencies and <code>npm start</code> to run the backend.
   
 ## Start Frontend
 

@@ -1,8 +1,10 @@
-﻿# Ticket Manager Application
+﻿# Ticket Manager Application (Frontend)
  
  This is a simple application for ticket management using primarily ReactJS, NodeJS, MongoDB and Bootstrap. This application will still have changes and improvements, but its main function is already functional.
  
  # Get Started
+
+There are two repositories for this application, this in the frontend, you need to download the backend for the application to work.
  
 ## Start Backend 
  

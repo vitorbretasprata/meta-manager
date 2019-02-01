@@ -11,7 +11,8 @@ class RegisterApp extends Component {
         this.state = {
             userInfo: null ,
             success: false,
-            selectedOption: null
+            selectedOption: null,
+            failed: false
         }
     }    
 
@@ -40,27 +41,30 @@ class RegisterApp extends Component {
             .then(response => {
                 this.setState({
                     success: true
-                }, () => {
-                    console.log(response);
                 });                                
             }).catch(err => {
                 console.log(err);
+                this.setState({
+                    failed: true
+                })
             });
         });        
     }
 
     render(){
-        const { selectedOption } = this.state;
+        const { selectedOption, failed, success  } = this.state;
 
         if(localStorage.getItem('token_id') || sessionStorage.getItem('token_id')){
             return <Redirect to='/home' />
+        } else if(success){
+            return <Redirect to='/login' />
         } else {
             return(
                 <RegisterTemplate 
                 selectOption={selectedOption}
                 handleSelectChange={this.handleSelectChange}
-                successMessage={this.state.success}
-                registerFunc={this.register} />
+                registerFunc={this.register} 
+                failedMessage={failed}/>
             )
         }
     }

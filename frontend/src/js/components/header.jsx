@@ -20,7 +20,8 @@ class Header extends Component {
     
         this.toggle = this.toggle.bind(this);
         this.state = {
-          collapsed: true
+          collapsed: true,
+          user: ''
         };
     }
     

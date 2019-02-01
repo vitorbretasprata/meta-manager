@@ -5,10 +5,11 @@ import SuccessRegistration from '../successRegistration';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import { occupation, team } from '../utils/consts'
+import Failed from '../failed';
 
-const registerTemplate = ({ registerFunc, successMessage}) => (
+const registerTemplate = ({ registerFunc, failedMessage }) => (
     <div className="centerDiv">
-        {!!successMessage && <SuccessRegistration />}  
+        {!!failedMessage && <Failed message="Failed to registrate: Email already in use!"/>} 
         <div className="loginTemplate">
             <div className="alignTitleContent">
                 <h2>Register</h2>

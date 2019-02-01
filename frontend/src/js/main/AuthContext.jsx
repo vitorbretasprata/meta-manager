@@ -14,7 +14,8 @@ class AuthProvider extends Component{
             paramEmail: '',
             paramPassword: '',
             paramRemember: '',
-            nameUser: ''            
+            nameUser: '',
+            failedLogin: false           
         }
     }
 
@@ -81,7 +82,10 @@ class AuthProvider extends Component{
                     password: this.state.paramPassword                    
                 }).then((response) => {
                     this.isAuthenticated(response.data.token, remember);                    
-                }).catch(error => {                    
+                }).catch(error => { 
+                    this.setState({
+                        failedLogin: true
+                    });                   
                     console.log(error.message);
             })
         });        

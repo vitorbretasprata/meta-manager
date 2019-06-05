@@ -3,11 +3,6 @@
     padding: 0;
 }
 
-body{
-    background-image: url('../images/bg.jpg');
-    background-position: center;
-}
-
 *:focus {
     outline: none;
 }
@@ -61,24 +56,6 @@ body{
     margin-top: 5px;
 }
 
-.navbar-dark{
-    background-color: rgba(0, 0, 0, 0.788);
-    opacity: 0.7;    
-    z-index: 999;     
-}
-
-.navbar-dark div{
-    padding: 5px 0;
-}
-
-a.nav-link{
-    color: #fff;
-}
-
-a.nav-link:hover{
-    color: #fff;
-}
-
 .editInputs{
     border-radius: 5px;
     border: 0.5px solid black;
@@ -103,43 +80,36 @@ a.nav-link:hover{
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;    
-  }
+    width: 10px;  
+    position: fixed;  
+}
   
-  /* Track */
-  ::-webkit-scrollbar-track {
+/* Track */
+::-webkit-scrollbar-track {
     background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: #555; 
-  }
+}
 
 section, aside{
     background-color: #fff;
     height: 100%;
 }
 
-.carousel-item > img{
-    height: 500px;
-    width: 100%;
-}
 .centerDiv{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction:column;
     height: 100%;
-}
-
-.centerLoading{
-    
 }
 
 html, body, #app {
@@ -189,16 +159,6 @@ form{
 .profiles a{
     margin: 20px 0;
     margin-right: 20px;
-}
-
-.AccessButtons {   
-    width: 160px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.AccessButtons a{   
-    border: none;
 }
 
 .alignTitleContent{
@@ -269,6 +229,30 @@ form{
     padding-left: 10px;
 }
 
+.linksButton{
+    color: #fff;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.dropdownButton{
+    color: #000;
+}
+
+.dropdownButton:hover{
+    color: #000;
+    text-decoration: none;
+}
+
+.linksButton:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
+.homeButton{
+    font-size: 20px;
+}
+
 .usersSpace{
     padding: 5px;
 }
@@ -296,6 +280,11 @@ form{
     width: 150px;
 }
 
+.headerBg{
+    background-color: rgb(90, 45, 2);
+    height: 80px;
+}
+
 footer{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 100%;
@@ -308,18 +297,32 @@ footer{
     font-size: 20px;
     padding: 15px;
     width: 50vw;
-    color: #000;    
-    opacity: 1;
-    transition: all 500ms;
+    color: #000;   
+    -webkit-animation: lazyLoading 1.5s; /* Safari 4+ */
+    -moz-animation: lazyLoading 1.5s; /* Fx 5+ */
+    -o-animation: lazyLoading 1.5s; /* Opera 12+ */
+    animation: lazyLoading 1.5s; /* IE 10+, Fx 29+ */
 }
+
+@-webkit-keyframes lazyLoading {
+    0%   { opacity: 0; padding-right: -20px; }
+    100% { opacity: 1; padding-right: 0; }
+  }
+  @-moz-keyframes lazyLoading {
+    0%   { opacity: 0; padding-right: -20px; }
+    100% { opacity: 1; padding-right: 0; }
+  }
+  @-o-keyframes lazyLoading{
+    0%   { opacity: 0; padding-right: -20px; }
+    100% { opacity: 1; padding-right: 0; }
+  }
+  @keyframes lazyLoading {
+    0%   { opacity: 0; padding-right: -20px; }
+    100% { opacity: 1; padding-right: 0; }
+  }
 
 .homeBody section{
     height: 300px;    
-}
-
-.fade{
-    opacity: 1.0;
-    transition: all 500ms;
 }
 
 .iconsFooter{

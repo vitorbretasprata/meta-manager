@@ -1,8 +1,8 @@
 import React from 'react';
 import LazyLoad from 'react-lazyload';
 
-const HomeTemplate = ({ LazyLoading }) => (
-    <div className="homeBody" onLoad={LazyLoading}>
+const HomeTemplate = () => (
+    <div className="homeBody">
         <section>
             <LazyLoad>
                 <div className="homeInfo">

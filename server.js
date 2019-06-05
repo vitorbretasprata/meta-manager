@@ -1,6 +1,7 @@
-const webpack = require('webpack')
-const WebpackDevServer = require('webpack-dev-server')
-const config = require('./webpack.config')
+const webpack = require('webpack');
+require('dotenv').config();
+const WebpackDevServer = require('webpack-dev-server');
+const config = require('./webpack.config');
 
 new WebpackDevServer(webpack(config), {
     hot: true,

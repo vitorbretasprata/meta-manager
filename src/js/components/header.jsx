@@ -36,18 +36,18 @@ class Header extends Component {
             <header>
                 <AuthConsumer>
                     {(context) => (                                            
-                    <Navbar className="navbar-dark" expand="md">
+                    <Navbar className="headerBg" expand="md">
                         <div className="container">
-                            <Link to="/" className="navbar-brand button">Home</Link>
+                            <Link to="/" className="linksButton homeButton">Home</Link>
                             
                             <NavbarToggler onClick={this.toggle} className="mr-2" data-target/>
                             <Collapse isOpen={!this.state.collapsed} navbar>
                                 <Nav>
                                     <NavItem>
-                                        <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                                        <Link to="/dashboard" className="linksButton">Dashboard</Link>
                                     </NavItem>
                                     <NavItem>
-                                        <Link to="/about" className="nav-link">About</Link>
+                                        <Link to="/about" className="linksButton">About</Link>
                                     </NavItem>
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 
@@ -59,7 +59,7 @@ class Header extends Component {
                                                     </DropdownToggle>
                                                     <DropdownMenu right>
                                                     <DropdownItem>
-                                                        <button class="btn btn-link my-2 my-sm-0" onClick={context.logout}>Logout</button>
+                                                        <button className="dropdownButton" onClick={context.logout}>Logout</button>
                                                     </DropdownItem>                                                                                                    
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>                                                                                
@@ -68,16 +68,16 @@ class Header extends Component {
 
                                             <div>
                                                 <UncontrolledDropdown nav inNavbar>
-                                                    <DropdownToggle nav caret>
-                                                    Sign up/Sign in
+                                                    <DropdownToggle nav caret className="linksButton">
+                                                        Sign up/Sign in
                                                     </DropdownToggle>
                                                     <DropdownMenu right>
                                                     <DropdownItem>
-                                                        <Link to="/login" class="">Login</Link>
+                                                        <Link to="/login" className="dropdownButton">Login</Link>
                                                     </DropdownItem>
                                                     <DropdownItem divider />
                                                     <DropdownItem>
-                                                        <Link to="/register" class="">Register</Link>
+                                                        <Link to="/register" className="dropdownButton">Register</Link>
                                                     </DropdownItem>                                                
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>                                                                                

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/header';
 
-class EncapsulationHeader extends Component{
+class EncapsulationHeader extends Component {
     render(){
         return (
             <div>

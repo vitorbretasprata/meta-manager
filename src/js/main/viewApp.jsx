@@ -3,7 +3,6 @@ import ViewTemplate from '../components/templates/viewTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import Failed from '../components/failed'
-import { TICKET, DELETETICKET, ADDCOMMENT } from '../components/utils/consts';
 import EncapsulationHeader from './encapusationHeader';
 
 class ViewApp extends Component {
@@ -38,7 +37,7 @@ class ViewApp extends Component {
         this.setState({
             Loading: true 
         }, () => {
-            Axios.delete(`${DELETETICKET}/${ID}`).then(res => {
+            Axios.delete(`${process.env.MAIN_DELETE_TICKET}/${ID}`).then(res => {
                 console.log(res);
                 this.setState({
                     Deleted: true
@@ -61,7 +60,7 @@ class ViewApp extends Component {
     saveComment(e){
         e.preventDefault();
         const { ID } = this.props.location.state;        
-        Axios.put(`${ADDCOMMENT}/${ID}`, 
+        Axios.put(`${process.env.MAIN_COMMENT}/${ID}`, 
         {            
             Description: e.target.newComment.value,
             User: "Vitor"
@@ -84,7 +83,7 @@ class ViewApp extends Component {
     getList(){
         const { ID } = this.props.location.state;        
         
-        Axios.get(`${TICKET}/${ID}`).then(res => {
+        Axios.get(`${process.env.MAIN_TICKET}/${ID}`).then(res => {
             console.log(res.data);
             res.data.Ticket.Comments.map(UserComment => {
                 this.state.Comments.push(UserComment)

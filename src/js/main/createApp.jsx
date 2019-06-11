@@ -4,9 +4,6 @@ import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 import EncapsulationHeader from './encapusationHeader'
 
-const TICKET = 'http://localhost:2000/api/tickets/getTicket'
-const ADDTICKET = 'http://localhost:2000/api/tickets/createTicket'
-
 class CreateApp extends Component {
     constructor(){
         super();     
@@ -38,7 +35,7 @@ class CreateApp extends Component {
     componentDidMount(){ 
         if(this.props.location.state){
             const { ID } = this.props.location.state; 
-            Axios.get(`${TICKET}/${ID}`).then(res => {
+            Axios.get(`${process.env.MAIN_TICKET}/${ID}`).then(res => {
         
                 this.setState({
                     Title: res.data.Ticket.Title,
@@ -66,7 +63,7 @@ class CreateApp extends Component {
         this.setState({
             Loading: true
         }, () => {
-            Axios.post(`${ADDTICKET}`, 
+            Axios.post(`${process.env.MAIN_CREATE_TICKET}`, 
             {    
                 Title: data.filterTitle.value,            
                 Client: data.filterClient.value,

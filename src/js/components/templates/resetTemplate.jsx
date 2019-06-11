@@ -6,7 +6,7 @@ import Failed from '../failed';
 const ResetTemplate = ({ loginFunc, errorMessage, currentValue, failed, ResetPassword,  message, type, placeholder, name, id, buttonTitle, handleChange }) => ( 
     <div className="centerDiv"> 
     {!!failed && <Failed message={errorMessage}/>}       
-        <div className="loginTemplate">
+        <div id="main" className="content-reset">
             <form onSubmit={loginFunc}>
                 <div className="alignTitleContent">
                     Reset Password

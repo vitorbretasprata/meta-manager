@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { VERIFY, URL } from '../components/utils/consts';
+import checkError from '../components/utils/checkError';
 
 const AuthContext = React.createContext();
 
@@ -10,91 +10,102 @@ class AuthProvider extends Component{
         this.logout = this.logout.bind(this);
         this.login = this.login.bind(this);
         this.state = {        
-            isAuth: false,
-            paramEmail: '',
-            paramPassword: '',
-            paramRemember: '',
+            isAuth: false,           
             nameUser: '',
-            failedLogin: false           
+            failedLogin: false,
+            messageError: '',
+            userInfo: {}         
         }
+    }    
+
+    checkToken = () => {
+        let token = localStorage.getItem("token_id");
+
+        if(!token) {
+            token = sessionStorage.getItem("token_id");
+        }
+
+        return token;
     }
 
-    isAuthenticated(token = '', remember = false){        
-        if(token == ''){
-            const localToken = localStorage.getItem('token_id');
-            const sessionToken = sessionStorage.getItem('token_id');
-    
-            if(!localToken && !sessionToken) {            
-                return false;
-            }
+    simpleAuth = () => {
+        const token = localStorage.getItem("token_id") || sessionStorage.getItem("token_id");
 
-            if(typeof localToken == 'undefined'){
-                token = sessionToken;
-            } else {
-                token = localToken;
-            }
-        } 
-        
-        const header = {
-            'Authorization' : `Bearer ${token}`
-        }       
-
-        Axios.post(VERIFY, {}, { headers: header }).then(res => {            
-            this.setState({
-                isAuth: true,                   
-                nameUser: res.data.authData.payload.name
-            }, () => {
-                if(remember) {
-                    localStorage.setItem('token_id', token);
-                } else {
-                    sessionStorage.setItem('token_id', token);
-                }                            
-            });
-        }).catch(err => {
-            console.log(this.state.isAuth);
-            console.log(err.message);
-        });
-        return true; 
-    }
-
-    simpleAuth(){
-        const localToken = localStorage.getItem('token_id');
-        const sessionToken = sessionStorage.getItem('token_id');
-        console.log(this.state.nameUser);
-        if(!localToken && !sessionToken) {            
+        if(!token) {
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
-    login(e){
-        e.preventDefault();
-        const remember = e.target.rememberMe.checked;    
-        this.setState({
-            paramEmail: e.target.email.value,
-            paramPassword: e.target.password.value ,
-            paramRemember: e.target.rememberMe.value           
-        }, () => {
-            Axios.post(URL, 
-                {
-                    email: this.state.paramEmail,
-                    password: this.state.paramPassword                    
-                }).then((response) => {
-                    this.isAuthenticated(response.data.token, remember);                    
-                }).catch(error => { 
-                    this.setState({
-                        failedLogin: true
-                    });                   
-                    console.log(error.message);
-            })
-        });        
+    authenticateUser = async (token) => {
+
+        const validToken = await Axios.post("http://localhost:2000/api/auth/checkToken", token);
+
+        const checked = checkError(validToken);
+
+        if(checked.code) {
+            return {
+                failedLogin: true,
+                messageError: checked.message
+            }
+        }
+
+        return checked;
     }
 
-    logout(){        
+    login = async (e) => {
+
+        try {
+
+            e.preventDefault();
+            const { target } = e;
+
+            const body = {
+                email: target.email.value,
+                password: target.password.value
+            }
+            const remember = e.target.rememberMe.checked;            
+            const response = await Axios.post("http://localhost:2000/api/auth/login", body);
+            
+            const checked = checkError(response);
+
+            if (checked.code) {
+                this.setState({
+                    failedLogin: true,
+                    messageError: checked.message
+                });
+            } else {
+                if(remember) {
+                    localStorage.setItem('token_id', checked);
+                } else {
+                    sessionStorage.setItem('token_id', checked);
+                }
+            } 
+            
+            const userInfo = this.authenticateUser(checked);
+
+            if(userInfo.failedLogin) {
+                this.setState({
+                    failedLogin: true,
+                    messageError: checked.message
+                });
+            } else {
+                this.setState({
+                    userInfo: userInfo
+                });
+            }
+
+        } catch (error) {
+            console.log(error);
+        }             
+    }
+
+    logout = () => {        
         
         sessionStorage.removeItem("token_id");
         localStorage.removeItem("token_id");
+
         this.setState({
             isAuth: false
         });        
@@ -106,9 +117,9 @@ class AuthProvider extends Component{
                 value={{
                     state: this.state,                    
                     logout: this.logout,                    
-                    isAuthenticated: this.isAuthenticated, 
                     login: this.login,
-                    simpleAuth: this.simpleAuth                 
+                    checkToken: this.checkToken,
+                    simpleAuth: this.simpleAuth
                 }}>
                 {this.props.children}
             </AuthContext.Provider>

@@ -3,57 +3,92 @@ import Input from '../inputs';
 import Button from '../button';
 import SuccessRegistration from '../successRegistration';
 import { Link } from 'react-router-dom';
-import Select from 'react-select';
-import { occupation, team } from '../utils/consts'
 import Failed from '../failed';
+import ReactLoading from 'react-loading';
 
-const registerTemplate = ({ registerFunc, failedMessage }) => (
+const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage, showUser, showCompany, classUser, classCompany, visibilityCompany, visibilityUser, isLoading }) => (
     <div className="centerDiv">
-        {!!failedMessage && <Failed message="Failed to registrate: Email already in use!"/>} 
-        <div className="loginTemplate">
-            <div className="alignTitleContent">
-                <h2>Register</h2>
+        {!!failed && <Failed message={failedMessage}/>}    
+        
+        <div id="main">
+            <div className='tab-btn'>
+                <a href="#" className={classUser} onClick={showUser}>User</a>
+                <a href="#" className={classCompany} onClick={showCompany}>Company</a>
             </div>
-            <form onSubmit={registerFunc} method='POST'>
-                <div className="gridName">
-                    <div>
-                        <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName"/>
-                    </div>
-                    <div>
-                        <Input type="text" placeholder="Last Name" id="lastNameRegister" name="lastName"/>
-                    </div>    
-                </div>                
-                <Input type="email" placeholder="Email Address" id="emailRegister" name="email"/> 
-                <Input type="text" placeholder="Login Name" id="loginRegister" name="login"/>   
-                <div className="gridName">
-                    <div>
-                        <Input type="password" placeholder="Password" id="passwordRegister" name="password"/>                    </div>
-                    <div>
-                        <Input type="password" placeholder="Confirm Password" id="passwordConf" name="confirm"/>
-                    </div>    
-                </div>                
-                <div className="gridName selects">
-                    <div>
-                        <Select options={team} placeholder="Team" name="team" />                         
-                    </div>
-                    <div>
-                        <Select options={occupation} placeholder="Occupation" name="occupation" />
-                    </div>    
+                
+            {!!visibilityUser && <div className="content-register"> 
+                <div className="alignTitleContent">
+                    <h2>User</h2>
                 </div>
-                          
-                <div className="form-group row">
-                    <Button type="submit"
-                    divClass="col-sm-12"
-                    buttonClass="btn btn-dark loginButton"
-                    textButton="Submit"/>               
-                </div>  
-                <div className="alignCenter">
-                    <Link to="/login">Login</Link>
-                </div>          
-            </form>
-        </div> 
-    </div>
-    
+                <form onSubmit={registerUser} method='POST'>
+                    <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName"/>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="text" placeholder="Last Name" id="lastNameRegister" name="lastName"/>
+                        </div>    
+                    </div>                
+                    <Input type="email" placeholder="Email Address" id="emailRegister" name="email"/> 
+                    <Input type="text" placeholder="Login Name" id="loginRegister" name="login"/>   
+                    <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="password" placeholder="Password" id="passwordRegister" name="password"/>  
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="password" placeholder="Confirm Password" id="passwordConf" name="confirm"/>
+                        </div>    
+                    </div>                 
+                    <div className="form-group row">
+                        <div className="col-sm-12">
+                            <button className="btn btn-dark loginButton" type="submit">
+                                {isLoading ? <ReactLoading type="spin" id="loading" color="white" height={25} width={25}/> : "Submit"}
+                            </button>  
+                        </div>                                                            
+                    </div>  
+                    <div className="alignCenter">
+                        <Link to="/login">Login</Link>
+                    </div>          
+                </form>
+            </div>} 
+
+            {!!visibilityCompany && <div className="other-register">
+                <div className="alignTitleContent">
+                    <h2>Company</h2>
+                </div>
+                <form onSubmit={registerCompany} method='POST' className="row">
+                    <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName"/>
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="text" placeholder="Last Name" id="lastNameRegister" name="lastName"/>
+                        </div>    
+                    </div>                
+                    <Input type="email" placeholder="Email Address" id="emailRegister" name="email"/> 
+                    <Input type="text" placeholder="Company Name" id="loginRegister" name="login"/>   
+                    <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="password" placeholder="Password" id="passwordRegister" name="password"/>  
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12">
+                            <Input type="password" placeholder="Confirm Password" id="passwordConf" name="confirm"/>
+                        </div>    
+                    </div>     
+                    <div className="form-group row">
+                        <div className="col-sm-12">
+                            <button className="btn btn-dark loginButton" type="submit">
+                                {isLoading ? <ReactLoading type="spin" id="loading" color="white" height={25} width={25}/> : "Submit"}
+                            </button>  
+                        </div>              
+                    </div>  
+                    <div className="alignCenter">
+                        <Link to="/login">Login</Link>
+                    </div>          
+                </form>
+            </div>}
+        </div>                
+    </div>    
 )
 
 export default registerTemplate;

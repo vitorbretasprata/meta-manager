@@ -11,7 +11,8 @@ class LoginApp extends Component{
                 <div className="centerDiv">
                     {!context.state.isAuth ? (
                         <LoginTemplate 
-                        failedLogin={context.state.failedLogin}            
+                        failedLogin={context.state.failedLogin}    
+                        messageError={context.state.messageError}        
                         sourcePathImage="../src/images/logo.png" 
                         height="80" 
                         width="250"

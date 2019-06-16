@@ -62,8 +62,8 @@ class AuthProvider extends Component{
             const { target } = e;
 
             const body = {
-                email: target.email.value,
-                password: target.password.value
+                Email: target.email.value,
+                Password: target.password.value
             }
             const remember = e.target.rememberMe.checked;            
             const response = await Axios.post("http://localhost:2000/api/auth/login", body);

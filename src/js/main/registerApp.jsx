@@ -70,7 +70,7 @@ class RegisterApp extends Component {
 
             this.setState({
                 failed: true,
-                error: error
+                error: error.message
             });
 
         }    
@@ -125,7 +125,7 @@ class RegisterApp extends Component {
             console.log(error);
             this.setState({
                 failed: true,
-                error: error
+                error: error.message
             });
 
         }    

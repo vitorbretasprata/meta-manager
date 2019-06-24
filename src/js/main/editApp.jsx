@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
-import EncapsulationHeader from './encapusationHeader';
+import SideBar from './sideBar';
 
 const ALTERTICKET = 'http://localhost:2000/api/tickets/alterTicket'
 const TICKET = 'http://localhost:2000/api/tickets/getTicket'
@@ -134,9 +134,9 @@ class EditApp extends Component {
 
         if(val.Error){
             return(
-                <EncapsulationHeader>
+                <SideBar>
                     <Error errorMessage={val.Error} />
-                </EncapsulationHeader>
+                </SideBar>
             )           
         } else if(SuccessEdit){
             return (
@@ -150,7 +150,7 @@ class EditApp extends Component {
             )
         } else {
             return ( 
-                <EncapsulationHeader>
+                <SideBar>
                     <EditTemplate 
                     method="PUT"
                     editTicket={this.saveEdition}
@@ -173,7 +173,7 @@ class EditApp extends Component {
                     selectedStatus={val.State}
                     selectedCategory={val.Category}
                     />
-                </EncapsulationHeader>                                  
+                </SideBar>                                  
             )
         }
     }

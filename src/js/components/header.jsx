@@ -52,14 +52,14 @@ class Header extends Component {
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 
                                     {!!context.simpleAuth() ? (
-                                            <div>
+                                            <div className="textColor">
                                                 <UncontrolledDropdown nav inNavbar>
                                                     <DropdownToggle nav caret>
-                                                    Hello {context.state.nameUser}
+                                                    Hello {context.state.UserName}
                                                     </DropdownToggle>
                                                     <DropdownMenu right>
                                                     <DropdownItem>
-                                                        <button className="dropdownButton" onClick={context.logout}>Logout</button>
+                                                        <a href="#" className="dropdownButton" onClick={context.logout}>Logout</a>
                                                     </DropdownItem>                                                                                                    
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>                                                                                

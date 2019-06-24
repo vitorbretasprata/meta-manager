@@ -13,11 +13,12 @@ import EditApp from './editApp';
 import CreateApp from './createApp';
 import AboutApp from './aboutApp';
 import ResetApp from './resetApp';
+import history from '../components/utils/history';
 
 class Routes extends Component {    
     render(){        
         return (    
-            <BrowserRouter>   
+            <BrowserRouter history={history}>   
                 <AuthProvider>                   
                     <Switch>
                         <Route path='/login' component={LoginApp} />      

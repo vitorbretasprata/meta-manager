@@ -12,7 +12,8 @@ class LoginApp extends Component{
                     {!context.state.isAuth ? (
                         <LoginTemplate 
                         failedLogin={context.state.failedLogin}    
-                        messageError={context.state.messageError}        
+                        messageError={context.state.messageError}
+                        redirect={context.redirect}        
                         sourcePathImage="../src/images/logo.png" 
                         height="80" 
                         width="250"

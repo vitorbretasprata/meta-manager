@@ -3,7 +3,7 @@ import ViewTemplate from '../components/templates/viewTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import Failed from '../components/failed'
-import EncapsulationHeader from './encapusationHeader';
+import SideBar from './sideBar';
 
 class ViewApp extends Component {
     constructor(){
@@ -123,9 +123,9 @@ class ViewApp extends Component {
 
         if(val.Error){
             return (
-                <EncapsulationHeader>
+                <SideBar>
                     <Failed message={val.Error} />
-                </EncapsulationHeader>               
+                </SideBar>               
             )
         } else if(val.Deleted){
             return (
@@ -151,7 +151,7 @@ class ViewApp extends Component {
             });
             
             return (
-                <EncapsulationHeader>
+                <SideBar>
                     <ViewTemplate            
                     titleTicket={val.Title}
                     importanceTicket={val.Importance}
@@ -172,7 +172,7 @@ class ViewApp extends Component {
                         state: { ID: this.props.location.state.ID }
                     }}
                     />
-                </EncapsulationHeader>                
+                </SideBar>                
             )
         }
 

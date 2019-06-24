@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import checkError from '../components/utils/checkError';
+import history from '../components/utils/history';
 
 const AuthContext = React.createContext();
 
@@ -14,19 +15,10 @@ class AuthProvider extends Component{
             nameUser: '',
             failedLogin: false,
             messageError: '',
-            userInfo: {}         
+            UserName: "",
+            isLoading: false            
         }
-    }    
-
-    checkToken = () => {
-        let token = localStorage.getItem("token_id");
-
-        if(!token) {
-            token = sessionStorage.getItem("token_id");
-        }
-
-        return token;
-    }
+    }   
 
     simpleAuth = () => {
         const token = localStorage.getItem("token_id") || sessionStorage.getItem("token_id");
@@ -58,6 +50,10 @@ class AuthProvider extends Component{
 
         try {
 
+            this.setState({
+                isLoading: true
+            });
+
             e.preventDefault();
             const { target } = e;
 
@@ -77,23 +73,27 @@ class AuthProvider extends Component{
                 });
             } else {
                 if(remember) {
-                    localStorage.setItem('token_id', checked);
+                    localStorage.setItem('token_id', checked.token);
                 } else {
-                    sessionStorage.setItem('token_id', checked);
+                    sessionStorage.setItem('token_id', checked.token);
                 }
             } 
             
-            const userInfo = this.authenticateUser(checked);
+            const userInfo = this.authenticateUser(checked.token);
 
             if(userInfo.failedLogin) {
                 this.setState({
                     failedLogin: true,
+                    isLoading: false,
                     messageError: checked.message
                 });
             } else {
                 this.setState({
-                    userInfo: userInfo
+                    UserName: checked.Name,
+                    isLoading: false
                 });
+
+                history.push('/');
             }
 
         } catch (error) {
@@ -111,11 +111,12 @@ class AuthProvider extends Component{
         });        
     }   
 
-    render(){
+    render(){        
+
         return(
             <AuthContext.Provider
                 value={{
-                    state: this.state,                    
+                    state: this.state, 
                     logout: this.logout,                    
                     login: this.login,
                     checkToken: this.checkToken,

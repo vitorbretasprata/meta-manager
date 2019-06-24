@@ -4,10 +4,10 @@ import { AuthConsumer } from './AuthContext'
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <AuthConsumer>
-    {({ checkToken }) => (
+    {({ simpleAuth }) => (
       <Route
         render={props =>
-          checkToken() ? <Component {...props} /> : <Redirect to="/login" />
+          simpleAuth() ? <Component {...props} /> : <Redirect to="/login" />
         }
         {...rest}
       />

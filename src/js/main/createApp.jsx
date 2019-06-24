@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
-import EncapsulationHeader from './encapusationHeader'
+import SideBar from './sideBar'
 
 class CreateApp extends Component {
     constructor(){
@@ -122,9 +122,9 @@ class CreateApp extends Component {
 
         if(val.Error){
             return (
-                <EncapsulationHeader>
+                <SideBar>
                     <Error errorMessage={val.Error} />
-                </EncapsulationHeader>
+                </SideBar>
             )
         } else if(SuccessAdd){
             return (
@@ -138,7 +138,7 @@ class CreateApp extends Component {
             )
         } else  if(this.props.location.state == undefined){
             return (
-                <EncapsulationHeader>
+                <SideBar>
                     <EditTemplate 
                     method="POST"
                     editTicket={this.saveAdd}
@@ -157,7 +157,7 @@ class CreateApp extends Component {
                     changeClient={this.handleClient}
                     changeDesc={this.handleDesc}
                     />
-                </EncapsulationHeader>                
+                </SideBar>                
             )
         } 
     }

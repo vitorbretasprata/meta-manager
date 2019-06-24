@@ -2,9 +2,11 @@ import React from 'react';
 import Input from '../inputs';
 import Button from '../button';
 import { Link } from 'react-router-dom';
-import Failed from '../failed'
+import Failed from '../failed';
+import ReactLoading from 'react-loading';
 
-const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin, messageError }) => ( 
+
+const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin, messageError, isLoading }) => ( 
     <div className="centerDiv">
         {!!failedLogin && <Failed message={`Failed to login: ${messageError}`}/>}
         <div className="content-login">
@@ -18,11 +20,10 @@ const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin,
                     <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe"/>
                     <label class="custom-control-label textColor" for="rememberMe">Remember me</label>
                 </div>
-                <div className="form-group row">
-                    <Button type="submit"
-                    divClass="col-sm-12"
-                    buttonClass="btn btn-dark loginButton"
-                    textButton="Submit"/>               
+                <div className="form-group">
+                    <button className="btn btn-dark loginButton" type="submit">
+                        {isLoading ? <ReactLoading type="spin" id="loading" color="white" height={25} width={25}/> : "Submit"}
+                    </button>          
                 </div>  
                 <div className="alignCenter">
                     <Link to="/register">Register</Link> | <Link to="/resetPassword">Reset Password</Link>

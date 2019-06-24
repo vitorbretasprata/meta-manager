@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import DashBoardTemplate from '../components/templates/dashboardTemplate'
-import EncapsulationHeader from './encapusationHeader';
+import SideBar from './sideBar';
 
 class DashBoardApp extends Component{
     render(){
-        return (
-            <EncapsulationHeader>
+        return(
+            <SideBar>
                 <DashBoardTemplate />
-            </EncapsulationHeader>           
-        )
+            </SideBar>
+        );
     }
 }
 

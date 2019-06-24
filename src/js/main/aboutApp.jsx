@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import AboutTemplate from '../components/templates/aboutTemplate';
-import EncapsulationHeader from './encapusationHeader';
+import SideBar from './sideBar';
 
 class AboutApp extends Component {
     
     render(){    
         return (
-            <EncapsulationHeader>
+            <SideBar>
                 <AboutTemplate/> 
-            </EncapsulationHeader>
+            </SideBar>
         )                  
     }
 }

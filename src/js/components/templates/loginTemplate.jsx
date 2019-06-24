@@ -25,7 +25,7 @@ const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin,
                         {isLoading ? <ReactLoading type="spin" id="loading" color="white" height={25} width={25}/> : "Submit"}
                     </button>          
                 </div>  
-                <div className="alignCenter">
+                <div className="alignContent">
                     <Link to="/register">Register</Link> | <Link to="/resetPassword">Reset Password</Link>
                 </div>          
             </form>

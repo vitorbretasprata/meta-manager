@@ -46,7 +46,7 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                             </button>  
                         </div>                                                            
                     </div>  
-                    <div className="alignCenter">
+                    <div className="alignContent">
                         <Link to="/login">Login</Link>
                     </div>          
                 </form>
@@ -56,7 +56,7 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                 <div className="alignTitleContent">
                     <h2>Company</h2>
                 </div>
-                <form onSubmit={registerCompany} method='POST' className="row">
+                <form onSubmit={registerCompany} method='POST'>
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName"/>
@@ -82,7 +82,7 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                             </button>  
                         </div>              
                     </div>  
-                    <div className="alignCenter">
+                    <div className="alignContent">
                         <Link to="/login">Login</Link>
                     </div>          
                 </form>

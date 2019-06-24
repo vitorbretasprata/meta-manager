@@ -148,11 +148,6 @@ html, body, #app {
     width: 100%;    
 }
 
-.alignCenter{
-    align-self: center;
-    padding-bottom: 10px;
-}
-
 .alignContent{
     text-align: center;
     padding: 5px 0;
@@ -188,7 +183,6 @@ html, body, #app {
 }
 
 .alignTitleContent{
-    align-self: center;
     text-align: center;
     padding: 10px 0;
     font-size: 20px;

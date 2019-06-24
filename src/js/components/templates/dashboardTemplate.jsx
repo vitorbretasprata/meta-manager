@@ -18,8 +18,10 @@ class DashboardTemplate extends Component {
        this.toggle = this.toggle.bind(this);
        this.nextPage = this.nextPage.bind(this);
        this.previousPage = this.previousPage.bind(this);
+       this.onChange = this.onChange.bind(this);
        this.state = {
             tickets: [],
+            pageOfTickets: [],
             error: '',
             loading: false,
             Deleted: false,
@@ -65,6 +67,10 @@ class DashboardTemplate extends Component {
 
         const { paginator } = this.state;
         this.loadData(paginator);
+    }
+
+    onChangePage = () => {
+        this.setState({ tickets })
     }
     
     filterSearch = async (e) => {
@@ -145,8 +151,12 @@ class DashboardTemplate extends Component {
                     Authorization: `Bearer ${token}`,
                 }
             }
+
+            const params = {
+                page: paginator.currentPage
+            }
     
-            const response = await Axios.post("http://localhost:2000/api/tickets/getTickets", paginator, config);
+            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", params, config);
     
             const { tickets } = response.data;   
 

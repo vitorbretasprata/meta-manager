@@ -101,8 +101,6 @@ class RegisterApp extends Component {
 
             const response = await Axios.post('http://localhost:2000/api/auth/register', userInfo);
 
-            console.log(response);
-
             const checked = checkError(response);
 
             if (checked.code) {

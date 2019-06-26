@@ -3,36 +3,27 @@ import Axios from 'axios';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash, faEye, faSearch, faArrowAltCircleRight, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash, faEye, faSearch, faCross, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Failed from '../failed'
 import { Col, Row, Form, FormGroup, Collapse, Button } from 'reactstrap';
-import ListContent from '../list';
 import Input from '../inputs';
 import { Category, Importance, Status } from '../utils/consts';
 import Loading from '../loading';
+import Pagination from '../utils/Pagination';
 
 class DashboardTemplate extends Component { 
     constructor(){
        super();
        this.filterSearch = this.filterSearch.bind(this);
        this.toggle = this.toggle.bind(this);
-       this.nextPage = this.nextPage.bind(this);
-       this.previousPage = this.previousPage.bind(this);
-       this.onChange = this.onChange.bind(this);
+       this.onChangePage = this.onChangePage.bind(this);
        this.state = {
             tickets: [],
             pageOfTickets: [],
             error: '',
             loading: false,
             Deleted: false,
-            users: [],
-            collapse: false,
-            paginator: {
-                currentPage: 1,
-                maxPages: 1,
-                maxResults: 0,
-                total: 0
-            }
+            collapse: false            
        }
     }
 
@@ -43,34 +34,10 @@ class DashboardTemplate extends Component {
 
     toggle = () => {
         this.setState(state => ({ collapse: !state.collapse }));
-    }
+    }    
 
-    nextPage = () => {
-        this.setState({
-            paginator: {
-                ...this.state.paginator,
-                currentPage: this.state.paginator.currentPage + 1
-            }
-        });
-
-        const { paginator } = this.state;
-        this.loadData(paginator);
-    }
-
-    previousPage = () => {
-        this.setState({
-            paginator: {
-                ...this.state.paginator,
-                currentPage: this.state.paginator.currentPage - 1
-            }
-        });
-
-        const { paginator } = this.state;
-        this.loadData(paginator);
-    }
-
-    onChangePage = () => {
-        this.setState({ tickets })
+    onChangePage = (pageOfTickets) => {
+        this.setState({ pageOfTickets: pageOfTickets })
     }
     
     filterSearch = async (e) => {
@@ -139,7 +106,7 @@ class DashboardTemplate extends Component {
         }
     }
 
-    loadData = async (paginator = {}) => {
+    loadData = async () => {
         try {
             this.setState({
                 loading: true
@@ -150,13 +117,9 @@ class DashboardTemplate extends Component {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
-            }
-
-            const params = {
-                page: paginator.currentPage
-            }
+            }            
     
-            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", params, config);
+            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", config);
     
             const { tickets } = response.data;   
 
@@ -180,7 +143,7 @@ class DashboardTemplate extends Component {
     }              
 
     render(){            
-        const { loading, error, tickets, paginator } = this.state;         
+        const { loading, error, tickets, pageOfTickets } = this.state;         
 
         if(loading){
             return <Loading type="spin" color="#000" size="10%" classname="centerDiv" />
@@ -195,25 +158,12 @@ class DashboardTemplate extends Component {
             return (
                 <div className="tablePosition">
                     <div className="tableOptions">
-                        <div>
-                            <Button onClick={this.toggle}>
-                                <FontAwesomeIcon icon={faSearch} size="1x" />
-                            </Button>
-                        </div>
-                        <div>
-                            <Button onClick={this.previousPage} isDisabled={(paginator.currentPage <= 1) ? true : false}>
-                                <FontAwesomeIcon icon={faArrowAltCircleLeft} size="1x"/>
-                            </Button>
-                        </div>
-                        <div>
-                            <Button onClick={this.nextPage} isDisabled={(paginator.currentPage <= paginator.maxPages) ? true : false}>
-                                <FontAwesomeIcon icon={faArrowAltCircleRight} size="1x"/>
-                            </Button>
-                        </div>
-
-                        <div>
-                            2 - 2 of 2
-                        </div>
+                        <Button onClick={this.toggle}>
+                            <FontAwesomeIcon icon={faSearch} size="1x" />
+                        </Button>
+                        <Link to="/create" className="btn btn-secondary">
+                            <FontAwesomeIcon icon={faPlus} size="1x" />
+                        </Link>
                     </div>
                     <Collapse isOpen={this.state.collapse}>
                         <Form onSubmit={this.filterSearch}>    
@@ -272,9 +222,9 @@ class DashboardTemplate extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {tickets.map(ticket => 
+                            {pageOfTickets.map(ticket => 
                             <tr key={ticket._id}>
-                                <td scope="row">{ticket.filterID}</td>
+                                <td scope="row">{ticket.FilterID}</td>
                                 <td>
                                     <Link to={
                                         { 
@@ -315,7 +265,9 @@ class DashboardTemplate extends Component {
                                 </td>                                
                             </tr>)}
                         </tbody>
-                    </table>            
+                    </table> 
+                    <Pagination items={tickets} onChangePage={this.onChangePage}/> 
+
                 </div>
             )
         }   

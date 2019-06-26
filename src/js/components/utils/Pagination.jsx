@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    items: PropsTypes.array.isRequired,
+    items: PropTypes.array.isRequired,
     onChangePage: PropTypes.func.isRequired,
-    initialPage: PropsTypes.number,
+    initialPage: PropTypes.number,
     pageLimit: PropTypes.number
 }
 
@@ -26,14 +26,14 @@ class Pagination extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.props.items !== prevProps.item) {
+        if(this.props.items !== prevProps.items) {            
             this.setPage(this.props.initialPage);
         }
     }
 
     setPage = (page) => {
         const { items, pageSize } = this.props;
-        const pager = this.state.pager;
+        let pager = this.state.pager;
 
         if(page < 1 || page > pager.maxPages) {
             return;
@@ -43,7 +43,7 @@ class Pagination extends Component {
 
         let pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
 
-        this.setState({ pager });
+        this.setState({ pager: pager });
 
         this.props.onChangePage(pageOfItems);
     }
@@ -62,7 +62,7 @@ class Pagination extends Component {
         } else {
             if(currentPage <= 6) {
                 startPage = 1;
-                endPage = 10
+                endPage = 10;
             } else if(currentPage + 4 >= maxPages) {
                 startPage = maxPages - 9;
                 endPage = maxPages;
@@ -100,25 +100,28 @@ class Pagination extends Component {
 
 
         return (
-            <ul className="pagination">
-                <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(1)}>First</a>
-                </li>
-                <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
-                </li>
-                {pager.pages.map((page, index) => 
-                    <li key={index} className={pager.currentPage === page ? 'active' : ''}>
-                        <a onClick={() => this.setPage(page)}>{page}</a>
-                    </li>    
-                )}
-                <li className={pager.currentPage === pager.maxPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
-                </li>
-                <li className={pager.currentPage === pager.maxPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.maxPages)}>Last</a>
-                </li>
-            </ul>
+            <nav aria-label="Page navigation example">
+                <ul className="pagination justify-content-center">
+                    <li className={pager.currentPage === 1 ? 'page-item disabled' : 'page-item'}>
+                        <a className="page-link" onClick={() => this.setPage(1)}>First</a>
+                    </li>
+                    <li className={pager.currentPage === 1 ? 'page-item disabled' : 'page-item'}>
+                        <a className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
+                    </li>
+                    {pager.pages.map((page, index) => 
+                        <li key={index} className={pager.currentPage === page ? 'page-item active' : 'page-item'}>
+                            <a className="page-link" onClick={() => this.setPage(page)}>{page}</a>
+                        </li>    
+                    )}
+                    <li className={pager.currentPage === pager.maxPages ? 'page-item disabled' : 'page-item'}>
+                        <a className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
+                    </li>
+                    <li className={pager.currentPage === pager.maxPages ? 'page-item disabled' : 'page-item'}>
+                        <a className="page-link" onClick={() => this.setPage(pager.maxPages)}>Last</a>
+                    </li>
+                </ul>
+            </nav>
+            
         )
     }   
 }

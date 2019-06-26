@@ -21,12 +21,16 @@
 }
 
 .tablePosition {
-    margin-top: 80px;
+    margin-top: 30px;
 }
 
 .tableOptions {
     width: 100%;
     height: 50px;
+}
+
+.tableOptions a {
+    margin-left: 10px;
 }
 
 .tableOptions div{
@@ -139,7 +143,7 @@ section, aside{
     width: 80px;
     background-color: #282c34;
     height: 100%;
-    position: absolute;
+    position: fixed;
     left: 0;
 }
 
@@ -165,6 +169,7 @@ html, body, #app {
     position: absolute;
     right: 50px;
     left: 100px;
+    height: 100%;
 }
 
 .selects{

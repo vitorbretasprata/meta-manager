@@ -48,23 +48,21 @@
     margin: 2px 0; 
 }
 
-.ticketWindow {
-    width: 100%; 
-    margin-top: 50px;
-    background-color:rgb(236, 230, 230);
-    border-radius: 10px;
+.labels > div {
+    display: inline-block;
+    margin: 5px;
+    width: 200px;
 }
 
 .ticketInfo,
 .ticketDescription,
 .ticketButtons,
 .ticketComments {
-    width:99%;
+    width:100%;
     margin: auto;
     background-color: #fff; 
     margin: 5px 5px;
     padding: 20px;
-    border-radius: 10px;    
 }
 
 .marginButtons,
@@ -72,6 +70,10 @@
 .Comments,
 .Space{
     margin: 5px;
+}
+
+.paddingTitle {
+    padding: 20px;
 }
 
 .authorComment{
@@ -83,26 +85,8 @@
     margin-top: 5px;
 }
 
-.editInputs{
-    border-radius: 5px;
-    border: 0.5px solid black;
-}
-
-.sizeInput{
-    width: 300px;    
-    padding: 5px;
-}
-
 .list-group{
     padding: 10px 0;
-}
-
-.information{
-    font-weight: bold;
-}
-
-.ticketWindow h3{
-    font-size: 1em;
 }
 
 /* width */
@@ -308,8 +292,8 @@ html, body, #app {
     color: #000!important;
 }
 
-.headerBg{
-    background-color: rgb(104, 104, 104);
+.errorMessage{
+    color: red;
 }
 
 footer{
@@ -467,5 +451,6 @@ footer{
 
 .information span{
     font-size: 20px;
-    margin: 0 5px;
+    margin: 10px 0;
+    display: block;
 }

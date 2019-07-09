@@ -1,23 +1,24 @@
 import React from 'react';
 import Input from '../inputs';
-import Button from '../button';
 import { Link } from 'react-router-dom';
 import Failed from '../failed';
 import ReactLoading from 'react-loading';
+import FormError from "../utils/formError";
 
-
-const LoginTemplate = ({ sourcePathImage, width, height, loginFunc, failedLogin, messageError, isLoading }) => ( 
+const LoginTemplate = ({ loginFunc, failedLogin, messageError, isLoading, valueEmail, valuePassword, handleEmail, handlePass, pswValid, emailValid, pswMSG, emailMSG, handleRemember }) => ( 
     <div className="centerDiv">
         {!!failedLogin && <Failed message={`Failed to login: ${messageError}`}/>}
         <div className="content-login">
-            <form onSubmit={loginFunc}>
-                <div className="alignTitleContent">
-                    <img src={sourcePathImage} width={width} height={height}/>
+            <form onSubmit={loginFunc} noValidate>
+                <div className="alignContent">
+                    <h2>Login</h2>
                 </div>
-                <Input type="email" placeholder="Email Address" name="email" id="emailLogin"/>
-                <Input type="password" placeholder="Password" name="password" id="passwordLogin"/>
+                <Input type="email" placeholder="Email Address" name="email" id="emailLogin" value={valueEmail} handleChange={handleEmail} />
+                <FormError isError={!emailValid} errorMsg={emailMSG} />
+                <Input type="password" placeholder="Password" name="password" id="passwordLogin" value={valuePassword} handleChange={handlePass} />
+                <FormError isError={!pswValid} errorMsg={pswMSG} />
                 <div class="custom-control custom-checkbox selects">
-                    <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe"/>
+                    <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe" onChange={handleRemember}/>
                     <label class="custom-control-label textColor" for="rememberMe">Remember me</label>
                 </div>
                 <div className="form-group">

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Failed = ({ message }) => (
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger container" role="alert">
         {message}
     </div>
 )

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import checkError from '../components/utils/checkError';
-import history from '../components/utils/history';
 
 const AuthContext = React.createContext();
 
@@ -9,14 +8,23 @@ class AuthProvider extends Component{
     constructor(){
         super();        
         this.logout = this.logout.bind(this);
-        this.login = this.login.bind(this);
+        this.handleUserInput = this.handleUserInput.bind(this);
+        this.handleRemember = this.handleRemember.bind(this);
+        this.checkInput = this.checkInput.bind(this);
+        this.errorClass = this.errorClass.bind(this);
         this.state = {        
             isAuth: false,           
-            nameUser: '',
+            email: '',
+            password: '',
+            remember: false,
             failedLogin: false,
             messageError: '',
-            UserName: "",
-            isLoading: false            
+            emailValid: false,
+            pswValid: false,
+            emailMSG: '',
+            pswMSG: '',
+            UserName: localStorage.getItem("user_name") || sessionStorage.getItem("user_name"),
+            isLoading: false
         }
     }   
 
@@ -28,6 +36,16 @@ class AuthProvider extends Component{
         }
 
         return true;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(localStorage.getItem("token_id") || sessionStorage.getItem("token_id")){
+            if(this.state.UserName != prevState.UserName || this.state.UserName == "") {
+                this.setState({
+                    UserName: localStorage.getItem("user_name") || sessionStorage.getItem("user_name")
+                });
+            }
+        }          
     }
 
     authenticateUser = async (token) => {
@@ -54,14 +72,13 @@ class AuthProvider extends Component{
                 isLoading: true
             });
 
-            e.preventDefault();
-            const { target } = e;
+            const { password, email, remember } = this.state;
 
             const body = {
-                Email: target.email.value,
-                Password: target.password.value
+                Email: email,
+                Password: password
             }
-            const remember = e.target.rememberMe.checked;            
+
             const response = await Axios.post("http://localhost:2000/api/auth/login", body);
             
             const checked = checkError(response);
@@ -74,8 +91,10 @@ class AuthProvider extends Component{
             } else {
                 if(remember) {
                     localStorage.setItem('token_id', checked.token);
+                    localStorage.setItem("user_name", checked.name);
                 } else {
                     sessionStorage.setItem('token_id', checked.token);
+                    sessionStorage.setItem("user_name", checked.name);
                 }
             } 
             
@@ -90,10 +109,9 @@ class AuthProvider extends Component{
             } else {
                 this.setState({
                     UserName: checked.Name,
-                    isLoading: false
+                    isLoading: false,
+                    isAuth: true
                 });
-
-                history.push('/');
             }
 
         } catch (error) {
@@ -101,10 +119,73 @@ class AuthProvider extends Component{
         }             
     }
 
+    handleUserInput = (e) => {
+        const { value, name } = e.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleRemember = (e) => {
+        const { checked } = e.target; 
+        this.setState({
+            remember: checked
+        });
+    } 
+    
+    checkInput = (e) => {
+        e.preventDefault();
+        let { pswMSG, pswValid, emailMSG, emailValid, password, email } = this.state;
+        
+        let rgEmail = new RegExp(/@.+\.+/gi);
+        emailValid = rgEmail.test(email);
+
+        if(email === '') {
+            emailMSG = 'Email is required';
+        } else if (!emailValid) {
+            emailMSG = 'Invalid email format';
+        } else {
+            emailMSG = '';
+        }    
+
+        if(password === '') {
+            pswMSG = 'Password is required';
+            pswValid = false;
+        } else {
+            pswMSG = '';
+            pswValid = true;
+        }  
+        
+        this.setState({
+            pswValid: pswValid,
+            pswMSG: pswMSG,
+            emailMSG: emailMSG,
+            emailValid: emailValid
+        }, () => this.checkValidation(this.state.emailValid, this.state.pswValid));
+    }
+
+    checkValidation = (emailValid, pswValid) => {
+        if(emailValid && pswValid) {
+            this.setState({
+                formValid: true
+            }, () => this.login());
+        } else {
+            this.setState({
+                formValid: false
+            });
+        }
+    }
+
+    errorClass = (error) => {
+        return(error.length === 0 ? '' : 'has-error');
+    }
+
     logout = () => {        
         
         sessionStorage.removeItem("token_id");
         localStorage.removeItem("token_id");
+        sessionStorage.removeItem("user_name");
+        localStorage.removeItem("user_name");
 
         this.setState({
             isAuth: false
@@ -118,9 +199,12 @@ class AuthProvider extends Component{
                 value={{
                     state: this.state, 
                     logout: this.logout,                    
-                    login: this.login,
+                    checkInput: this.checkInput,
                     checkToken: this.checkToken,
-                    simpleAuth: this.simpleAuth
+                    handleRemember: this.handleRemember,
+                    simpleAuth: this.simpleAuth,
+                    handleUserInput: this.handleUserInput,
+                    errorClass: this.errorClass 
                 }}>
                 {this.props.children}
             </AuthContext.Provider>

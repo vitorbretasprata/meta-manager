@@ -36,7 +36,7 @@ class Header extends Component {
             <header>
                 <AuthConsumer>
                     {(context) => (                                            
-                    <Navbar className="headerBg" expand="md">
+                    <Navbar color="dark" dark expand="md">
                         <div className="container-fluid">
                             <Link to="/" className="linksButton homeButton">Home</Link>
                             
@@ -52,9 +52,9 @@ class Header extends Component {
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 
                                     {!!context.simpleAuth() ? (
-                                            <div className="textColor">
+                                            <div>
                                                 <UncontrolledDropdown nav inNavbar>
-                                                    <DropdownToggle nav caret>
+                                                    <DropdownToggle nav caret className="textColor">
                                                     Hello {context.state.UserName}
                                                     </DropdownToggle>
                                                     <DropdownMenu right>

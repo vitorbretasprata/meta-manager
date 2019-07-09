@@ -4,29 +4,30 @@ import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 import SideBar from './sideBar';
 
-const ALTERTICKET = 'http://localhost:2000/api/tickets/alterTicket'
-const TICKET = 'http://localhost:2000/api/tickets/getTicket'
-
 class EditApp extends Component {
     constructor(){
         super();
 
-        this.saveEdition = this.saveEdition.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleSelectedDate = this.handleSelectedDate.bind(this);
-        this.handleTitle = this.handleTitle.bind(this);
-        this.handleClient = this.handleClient.bind(this);
-        this.handleDesc = this.handleDesc.bind(this);
+        this.handleText = this.handleText.bind(this);
+        this.checkInputTickets = this.checkInputTickets.bind(this);
 
         this.state = {            
-            Title: '',
-            Client: '',
-            Author: '',
-            Description: '',
-            DateCreated: '',
-            Importance: '',
-            State: '',
-            Term: new Date,
+            title: '',
+            client: '',
+            author: '',
+            description: '',
+            importance: '',
+            status: '',
+            term: new Date,
+            ticketError: {
+                title: '',
+                description: ''
+            },
+            ticketValid: {
+                title: false,
+                description: false
+            },
+            formValid: false,
             Error: '',
             Comments: [],
             Loading: true,            
@@ -37,102 +38,160 @@ class EditApp extends Component {
     }
 
     componentDidMount(){ 
-        if(this.props.location.state){
-            const { ID } = this.props.location.state; 
-            Axios.get(`${TICKET}/${ID}`).then(res => {
-    
-                res.data.Ticket.Comments.map(UserComment => {
+        this.loadTicket();           
+    }
+
+    _getToken = () => {
+        const token = localStorage.getItem("token_id") || sessionStorage.getItem("token_id");
+        return token;
+    }
+
+    loadTicket = async () => {
+
+        try {
+            if(this.props.location.state){
+                const { ID } = this.props.location.state; 
+
+                const response = await Axios.get("http://localhost:2000/api/tickets/getTicket/" + ID);
+                const { ticket } = response.data;
+
+                response.data.ticket.Comments.map(UserComment => {
                     this.state.Comments.push(UserComment)
                 });
-    
-                this.setState({
-                    Title: res.data.Ticket.Title,
-                    Client: res.data.Ticket.Client,
-                    Author: res.data.Ticket.Author,
-                    Description: res.data.Ticket.Description,
-                    DateCreated: res.data.Ticket.DateCreated,
-                    Importance: res.data.Ticket.Importance,
-                    State: res.data.Ticket.State,
-                    Term: res.data.Ticket.Term,
-                    Category: res.data.Ticket.Category,                     
-                    Comments: res.data.Ticket.Comments,
-                    Loading: false
-                });
-            }).catch(err => {
-                this.setState({
-                    Error: err,
-                    Loading: false
-                })
-            })
-        }  
-    }
 
-    saveEdition(e){
-        const { ID } = this.props.location.state; 
-        const data = e.target;
-        
-        e.preventDefault();
-        this.setState({
-            Loading: true
-        }, () => {
-            Axios.put(`${ALTERTICKET}/${ID}`, 
-            {
-                Title: data.filterTitle.value,            
-                Client: data.filterClient.value,
-                Description: data.filterDescription.value,                
-                Importance: data.filterImportance.value,
-                State: data.filterStatus.value,
-                Term: data.filterDate.value,
-                Category: data.filterCategory.value
-            }).then(res => {                
                 this.setState({
-                    Loading: false,
-                    SuccessEdit: true
+                    title: ticket.Title,
+                    client: ticket.Client,
+                    description: ticket.Description,
+                    importance: ticket.Importance,
+                    status: ticket.Status,
+                    term: ticket.Term,
+                    category: ticket.Category,                     
+                    Comments: ticket.Comments,
+                    Loading: false
                 });
-                
-            }).catch(err => {
-                this.setState({
-                    Loading: false,
-                    Error: err
-                });
+            }
+
+        } catch(error) {
+            this.setState({
+                Error: error.massage,
+                Loading: false
             });
-        });        
+        }   
     }
 
-    handleDateChange(date){
+    convertDate = (date) => {
+        let newDate = date.split("T")[0].split("-").reverse().join("/");
+        return newDate;
+    }
+
+    saveEdition = async () => {
+
+        try {
+
+            const { ID } = this.props.location.state; 
+            const { title, client, description, importance, term, status, category } = this.state;
+            const token = this._getToken();
+            
+            e.preventDefault();
+    
+            this.setState({
+                Loading: true
+            });
+
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+            
+            const body = {
+                Title: title,            
+                Client: client,
+                Description: description,                
+                Importance: importance,
+                Status: status,
+                Term: term,
+                Category: category
+            }
+            
+            await Axios.put("http://localhost:2000/api/tickets/editTicket/" + ID, body, config);
+            
+            this.setState({
+                Loading: false,
+                SuccessEdit: true
+            });    
+
+        } catch(error) {
+            this.setState({
+                Loading: false,
+                Error: error.message
+            });
+        }               
+    }
+
+    checkInputTickets = (e) => {
+        e.preventDefault();
+        let { title, description, ticketError, ticketValid } = this.state;        
+
+        if(title === '') {
+            ticketError.title = 'Title is required';
+            ticketValid.title = false;
+        } else {
+            ticketError.title = '';
+            ticketValid.title = true;
+        }   
+        
+        if(description === '') {
+            ticketError.description = 'Description is required';
+            ticketValid.description = false;
+        } else {
+            ticketError.description = '';
+            ticketValid.description = true;
+        }  
+        
         this.setState({
-            Term: date
+            ticketError: ticketError,
+            ticketValid: ticketValid            
+        }, () => this.checkValidationTickets(this.state.userValid));
+    }
+
+    checkValidationTickets = (valid) => {
+        if(valid.title && valid.description) {
+            this.setState({
+                formValid: true
+            });
+        } else {
+            this.setState({
+                formValid: false
+            }, () => this.saveEdition());
+        }
+    }
+
+    handleSelect = (e, value) => {
+        this.setState({
+            [value] : e.value
         });
     }
 
-    handleSelectedDate(){
-
-    }
-
-    handleTitle(e){
+    handleDate = e => {
         this.setState({
-            Title: e.target.value
+            term: e
         });
     }
 
-    handleClient(e){
+    handleText = async (e, value) => {
         this.setState({
-            Client: e.target.value
+            [value]: e.target.value
         });
     }
-
-    handleDesc(e){
-        this.setState({
-            Description: e.target.value
-        });
-    }
-
 
     render(){        
         const { SuccessEdit } = this.state;
         const val = this.state;
 
-        if(val.Error){
+        if(val.Error != ""){
             return(
                 <SideBar>
                     <Error errorMessage={val.Error} />
@@ -140,38 +199,32 @@ class EditApp extends Component {
             )           
         } else if(SuccessEdit){
             return (
-                <Redirect to={{
-                    pathname: '/view',
-                    state: { 
-                        ID: this.props.location.state.ID,
-                        SuccessEdit: true
-                    }
-                }} />
+                <Redirect to="/dashboard" />
             )
         } else {
             return ( 
                 <SideBar>
                     <EditTemplate 
-                    method="PUT"
-                    editTicket={this.saveEdition}
-                    titleTicket={val.Title}
-                    importanceTicket={val.Importance}
-                    authorTicket={val.Author}
-                    clientTicket={val.Client}
-                    termTicket={val.Term}                    
-                    descriptionTicket={val.Description}    
-                    cancelEdit={{ 
-                        pathname: '/view',
-                        state: { ID: this.props.location.state.ID }
-                    }}
-                    changeDate={this.handleDateChange}
-                    selectDate={this.handleSelectedDate}
-                    changeTitle={this.handleTitle}
-                    changeClient={this.handleClient}
-                    changeDesc={this.handleDesc}
-                    selectedImportance={val.Importance}
-                    selectedStatus={val.State}
-                    selectedCategory={val.Category}
+                        method="PUT"
+                        editTicket={this.checkInputTickets}
+                        titleTicket={val.Title}
+                        importanceTicket={val.Importance}
+                        authorTicket={val.Author}
+                        clientTicket={val.Client}
+                        termTicket={new Date(val.Term)}                    
+                        descriptionTicket={val.Description}    
+                        cancelEdit='/dashboard'
+                        Title="Edit Ticket"
+                        changeDate={e => this.handleDate(e)}
+                        changeTitle={e => this.handleText(e, "Title")}
+                        changeClient={e => this.handleText(e, "Client")}
+                        changeDesc={e => this.handleText(e, "Description")}
+                        changeStatus={e => this.handleSelect(e, 'Status')}
+                        changeImportance={e => this.handleSelect(e, 'Importance')}
+                        changeCategory={e => this.handleSelect(e, 'Category')}
+                        selectedImportance={val.Importance}
+                        selectedStatus={val.Status}
+                        selectedCategory={val.Category}
                     />
                 </SideBar>                                  
             )

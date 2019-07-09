@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faNewspaper, faUser, faTable } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faTable } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from 'reactstrap';
 
 class SideBar extends Component {
+    constructor(){
+        super();
+
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            tooltipOpen: false
+        };
+    }
+
+    toggle = () => {
+        this.setState({
+            tooltipOpen: !this.state.tooltipOpen
+        });
+    }
+
     render(){
         return (
             <div className="sideBarDiv">
@@ -20,9 +36,12 @@ class SideBar extends Component {
                             </Link>
                         </li>                        
                         <li>
-                            <Link to="/users">
+                            <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="users" toggle={this.toggle}>
+                                Coming soon!
+                            </Tooltip>
+                            <a href="#" id="users">
                                 <FontAwesomeIcon icon={faUser} size="2x"/>
-                            </Link>
+                            </a>
                         </li>
                     </ul>
                 </div>

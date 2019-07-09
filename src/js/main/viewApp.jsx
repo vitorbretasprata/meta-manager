@@ -25,51 +25,87 @@ class ViewApp extends Component {
             Category: '',
             Comments: [],
             Loading: true,
+            textComment: "",
             Deleted: false,
             open: false
         };
 
     }
 
-    deleteTicket(e){
-        const { ID } = this.props.location.state; 
-        e.preventDefault();
-        this.setState({
-            Loading: true 
-        }, () => {
-            Axios.delete(`${process.env.MAIN_DELETE_TICKET}/${ID}`).then(res => {
-                console.log(res);
-                this.setState({
-                    Deleted: true
-                })
-            }).catch(err => {
-                this.setState({
-                    Error: err
-                })
-            })
-        })     
+    _getToken = () => {
+        const token = localStorage.getItem("token_id") || sessionStorage.getItem("token_id");
+        return token;
     }
 
-    open(e){
+    deleteTicket = async (e) => { 
+        try {
+            e.preventDefault();
+
+            const { ID } = this.props.location.state; 
+            const token = this._getToken();
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+
+            this.setState({
+                Loading: true 
+            });
+            
+            await Axios.delete("http://localhost:2000/api/tickets/deleteTicket/" + ID, config);
+
+            this.setState({
+                Loading: false,
+                Deleted: true,
+            });
+    
+        } catch (error) {
+            this.setState({
+                Error: error.message,
+                Loading: false
+            });
+        }
+    }
+
+    open = (e) => {
         e.preventDefault();
         this.setState({
-            open: !this.state.open
+            open: !this.state.open,
+            textComment: ""
         });
     }
 
-    saveComment(e){
-        e.preventDefault();
-        const { ID } = this.props.location.state;        
-        Axios.put(`${process.env.MAIN_COMMENT}/${ID}`, 
-        {            
-            Description: e.target.newComment.value,
-            User: "Vitor"
-        }).then(res => {
-            console.log(res);    
-        })
+    handleText = (e, value) => {
+        this.setState({
+            [value]: e.target.value
+        });
     }
 
-    formatDate(date, timeToo = false){
+    saveComment = async(e) => {
+        e.preventDefault();
+        const { ID } = this.props.location.state; 
+
+        const token = this._getToken();
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        } 
+
+        const { textComment } = this.state;
+        
+        this.setState({
+            open: false,
+            textComment: ""
+        });
+
+        await Axios.put("http://localhost:2000/api/tickets/addComment/" + ID, { Description:  textComment }, config);
+
+        this.getList();        
+    }
+
+    formatDate = (date, timeToo = false) => {
         let formatedDate = date.split('T').shift().split('-').reverse().join('/');
 
         if(timeToo){  
@@ -80,34 +116,45 @@ class ViewApp extends Component {
         return formatedDate;
     }
 
-    getList(){
-        const { ID } = this.props.location.state;        
-        
-        Axios.get(`${process.env.MAIN_TICKET}/${ID}`).then(res => {
-            console.log(res.data);
-            res.data.Ticket.Comments.map(UserComment => {
-                this.state.Comments.push(UserComment)
-            });
+    getList = async() => {
+        try {
 
+            const { ID } = this.props.location.state;  
+
+            const token = this._getToken();
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+        
+            const response = await Axios.get("http://localhost:2000/api/tickets/getTicket/" + ID, config);
+    
+            const { ticket } = response.data;
+            const { Comments } = response.data.ticket;
+    
             this.setState({
-                Title: res.data.Ticket.Title,
-                Client: res.data.Ticket.Client,
-                Author: res.data.Ticket.Author,
-                Description: res.data.Ticket.Description,
-                DateCreated: res.data.Ticket.DateCreated,
-                Importance: res.data.Ticket.Importance,
-                State: res.data.Ticket.State,
-                Term: res.data.Ticket.Term,
-                Comments: res.data.Ticket.Comments,
-                Category: res.data.Ticket.Category,
+                Comments: [...Comments],
+                Title: ticket.Title,
+                Client: ticket.Client,
+                Author: ticket.Author,
+                Description: ticket.Description,
+                DateCreated: ticket.DateCreated,
+                Importance: ticket.Importance,
+                Status: ticket.Status,
+                Term: ticket.Term,
+                Comments: ticket.Comments,
+                Category: ticket.Category,
                 Loading: false
-            }, console.log(this.state.Comments));
-        }).catch(err => {
+            });  
+
+        } catch(error) {
+            console.log(error)
             this.setState({
-                Error: err,
+                Error: error.message,
                 Loading: false
-            })
-        });
+            });
+        }           
     }
 
     componentDidMount(){
@@ -116,7 +163,6 @@ class ViewApp extends Component {
 
 
     render(){
-
         const val = this.state;
         const DateCreatedFormated = this.formatDate(val.DateCreated);
         const TermFormated = this.formatDate(val.Term);
@@ -159,7 +205,7 @@ class ViewApp extends Component {
                     clientTicket={val.Client}
                     termTicket={TermFormated}
                     dateTicket={DateCreatedFormated}
-                    stateTicket={val.State}
+                    stateTicket={val.Status}
                     descriptionTicket={val.Description}
                     commentsTicket={Comments}
                     deleteTicket={this.deleteTicket}
@@ -171,6 +217,8 @@ class ViewApp extends Component {
                         pathname: '/edit',
                         state: { ID: this.props.location.state.ID }
                     }}
+                    textComment={val.textComment}
+                    handleComment={e => this.handleText(e, "textComment")}
                     />
                 </SideBar>                
             )

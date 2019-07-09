@@ -3,7 +3,7 @@ import LoginTemplate from '../components/templates/loginTemplate';
 import { Redirect } from 'react-router-dom';
 import { AuthConsumer } from './AuthContext';
 
-class LoginApp extends Component{
+class LoginApp extends Component{    
     render(){  
         return(
         <AuthConsumer>
@@ -13,12 +13,19 @@ class LoginApp extends Component{
                         <LoginTemplate 
                         failedLogin={context.state.failedLogin}    
                         messageError={context.state.messageError}
-                        redirect={context.redirect}        
-                        sourcePathImage="../src/images/logo.png" 
-                        height="80" 
-                        width="250"
+                        redirect={context.redirect}  
+                        valueEmail={context.state.email}
+                        handleEmail={context.handleUserInput}
+                        handlePass={context.handleUserInput}
+                        valuePassword={context.state.password}
+                        emailValid={context.state.emailValid}
+                        pswValid={context.state.pswValid}
+                        pswMSG={context.state.pswMSG}
+                        emailMSG={context.state.emailMSG}
+                        isDisabled={context.state.formValid}
+                        handleRemember={context.handleRemember}
                         classname="loginImage" 
-                        loginFunc={(e) => context.login(e)}/>
+                        loginFunc={context.checkInput}/>
                     ) : (
                         <Redirect to='/home' />
                     )}

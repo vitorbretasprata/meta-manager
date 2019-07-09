@@ -3,7 +3,7 @@ import Axios from 'axios';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash, faEye, faSearch, faCross, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash, faEye, faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Failed from '../failed'
 import { Col, Row, Form, FormGroup, Collapse, Button } from 'reactstrap';
 import Input from '../inputs';
@@ -46,6 +46,10 @@ class DashboardTemplate extends Component {
             e.preventDefault(); 
             const { target } = e;
 
+            this.setState({
+                loading: true
+            });
+
             const token = this.getToken();
             const config = {
                 headers: {
@@ -58,24 +62,24 @@ class DashboardTemplate extends Component {
                 Title: target.filterTitle.value,
                 Client: target.filterClient.value,
                 Category: target.filterCategory.value,
-                Author: target.filterOwner.value,
                 Importance: target.filterImportance.value,
-                State: target.filterState.value
+                Status: target.filterState.value
             }
 
             const response = await Axios.post("http://localhost:2000/api/tickets/filter", query, config);
-
             const { tickets } = response.data;
 
             this.setState({
-                ContentLoading: false,
-                tickets: [...tickets]
+                tickets: [...tickets],
+                pageOfTickets: [...tickets],
+                loading: false,
             });
 
         } catch(error) {
+            console.log(error);
             this.setState({
-                error: error,
-                ContentLoading: false              
+                error: error.message,
+                loading: false              
             });
         }     
     }
@@ -89,19 +93,15 @@ class DashboardTemplate extends Component {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
-            }
-
-            this.setState({
-                Loading: true 
-            });
+            }            
             
             await Axios.delete("http://localhost:2000/api/tickets/deleteTicket/" + id, config);
-    
+
             this.loadData();
+    
         } catch (error) {
             this.setState({
-                error: error,
-                loading: false
+                error: error.message
             });
         }
     }
@@ -119,11 +119,8 @@ class DashboardTemplate extends Component {
                 }
             }            
     
-            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", config);
-    
-            const { tickets } = response.data;   
-
-            console.log(tickets)
+            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", config);    
+            const { tickets } = response.data;
 
             this.setState({
                 tickets: [...tickets],
@@ -217,7 +214,7 @@ class DashboardTemplate extends Component {
                                 <th scope="col">ID</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Category</th>
-                                <th scope="col">State</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -235,7 +232,7 @@ class DashboardTemplate extends Component {
                                     </Link>
                                 </td>
                                 <td>{ticket.Category}</td>
-                                <td>{ticket.State}</td>
+                                <td>{ticket.Status}</td>
                                 <td>
                                     <div className="icons d-flex justify-content-around">
                                         <div>

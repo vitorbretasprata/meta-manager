@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Axios from 'axios';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash, faEye, faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
-import Failed from '../failed'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faEye, faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
+import Failed from '../failed';
 import { Col, Row, Form, FormGroup, Collapse, Button } from 'reactstrap';
 import Input from '../inputs';
 import { Category, Importance, Status } from '../utils/consts';

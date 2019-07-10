@@ -89,6 +89,49 @@
     padding: 10px 0;
 }
 
+.Slide {
+    background-color: #888;
+    height: 700px;
+}
+
+.applicationSlide {
+    background-image: url("https://get.pxhere.com/photo/laptop-notebook-computer-work-table-coffee-keyboard-technology-workspace-break-porcelain-workplace-netbook-electronic-device-computer-hardware-969296.jpg");
+}
+
+.userSlide {
+    background-image: url("https://www.wpaperhd.com/uploads/converted/16/04/25/1066900733-macbook-pro-iphone-work-table-WjxQ-WjxQ-1920x1280-MM-78.jpg");
+}
+
+.enterpriseSlide {
+    background-image: url("https://wallpapercave.com/wp/wp4318134.jpg");
+}
+
+.applicationSlide,
+.userSlide,
+.enterpriseSlide {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+
+.content-slide {
+    width:900px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-slide div {
+    color: #fff;
+    width: 400px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;  
@@ -303,18 +346,6 @@ footer{
     height: 200px;
 }
 
-.homeInfo{
-    font-weight: 300;
-    font-size: 20px;
-    padding: 15px;
-    width: 50vw;
-    color: #000;   
-    -webkit-animation: lazyLoading 1.5s; /* Safari 4+ */
-    -moz-animation: lazyLoading 1.5s; /* Fx 5+ */
-    -o-animation: lazyLoading 1.5s; /* Opera 12+ */
-    animation: lazyLoading 1.5s; /* IE 10+, Fx 29+ */
-}
-
 #main {
     width: 30%;
     margin: 50px auto;
@@ -389,27 +420,6 @@ footer{
     padding: 20px 30px 30px 30px;
     box-shadow: 2px 2px 5px #333;
 }
-
-@-webkit-keyframes lazyLoading {
-    0%   { opacity: 0; padding-right: -20px; }
-    100% { opacity: 1; padding-right: 0; }
-}
-
-@-moz-keyframes lazyLoading {
-    0%   { opacity: 0; padding-right: -20px; }
-    100% { opacity: 1; padding-right: 0; }
-}
-
-@-o-keyframes lazyLoading{
-    0%   { opacity: 0; padding-right: -20px; }
-    100% { opacity: 1; padding-right: 0; }
-}
-
-@keyframes lazyLoading {
-    0%   { opacity: 0; padding-right: -20px; }
-    100% { opacity: 1; padding-right: 0; }
-}
-
 
 .homeBody section{
     height: 500px;    

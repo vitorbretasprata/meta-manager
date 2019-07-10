@@ -45,10 +45,7 @@ class Header extends Component {
                                 <Nav>
                                     <NavItem>
                                         <Link to="/dashboard" className="linksButton">Dashboard</Link>
-                                    </NavItem>
-                                    <NavItem>
-                                        <Link to="/about" className="linksButton">About</Link>
-                                    </NavItem>
+                                    </NavItem>                                    
                                 </Nav>                            
                                 <Nav className="ml-auto" navbar> 
                                     {!!context.simpleAuth() ? (

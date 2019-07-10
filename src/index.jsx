@@ -3,8 +3,8 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-datepicker/dist/react-datepicker.css";
-
-import Routes from './main/routes';
+import style from "./css/app.css";
+import Routes from './js/main/routes';
 
 const App = (Routes) => {
     render(
@@ -19,7 +19,7 @@ App(Routes)
 
 if(module.hot){
     module.hot.accept('./main/routes', () => {
-        const NextApp = require('./main/routes').default
+        const NextApp = require('./js/main/routes').default
 
         App(NextApp)
     })

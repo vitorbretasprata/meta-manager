@@ -14,7 +14,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                 <div className="col-sm-12 col-md-6 col-lg-6">
                     <div className="labels">
                         <div>
-                            <label for="title">Title</label>
+                            <label htmlFor="title">Title</label>
                         </div>
                         <div>
                             <input type="text" value={titleTicket} className="sizeInput editInputs form-control" name="title" id="title" onChange={changeTitle}/>
@@ -23,7 +23,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                     </div>
                     <div className="labels">
                         <div>
-                            <label for="client">Client</label>
+                            <label htmlFor="client">Client</label>
                         </div>
                         <div>
                             <input type="text" value={clientTicket} name="client" className="sizeInput editInputs form-control" id="client" onChange={changeClient}/>
@@ -31,14 +31,14 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                     </div>
                     <div className="labels">
                         <div>
-                            <label for="term">Term</label>
+                            <label htmlFor="term">Term</label>
                         </div>
                         <div>
                             <DatePicker 
                                 name="date"
                                 id="term"
                                 className="sizeInput editInputs form-control"
-                                selected={termTicket}
+                                moment={termTicket}
                                 onChange={changeDate}
                             />                                            
                         </div>
@@ -47,7 +47,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                 <div className="col-sm-12 col-md-6 col-lg-6">
                     <div className="labels">
                         <div>
-                            <label for="importance">Importance</label>
+                            <label htmlFor="importance">Importance</label>
                         </div>
                         <div>
                             <Select options={Importance} 
@@ -61,7 +61,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                     </div>
                     <div className="labels">
                         <div>
-                            <label for="status">Status</label>
+                            <label htmlFor="status">Status</label>
                         </div>
                         <div>
                             <Select options={Status} 
@@ -75,7 +75,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                     </div>
                     <div className="labels">
                         <div>
-                            <label for="category">Category</label>
+                            <label htmlFor="category">Category</label>
                         </div>
                         <div>
                             <Select 

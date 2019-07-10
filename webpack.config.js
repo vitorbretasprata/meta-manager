@@ -1,21 +1,14 @@
 const path = require('path')
 const webpack = require('webpack')
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    devtool: 'source-map',
-    entry: [
-        'react-hot-loader/patch',
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
-        path.resolve(__dirname, 'src', 'js', 'index')        
-    ],    
+    devtool: 'cheap-module-source-map',  
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/'     
-    },
+        publicPath: '/'
+    },    
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         alias: {
@@ -26,30 +19,24 @@ module.exports = {
         net: 'empty',
         dns: 'empty'
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),  
-        new webpack.NamedModulesPlugin(),  
+    plugins: [ 
         new HtmlWebpackPlugin({
-            template: './public/index.html'
+            template: './public/index.html',
+            filename: "./index.html"
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].css"
         })    
     ],
     devServer: {
-        contentBase: 'public',               
+        contentBase: 'public'
     },
     module: {        
-        rules: [
-            {
-                enforce: "pre",
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                include: /src/,
-                use:{
-                    loader: 'standard-loader'
-                } 
-            },
+        rules: [           
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },            
             {
                 test: /\.(js|jsx)$/,

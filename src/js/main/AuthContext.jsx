@@ -79,8 +79,7 @@ class AuthProvider extends Component{
                 Password: password
             }
 
-            const response = await Axios.post("http://localhost:2000/api/auth/login", body);
-            
+            const response = await Axios.post("http://localhost:2000/api/auth/login", body);            
             const checked = checkError(response);
 
             if (checked.code) {
@@ -108,7 +107,7 @@ class AuthProvider extends Component{
                 });
             } else {
                 this.setState({
-                    UserName: checked.Name,
+                    UserName: localStorage.getItem("user_name") || sessionStorage.getItem("user_name"),
                     isLoading: false,
                     isAuth: true
                 });

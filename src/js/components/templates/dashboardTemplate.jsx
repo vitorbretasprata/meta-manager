@@ -119,7 +119,7 @@ class DashboardTemplate extends Component {
                 }
             }            
     
-            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", config);    
+            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", config);  
             const { tickets } = response.data;
 
             this.setState({
@@ -156,10 +156,10 @@ class DashboardTemplate extends Component {
                 <div className="tablePosition">
                     <div className="tableOptions">
                         <Button onClick={this.toggle}>
-                            <FontAwesomeIcon icon={faSearch} size="1x" />
+                            <FontAwesomeIcon icon={faSearch} size="sm" />
                         </Button>
                         <Link to="/create" className="btn btn-secondary">
-                            <FontAwesomeIcon icon={faPlus} size="1x" />
+                            <FontAwesomeIcon icon={faPlus} size="sm" />
                         </Link>
                     </div>
                     <Collapse isOpen={this.state.collapse}>
@@ -187,7 +187,7 @@ class DashboardTemplate extends Component {
                                 </Col>
                                 <Col md={2}>
                                     <FormGroup disabled>
-                                        <Select options={[0]} placeholder="Author" name="filterOwner" isDisabled="true" className="inputSelects"/>
+                                        <Select options={[0]} placeholder="Author" name="filterOwner" isDisabled={true} className="inputSelects"/>
                                     </FormGroup>
                                 </Col>  
                                 <Col md={2}>
@@ -208,8 +208,8 @@ class DashboardTemplate extends Component {
                             </Row>                                                                        
                         </Form>
                     </Collapse>                    
-                    <table class="table">
-                        <thead class="thead-dark">
+                    <table className="table">
+                        <thead className="thead-dark">
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Title</th>
@@ -241,7 +241,7 @@ class DashboardTemplate extends Component {
                                                 pathname: '/view',
                                                 state: { ID: ticket._id }
                                             }} className="linkColor">
-                                                <FontAwesomeIcon icon={faEye} />
+                                                <FontAwesomeIcon icon={faEye} size="sm" />
                                             </Link>                                            
                                         </div>
                                         <div>
@@ -250,12 +250,12 @@ class DashboardTemplate extends Component {
                                                 pathname: '/edit',
                                                 state: { ID: ticket._id }
                                             }} className="linkColor">
-                                                <FontAwesomeIcon icon={faEdit} />
+                                                <FontAwesomeIcon icon={faEdit} size="sm" />
                                             </Link>                                            
                                         </div>
                                         <div>
                                             <button className="nonButton" onClick={(e) => this.deleteTicket(ticket._id, e)}>
-                                                <FontAwesomeIcon icon={faTrash} />
+                                                <FontAwesomeIcon icon={faTrash} size="sm" />
                                             </button>                                            
                                         </div>
                                     </div>

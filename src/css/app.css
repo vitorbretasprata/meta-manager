@@ -421,6 +421,16 @@ footer{
     box-shadow: 2px 2px 5px #333;
 }
 
+.panels {
+    padding: 50px;
+    font-weight: 500;
+}
+
+.panels div{
+    display: inline-block;
+    padding: 20px;
+}
+
 .homeBody section{
     height: 500px;    
 }

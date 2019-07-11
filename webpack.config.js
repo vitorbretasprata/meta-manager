@@ -5,10 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    devtool: 'cheap-module-source-map',  
-    output: {
-        publicPath: '/'
-    },    
+    devtool: 'cheap-module-source-map',    
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         alias: {
@@ -30,7 +27,8 @@ module.exports = {
         })    
     ],
     devServer: {
-        contentBase: 'public'
+        contentBase: './',
+        historyApiFallback: true
     },
     module: {        
         rules: [           

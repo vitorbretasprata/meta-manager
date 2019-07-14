@@ -95,15 +95,15 @@
 }
 
 .applicationSlide {
-    background-image: url("https://get.pxhere.com/photo/laptop-notebook-computer-work-table-coffee-keyboard-technology-workspace-break-porcelain-workplace-netbook-electronic-device-computer-hardware-969296.jpg");
+    background: url('../images/notebook-wallpaper.jpg');
 }
 
 .userSlide {
-    background-image: url("https://www.wpaperhd.com/uploads/converted/16/04/25/1066900733-macbook-pro-iphone-work-table-WjxQ-WjxQ-1920x1280-MM-78.jpg");
+    background: url('../images/notebook-wallpaper-2.jpg');
 }
 
 .enterpriseSlide {
-    background-image: url("https://wallpapercave.com/wp/wp4318134.jpg");
+    background: url('../images/building.jpg');
 }
 
 .applicationSlide,

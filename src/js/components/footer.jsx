@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 
 const Footer = () => (
-    <footer>                  
+    <footer className="bd-footer">                  
         <div className="iconsFooter">
             <div className="contacts">
                 <i>My professional profiles</i>

@@ -38,7 +38,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                                 name="date"
                                 id="term"
                                 className="sizeInput editInputs form-control"
-                                moment={termTicket}
+                                selected={termTicket}
                                 onChange={changeDate}
                             />                                            
                         </div>

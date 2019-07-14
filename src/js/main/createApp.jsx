@@ -10,12 +10,14 @@ class CreateApp extends Component {
         this.saveAdd = this.saveAdd.bind(this);   
         this.handleSelect = this.handleSelect.bind(this);
         this.handleText = this.handleText.bind(this);
+        this.handleDate = this.handleDate.bind(this);
         this.checkInputTickets = this.checkInputTickets.bind(this);
 
         this.state = {            
             title: '',
             client: '',
             author: '',
+            category: '',
             description: '',
             importance: '',
             status: '',
@@ -126,10 +128,7 @@ class CreateApp extends Component {
         this.setState({
             ticketError: ticketError,
             ticketValid: ticketValid            
-        }, () => {
-            console.log(this.state)
-            this.checkValidationTickets(this.state.ticketValid)
-        });
+        }, () => this.checkValidationTickets(this.state.ticketValid));
     }
 
     checkValidationTickets = (valid) => {
@@ -165,23 +164,22 @@ class CreateApp extends Component {
                     <EditTemplate 
                         method="POST"
                         editTicket={this.checkInputTickets}
-                        titleTicket={val.Title}
-                        importanceTicket={val.Importance}
-                        authorTicket={val.Author}
-                        clientTicket={val.Client}
-                        termTicket={val.Term}
-                        dateTicket={val.DateCreated}
-                        stateTicket={val.Status}
+                        titleTicket={val.title}
+                        importanceTicket={val.importance}
+                        authorTicket={val.author}
+                        clientTicket={val.client}
+                        termTicket={val.term}
+                        stateTicket={val.status}
                         Title="New Ticket"
-                        descriptionTicket={val.Description}                
+                        descriptionTicket={val.description}                
                         cancelEdit='/dashboard'                    
-                        changeDate={e => this.handleDate(e)}
+                        changeDate={this.handleDate}
                         changeTitle={this.handleText}
                         changeClient={this.handleText}
                         changeDesc={this.handleText}
-                        changeStatus={e => this.handleSelect(e, 'Status')}
-                        changeImportance={e => this.handleSelect(e, 'Importance')}
-                        changeCategory={e => this.handleSelect(e, 'Category')}
+                        changeStatus={e => this.handleSelect(e, 'status')}
+                        changeImportance={e => this.handleSelect(e, 'importance')}
+                        changeCategory={e => this.handleSelect(e, 'category')}
                         descValid={val.ticketValid.description}
                         descError={val.ticketError.description}
                         titleError={val.ticketError.title}

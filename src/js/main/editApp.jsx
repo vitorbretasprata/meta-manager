@@ -8,13 +8,16 @@ class EditApp extends Component {
     constructor(){
         super();
 
-        this.handleText = this.handleText.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleText = this.handleText.bind(this); 
+        this.handleDate = this.handleDate.bind(this); 
         this.checkInputTickets = this.checkInputTickets.bind(this);
 
         this.state = {            
             title: '',
             client: '',
             author: '',
+            category: '',
             description: '',
             importance: '',
             status: '',
@@ -91,14 +94,11 @@ class EditApp extends Component {
 
             const { ID } = this.props.location.state; 
             const { title, client, description, importance, term, status, category } = this.state;
-            const token = this._getToken();
-            
-            e.preventDefault();
+            const token = this._getToken();            
     
             this.setState({
                 Loading: true
             });
-
 
             const config = {
                 headers: {
@@ -114,8 +114,8 @@ class EditApp extends Component {
                 Status: status,
                 Term: term,
                 Category: category
-            }
-            
+            }            
+
             await Axios.put("http://localhost:2000/api/tickets/editTicket/" + ID, body, config);
             
             this.setState({
@@ -124,6 +124,7 @@ class EditApp extends Component {
             });    
 
         } catch(error) {
+            console.log(error)
             this.setState({
                 Loading: false,
                 Error: error.message
@@ -150,22 +151,24 @@ class EditApp extends Component {
             ticketError.description = '';
             ticketValid.description = true;
         }  
+
+        console.log(this.state)
         
         this.setState({
             ticketError: ticketError,
             ticketValid: ticketValid            
-        }, () => this.checkValidationTickets(this.state.userValid));
+        }, () => this.checkValidationTickets(this.state.ticketValid));
     }
 
     checkValidationTickets = (valid) => {
         if(valid.title && valid.description) {
             this.setState({
                 formValid: true
-            });
+            }, () => this.saveEdition());
         } else {
             this.setState({
                 formValid: false
-            }, () => this.saveEdition());
+            });
         }
     }
 
@@ -181,9 +184,10 @@ class EditApp extends Component {
         });
     }
 
-    handleText = async (e, value) => {
+    handleText = (e) => {
+        const { value, name } = e.target;
         this.setState({
-            [value]: e.target.value
+            [name]: value
         });
     }
 
@@ -207,24 +211,24 @@ class EditApp extends Component {
                     <EditTemplate 
                         method="PUT"
                         editTicket={this.checkInputTickets}
-                        titleTicket={val.Title}
-                        importanceTicket={val.Importance}
-                        authorTicket={val.Author}
-                        clientTicket={val.Client}
-                        termTicket={new Date(val.Term)}                    
-                        descriptionTicket={val.Description}    
+                        titleTicket={val.title}
+                        importanceTicket={val.importance}
+                        authorTicket={val.author}
+                        clientTicket={val.client}
+                        termTicket={new Date(val.term)}                    
+                        descriptionTicket={val.description}    
                         cancelEdit='/dashboard'
                         Title="Edit Ticket"
-                        changeDate={e => this.handleDate(e)}
-                        changeTitle={e => this.handleText(e, "Title")}
-                        changeClient={e => this.handleText(e, "Client")}
-                        changeDesc={e => this.handleText(e, "Description")}
-                        changeStatus={e => this.handleSelect(e, 'Status')}
-                        changeImportance={e => this.handleSelect(e, 'Importance')}
-                        changeCategory={e => this.handleSelect(e, 'Category')}
-                        selectedImportance={val.Importance}
-                        selectedStatus={val.Status}
-                        selectedCategory={val.Category}
+                        changeDate={this.handleDate}
+                        changeTitle={this.handleText}
+                        changeClient={this.handleText}
+                        changeDesc={this.handleText}
+                        changeStatus={e => this.handleSelect(e, 'status')}
+                        changeImportance={e => this.handleSelect(e, 'importance')}
+                        changeCategory={e => this.handleSelect(e, 'category')}
+                        selectedImportance={val.importance}
+                        selectedStatus={val.status}
+                        selectedCategory={val.category}
                     />
                 </SideBar>                                  
             )

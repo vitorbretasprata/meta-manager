@@ -66,7 +66,7 @@ class DashboardTemplate extends Component {
                 Status: target.filterState.value
             }
 
-            const response = await Axios.post("http://localhost:2000/api/tickets/filter", query, config);
+            const response = await Axios.post(process.env.MAIN_FILTER_TICKET, query, config);
             const { tickets } = response.data;
 
             this.setState({
@@ -95,7 +95,7 @@ class DashboardTemplate extends Component {
                 }
             }            
             
-            await Axios.delete("http://localhost:2000/api/tickets/deleteTicket/" + id, config);
+            await Axios.delete(process.env.MAIN_DELETE_TICKET + id, config);
 
             this.loadData();
     
@@ -119,7 +119,7 @@ class DashboardTemplate extends Component {
                 }
             }            
     
-            const response = await Axios.get("http://localhost:2000/api/tickets/getTickets", config);  
+            const response = await Axios.get(process.env.MAIN_TICKETS, config);  
             const { tickets } = response.data;
 
             this.setState({

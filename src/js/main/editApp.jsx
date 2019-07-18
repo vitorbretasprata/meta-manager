@@ -55,7 +55,7 @@ class EditApp extends Component {
             if(this.props.location.state){
                 const { ID } = this.props.location.state; 
 
-                const response = await Axios.get("http://localhost:2000/api/tickets/getTicket/" + ID);
+                const response = await Axios.get(process.env.MAIN_TICKET + ID);
                 const { ticket } = response.data;
 
                 response.data.ticket.Comments.map(UserComment => {
@@ -116,7 +116,7 @@ class EditApp extends Component {
                 Category: category
             }            
 
-            await Axios.put("http://localhost:2000/api/tickets/editTicket/" + ID, body, config);
+            await Axios.put(process.env.MAIN_EDIT_TICKET + ID, body, config);
             
             this.setState({
                 Loading: false,

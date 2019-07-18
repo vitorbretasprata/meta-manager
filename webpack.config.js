@@ -27,7 +27,7 @@ module.exports = {
             chunkFilename: "[id].css"
         }),
         new webpack.DefinePlugin({
-            'process.env': dotenv.parsed
+            'process.env': JSON.stringify(dotenv.parsed)
         }) 
     ],
     devServer: {

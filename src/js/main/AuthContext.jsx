@@ -48,22 +48,6 @@ class AuthProvider extends Component{
         }          
     }
 
-    authenticateUser = async (token) => {
-
-        const validToken = await Axios.post("http://localhost:2000/api/auth/checkToken", token);
-
-        const checked = checkError(validToken);
-
-        if(checked.code) {
-            return {
-                failedLogin: true,
-                messageError: checked.message
-            }
-        }
-
-        return checked;
-    }
-
     login = async (e) => {
 
         try {
@@ -79,7 +63,7 @@ class AuthProvider extends Component{
                 Password: password
             }
 
-            const response = await Axios.post("http://localhost:2000/api/auth/login", body);            
+            const response = await Axios.post(process.env.MAIN_LOGIN, body);            
             const checked = checkError(response);
 
             if (checked.code) {
@@ -96,22 +80,6 @@ class AuthProvider extends Component{
                     sessionStorage.setItem("user_name", checked.name);
                 }
             } 
-            
-            const userInfo = this.authenticateUser(checked.token);
-
-            if(userInfo.failedLogin) {
-                this.setState({
-                    failedLogin: true,
-                    isLoading: false,
-                    messageError: checked.message
-                });
-            } else {
-                this.setState({
-                    UserName: localStorage.getItem("user_name") || sessionStorage.getItem("user_name"),
-                    isLoading: false,
-                    isAuth: true
-                });
-            }
 
         } catch (error) {
             console.log(error);

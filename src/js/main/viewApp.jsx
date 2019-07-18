@@ -53,7 +53,7 @@ class ViewApp extends Component {
                 Loading: true 
             });
             
-            await Axios.delete("http://localhost:2000/api/tickets/deleteTicket/" + ID, config);
+            await Axios.delete(process.env.MAIN_DELETE_TICKET + ID, config);
 
             this.setState({
                 Loading: false,
@@ -100,7 +100,7 @@ class ViewApp extends Component {
             textComment: ""
         });
 
-        await Axios.put("http://localhost:2000/api/tickets/addComment/" + ID, { Description:  textComment }, config);
+        await Axios.put(process.env.MAIN_COMMENT + ID, { Description:  textComment }, config);
 
         this.getList();        
     }
@@ -128,7 +128,7 @@ class ViewApp extends Component {
                 }
             }
         
-            const response = await Axios.get("http://localhost:2000/api/tickets/getTicket/" + ID, config);
+            const response = await Axios.get(process.env.MAIN_TICKET + ID, config);
     
             const { ticket } = response.data;
             const { Comments } = response.data.ticket;

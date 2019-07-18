@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ResetTemplate from '../components/templates/resetTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { SENDCODE, RESETPASS } from '../components/utils/consts';
 
 class ResetApp extends Component{
     constructor(){
@@ -24,33 +23,35 @@ class ResetApp extends Component{
         }
     }
 
-    sendMessage(e){
-        e.preventDefault();           
-        this.setState({
-            emailParam: e.target.email.value                      
-        }, () => {
-            Axios.post(SENDCODE, 
-                {
-                    email: this.state.emailParam                                       
-                }).then(res => {
-                   this.setState({
-                       resetCode: res.data.Code,
-                       Sended: true,
-                       currentValue: '',
-                       failed: false
-                   });                     
-                }).catch(err => {                    
-                    this.setState({ 
-                        error: err.response.data.message,
-                        failed: true
-                     });                    
+    sendMessage = async (e) => {
+
+        try {
+            e.preventDefault();           
+            const email = e.target.email.value;
+
+            const response = await Axios.post(process.env.MAIN_VERIFY, { email });
+
+            this.setState({
+                resetCode: response.data.Code,
+                Sended: true,
+                currentValue: '',
+                failed: false,
+                email: email
             });
-        });        
+
+        } catch (error) {
+            this.setState({
+                error: error.message,
+                failed: true
+            });
+        }     
     }
 
-    verifyCode(e){
-        e.preventDefault(); 
-        const code = e.target.code.value;   
+    verifyCode = (e) => {
+
+        e.preventDefault();
+        const code = e.target.code.value;
+
         if(this.state.resetCode == code){
             this.setState({
                 Sended: false,
@@ -72,38 +73,39 @@ class ResetApp extends Component{
         });
     }
 
-    resetPassword(e){
-        e.preventDefault();
-        const passvalue = e.target;
-        
-        if(passvalue.password.value != passvalue.confirm.value){
-            this.setState({
-                error: "Password does not match the confirmation.",
-                failed: true
-            });
-        } else {
-            this.setState({
-                password: passvalue.password.value,                                  
-            }, () => {
-                Axios.put(RESETPASS, 
-                    {
-                        email: this.state.paramEmail,
-                        password: this.state.password                                     
-                    }).then(res => {
-                       this.setState({                       
-                           passwordReseted: true,
-                           confirmedCode: false,
-                           currentValue: '',
-                           failed: false
-                       });                     
-                    }).catch(err => {
-                        this.setState({ 
-                            error: err.response.data.message,
-                            failed: true
-                         });                        
+    resetPassword = async (e) => {
+
+        try {
+            e.preventDefault();
+            const { target } = e;
+
+            if(target.password.value != target.confirm.value) {
+                this.setState({
+                    error: "Password does not match the confirmation.",
+                    failed: true
                 });
-            });
-        }                
+            } else {
+
+                await Axios.put(process.env.MAIN_RESET, 
+                    { 
+                        email: email,
+                        password: target.password.value
+                    });
+
+                this.setState({                       
+                    passwordReseted: true,
+                    confirmedCode: false,
+                    currentValue: '',
+                    failed: false
+                }); 
+            }
+
+        } catch(error) {
+            this.setState({ 
+                error: error.message,
+                failed: true
+             });
+        }             
     }
 
     render(){

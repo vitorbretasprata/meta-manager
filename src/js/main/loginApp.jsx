@@ -3,7 +3,12 @@ import LoginTemplate from '../components/templates/loginTemplate';
 import { Redirect } from 'react-router-dom';
 import { AuthConsumer } from './AuthContext';
 
-class LoginApp extends Component{    
+class LoginApp extends Component{   
+    
+    componentDidMount() {
+        console.log(process.env);
+    }
+
     render(){  
         return(
         <AuthConsumer>

@@ -28,7 +28,8 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env': JSON.stringify(dotenv.parsed)
-        }) 
+        }),
+        new webpack.optimize.UglifyJsPlugin()
     ],
     devServer: {
         contentBase: './',

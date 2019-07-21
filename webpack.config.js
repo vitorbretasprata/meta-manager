@@ -4,7 +4,8 @@ const dotenv = require('dotenv').config({path: __dirname + '/.env'});
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     devtool: 'cheap-module-source-map',  
@@ -20,7 +21,8 @@ module.exports = {
               mangle: true
             },
             sourceMap: true
-          })
+          }),
+          new TerserPlugin()
         ]
     },  
     resolve: {

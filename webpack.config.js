@@ -4,9 +4,25 @@ const dotenv = require('dotenv').config({path: __dirname + '/.env'});
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-    devtool: 'cheap-module-source-map',    
+    devtool: 'cheap-module-source-map',  
+    optimization: {
+        minimizer: [
+          // we specify a custom UglifyJsPlugin here to get source maps in production
+          new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            uglifyOptions: {
+              compress: false,
+              ecma: 6,
+              mangle: true
+            },
+            sourceMap: true
+          })
+        ]
+    },  
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         alias: {
@@ -28,8 +44,7 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env': JSON.stringify(dotenv.parsed)
-        }),
-        new webpack.optimize.minimize()
+        })
     ],
     devServer: {
         contentBase: './',

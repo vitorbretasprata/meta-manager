@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config({path: __dirname + '/.env'});
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+let UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     devtool: 'cheap-module-source-map',  

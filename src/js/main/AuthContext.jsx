@@ -63,7 +63,7 @@ class AuthProvider extends Component{
                 Password: password
             }
 
-            const response = await Axios.post(process.env.MAIN_LOGIN, body);            
+            const response = await Axios.post(process.env.MAIN_AUTH + "login", body);            
             const checked = checkError(response);
 
             if (checked.code) {

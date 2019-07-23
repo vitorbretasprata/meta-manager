@@ -70,7 +70,7 @@ class CreateApp extends Component {
                 Category: category 
             }
 
-            await Axios.post(process.env.MAIN_CREATE_TICKET, body, config);
+            await Axios.post(process.env.MAIN_TICKETS + "createTicket", body, config);
 
             this.setState({
                 Loading: false,

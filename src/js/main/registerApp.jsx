@@ -95,7 +95,7 @@ class RegisterApp extends Component {
                 Role: 'admin'
             }
 
-            const response = await Axios.post(process.env.MAIN_REGISTER, userInfo);
+            const response = await Axios.post(process.env.MAIN_AUTH + "register", userInfo);
 
             const checked = checkError(response);
 
@@ -146,7 +146,7 @@ class RegisterApp extends Component {
                 Role: 'user'
             }
 
-            const response = await Axios.post(process.env.MAIN_REGISTER, userInfo);
+            const response = await Axios.post(process.env.MAIN_AUTH + "register", userInfo);
 
             const checked = checkError(response);
 

@@ -22,7 +22,7 @@ const items = [
   {
     src: "slide-3",
     titleSlide: 'Enterprise account',
-    descriptionSlide: `If you have a caompany, you can also create a enterprise account.
+    descriptionSlide: `If you have a company, you can also create a enterprise account.
     With that, you can create and manager users account.
     Every tickets that you or your users create, will only appear to you and the accounts that you created.`,
     className: 'Slide enterpriseSlide'

@@ -53,9 +53,16 @@ class EditApp extends Component {
 
         try {
             if(this.props.location.state){
-                const { ID } = this.props.location.state; 
+                const { ID } = this.props.location.state;
 
-                const response = await Axios.get(process.env.MAIN_TICKET + ID);
+                const token = this._getToken();
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+
+                const response = await Axios.get(process.env.MAIN_TICKETS + "getTicket/" + ID, config);
                 const { ticket } = response.data;
 
                 response.data.ticket.Comments.map(UserComment => {
@@ -116,7 +123,7 @@ class EditApp extends Component {
                 Category: category
             }            
 
-            await Axios.put(process.env.MAIN_EDIT_TICKET + ID, body, config);
+            await Axios.put(process.env.MAIN_TICKETS + "alterTicket/" + ID, body, config);
             
             this.setState({
                 Loading: false,

@@ -29,7 +29,7 @@ class ResetApp extends Component{
             e.preventDefault();           
             const email = e.target.email.value;
 
-            const response = await Axios.post(process.env.MAIN_VERIFY, { email });
+            const response = await Axios.post(process.env.MAIN_AUTH + "checkEmail", { email });
 
             this.setState({
                 resetCode: response.data.Code,
@@ -86,7 +86,7 @@ class ResetApp extends Component{
                 });
             } else {
 
-                await Axios.put(process.env.MAIN_RESET, 
+                await Axios.put(process.env.MAIN_AUTH + "resetPassword", 
                     { 
                         email: email,
                         password: target.password.value

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
-import SideBar from './sideBar'
+import SideBar from './sideBar';
+import Error from '../components/error';
 
 class CreateApp extends Component {
     constructor(){

@@ -3,6 +3,7 @@ import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 import SideBar from './sideBar';
+import Error from '../components/error';
 
 class EditApp extends Component {
     constructor(){

@@ -7,6 +7,11 @@
     outline: none;
 }
 
+#root{
+    width: 100%;
+    height: 100%;
+}
+
 .sideBarIcons li {
     list-style-type: none;
     padding: 17px;

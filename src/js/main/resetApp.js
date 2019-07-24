@@ -88,7 +88,7 @@ class ResetApp extends Component{
 
                 await Axios.put(process.env.MAIN_AUTH + "resetPassword", 
                     { 
-                        email: email,
+                        email: target.email.value,
                         password: target.password.value
                     });
 

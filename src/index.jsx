@@ -11,7 +11,7 @@ const App = (Routes) => {
         <AppContainer>
             <Routes />
         </AppContainer>,
-        document.querySelector('[data-js="app"]')
+        document.getElementById('root')
     )
 }
 

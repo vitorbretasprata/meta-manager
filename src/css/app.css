@@ -1,10 +1,246 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
 *{
     margin: 0;
     padding: 0;
 }
 
+*,*::before,*::after {
+    box-sizing: border-box;
+}
+
 *:focus {
     outline: none;
+}
+
+html {
+    font-size: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+    color: #eee;
+}
+
+header {
+    width: 100%;
+    height: 20vh;
+    position: fixed;    
+}
+
+.container {
+    max-width: 120rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+nav {
+    padding-top: 5rem;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+}
+
+nav:last-child li{
+    animation: none;
+}
+
+.brand {
+    font-size: 3rem;
+    font-weight: 300;
+    transform: translateX(-100rem);
+}
+
+.brand span {
+    color: cornflowerblue;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li{
+    list-style: none;
+    transform: translateX(100rem);
+    animation: sliderIn .5s forwards;
+}
+
+nav ul li:nth-child(1) {
+    animation-delay: 0s;
+}
+
+nav ul li:nth-child(2) {
+    animation-delay: .5s;
+}
+
+nav ul li:nth-child(3) {
+    animation-delay: 1s;
+}
+
+nav ul li:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+nav ul li:nth-child(5) {
+    animation-delay: 2s;
+}
+
+nav ul li:nth-child(6) {
+    animation-delay: 2.5s;
+}
+
+nav ul li a {
+    padding: 1rem 0;
+    margin: 0 3rem;
+    position: relative;
+    letter-spacing: 2px;
+}
+
+nav ul li a:last-child {
+    margin-right: 0;
+}
+
+nav ul li:last-child {
+    width: 130px;
+}
+
+.animate-link a:before,
+.animate-link a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: cornflowerblue;
+    left: 0;
+    transform: scaleX(0);
+    transition: all .5s; 
+}
+
+.animate-link a::before{
+    top: 0;
+    transform-origin: left;
+}
+
+.animate-link a::after{
+    bottom: 0;
+    transform-origin: right;
+}
+
+.animate-link a:hover::before,
+.animate-link a:hover::after{
+    transform: scaleX(1);
+}
+
+@keyframes sliderIn {
+    from {
+
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.sign a {
+    margin: 0 1.5rem;
+    padding: 1rem 2rem;
+    position: relative;
+    letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid cornflowerblue;
+    background-color: cornflowerblue;
+    font-weight: 500;
+    transition: 0.5s;   
+}
+
+.sign a:hover {
+    background-color: white;
+    color: cornflowerblue; 
+}
+
+.drop-arrow {
+    padding-bottom: 4px;
+    font-size: 20px;    
+}
+
+.sub-menu div{
+    padding: 1rem 0;    
+}
+
+.sub-menu div:hover{
+    background-color: #eee;
+}
+
+.sub-menu div a{
+    color: #000;
+}
+
+.sub-menu {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 25px;
+    right: 0;
+    left: 0;
+}
+
+.content-intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.collapse-nav {
+    display: none;
+}
+
+.collapse-nav div {
+    width: 25px;
+    height: 3px;
+    background-color: rgb(226, 226, 226);
+    margin: 5px;
+}
+
+@media screen and (max-width: 868px) {
+    .collapse-nav {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        right: 0;
+        height: 92vh;
+        top: 18vh;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 200px;
+        transform: translateX(100%);
+        transition: transform .5s ease-in;
+    }
+
+    .nav-links li {
+        margin: 1rem;
+    }
+
+    .border-separator {
+        display: none;
+    }    
+}
+
+.nav-active {
+    transform: translateX(0%);
 }
 
 #root{
@@ -99,25 +335,34 @@
     height: 700px;
 }
 
-.applicationSlide {
-    background: url('../images/notebook-wallpaper.jpg');
-}
-
-.userSlide {
-    background: url('../images/notebook-wallpaper-2.jpg');
-}
-
-.enterpriseSlide {
-    background: url('../images/building.jpg');
-}
-
-.applicationSlide,
-.userSlide,
-.enterpriseSlide {
-    background-position: center;
-    background-repeat: no-repeat;
+section {
+    height: 800px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/notebook-wallpaper-2.jpg') center no-repeat;
     background-size: cover;
-    width: 100%;
+}
+
+.content-home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 800px;
+    justify-content: center;
+}
+
+.content-home div {
+    margin: 10px 0;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(212, 212, 212);
+}
+
+.title-home {
+
 }
 
 .content-slide {
@@ -159,8 +404,7 @@
 }
 
 section, aside{
-    background-color: #fff;
-    height: 100%;
+    
 }
 
 .centerDiv{
@@ -344,12 +588,7 @@ html, body, #app {
     color: red;
 }
 
-footer{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    width: 100%;
-    background-color: #222;    
-    height: 200px;
-}
+
 
 #main {
     width: 30%;
@@ -434,18 +673,6 @@ footer{
 .panels div{
     display: inline-block;
     padding: 20px;
-}
-
-.homeBody section{
-    height: 500px;    
-}
-
-.iconsFooter{
-    height: 100%;
-    max-width: 600px;
-    width: 100%;
-    margin: auto;
-    text-align: center;
 }
 
 .positionRight{

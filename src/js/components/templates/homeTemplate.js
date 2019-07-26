@@ -1,56 +1,71 @@
 import React from 'react';
-import CarouselTemplate from '../carouselTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserAlt, faDonate } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { AuthConsumer } from '../../main/AuthContext';
+import { Collapse } from 'reactstrap';
 
-const HomeTemplate = () => (
-    <div className="homeBody">
-        <CarouselTemplate />
-        <section>
-            <div className="container">
-                <div className="row">
-                    <div className="panels col-sm-12 col-md-6 col-lg-6">
-                        <div>
-                            <FontAwesomeIcon icon={faUserAlt} size="3x"/>
-                        </div>
-                        <div>
-                            <h3>About me</h3>
-                        </div>
-                        <div>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                            when an unknown printer took a galley of type and scrambled it to make a type 
-                            specimen book. It has survived not only five centuries, but also the leap into 
-                            electronic typesetting, remaining essentially unchanged. It was popularised in the 
-                            1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more 
-                            recently with desktop publishing software like Aldus PageMaker including versions of 
-                            Lorem Ipsum.
-                        </div>
-                    </div>
-                    <div className="panels col-sm-12 col-md-6 col-lg-6">
-                        <div>
-                            <FontAwesomeIcon icon={faDonate} size="3x"/>
-                        </div>
-                        <div>
-                            <h3>Donation</h3>
-                        </div>
-                        <div>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                            when an unknown printer took a galley of type and scrambled it to make a type 
-                            specimen book. It has survived not only five centuries, but also the leap into 
-                            electronic typesetting, remaining essentially unchanged. It was popularised in the 
-                            1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more 
-                            recently with desktop publishing software like Aldus PageMaker including versions of 
-                            Lorem Ipsum.
-                        </div>
-                    </div>
+const SubMenu = () => (
+    <div className="sub-menu">
+        <div><Link to="/Login">Log in</Link></div>
+        <div><Link to="/Register">Register</Link></div>
+    </div> 
+)
 
-                </div>
+const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu }) => (
+    <div className="home-page">
+        <header>            
+            <AuthConsumer>
+                {(context) => (                                            
+                    <div className="container">
+                        <nav>
+                            <h1><Link to="/" className="brand">M<span>e</span>t<span>a</span></Link></h1>
+                            <ul className={`nav-links ${collapsed}`}>
+                                <li className="animate-link"><a href="#">Home</a></li>
+                                <li className="animate-link"><a href="#">Services</a></li>
+                                <li className="animate-link"><a href="#">About</a></li>
+                                <li className="animate-link"><a href="#">Donation</a></li>
+                                <li className="animate-link"><a href="#">Contacts</a></li>
+                                {!!context.simpleAuth() ? (
+                                    <li onMouseLeave={handleLeave}>
+                                        <a href="#" onMouseEnter={handleHover}>
+                                            {context.userName} <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
+                                        </a>
+                                        {!!subMenu && <SubMenu />}
+                                    </li>                                    
+                                ) : (
+                                    <li onMouseLeave={handleLeave}>
+                                        <a href="#" onMouseEnter={handleHover}>
+                                            Enter <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
+                                        </a>
+                                        {!!subMenu && <SubMenu />}
+                                    </li>
+                                )}                                
+                            </ul>
+                            <div className="collapse-nav" onClick={toggle}>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
+                            </div>
+                        </nav>                        
+                        
+                        <Collapse isOpen={!collapsed} navbar>
+                            
+                        </Collapse>
+                    </div>                            
+                )}
+            </AuthConsumer>
+        </header>  
+
+        <section className="content-intro">
+            <div>A manager application</div>
+            <div></div>
+            <div>
+                <Link to="/login">Get Started</Link>
+                <Link to="/login">Register</Link>
             </div>
-        </section>       
-    </div>
-    
+        </section>            
+    </div>    
 )
 
 export default HomeTemplate;

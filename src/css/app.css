@@ -20,6 +20,9 @@ html {
 
 body {
     overflow-x: hidden;
+    overflow-y: auto;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/notebook-wallpaper-2.jpg') center no-repeat;
+    background-size: cover;
 }
 
 a,
@@ -192,13 +195,61 @@ nav ul li:last-child {
     left: 0;
 }
 
+.section-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
 .content-intro {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #fff;
+    width: 400px;
+    text-align: center;
     font-size: 2rem;
+}
+
+.section-services {
+    background-color: #fff;
+    height: 500px;
+}
+
+.content-intro div {
+    margin: 1rem auto;
+}
+
+.get-started {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 280px;
+}
+
+.get-started a {
+    border: 1px solid cornflowerblue;
+    color: #fff;
+    width: 120px;
+    background-color: cornflowerblue;
+    transition: all 0.5s;
+    padding: 1rem;
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.content-description {
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+.get-started a:hover {
+    color:cornflowerblue;
+    background-color: #fff;
 }
 
 .collapse-nav {
@@ -335,18 +386,6 @@ nav ul li:last-child {
     height: 700px;
 }
 
-section {
-    height: 800px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/notebook-wallpaper-2.jpg') center no-repeat;
-    background-size: cover;
-}
-
 .content-home{
     display: flex;
     flex-direction: column;
@@ -401,10 +440,6 @@ section {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
-}
-
-section, aside{
-    
 }
 
 .centerDiv{

@@ -57,13 +57,22 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu }) 
             </AuthConsumer>
         </header>  
 
-        <section className="content-intro">
-            <div>A manager application</div>
-            <div></div>
-            <div>
-                <Link to="/login">Get Started</Link>
-                <Link to="/login">Register</Link>
+        <section className="section-intro">
+            <div className="content-intro">
+                <div className="content-title">An application to manager tasks</div>
+                <div className="content-description">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                    Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s.
+                </div>
+                <div className="get-started">
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
+                </div>
             </div>
+        </section>
+        <section className="section-services">
+            odsajfhasdofhasdj
         </section>            
     </div>    
 )

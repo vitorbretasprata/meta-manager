@@ -10,8 +10,9 @@ class HomeApp extends Component {
         this.handleLeave = this.handleLeave.bind(this);
 
         this.state = {
-          collapsed: '',
-          showSubMenu: false
+            scrolled: false,
+            collapsed: '',
+            showSubMenu: false
         };
     }
     
@@ -27,6 +28,22 @@ class HomeApp extends Component {
                 collapsed: '',
             }); 
         }
+    }    
+
+    componentDidMount() {
+        window.addEventListener('scroll', () => {
+            const isTop = window.scrollBy < 100;
+
+            if(isTop !== true) {
+                this.setState({ scrolled: true });
+            } else {
+                this.setState({ scrolled: false });
+            }
+        });        
+    }
+  
+    componentWillUnmount() {
+       window.removeEventListener('scroll');
     }
 
     handleHover = (e) => {
@@ -38,7 +55,16 @@ class HomeApp extends Component {
     };
 
     render(){                
-        return <HomeTemplate toggle={this.toggle} collapsed={this.state.collapsed} handleHover={this.handleHover} handleLeave={this.handleLeave} subMenu={this.state.showSubMenu} />
+        return (
+            <HomeTemplate 
+                toggle={this.toggle} 
+                collapsed={this.state.collapsed} 
+                handleHover={this.handleHover} 
+                handleLeave={this.handleLeave} 
+                subMenu={this.state.showSubMenu} 
+                isScrolled={this.state.scrolled}
+             />
+        )
     }
 }
 

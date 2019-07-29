@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faSortDown, faUser, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { AuthConsumer } from '../../main/AuthContext';
 import { Collapse } from 'reactstrap';
@@ -12,13 +12,13 @@ const SubMenu = () => (
     </div> 
 )
 
-const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu }) => (
+const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, isScrolled }) => (
     <div className="home-page">
-        <header>            
+        <header className={isScrolled ? 'header-scrolled' : ''}>            
             <AuthConsumer>
                 {(context) => (                                            
                     <div className="container">
-                        <nav>
+                        <nav className={isScrolled ? 'nav-scrolled' : ''}>
                             <h1><Link to="/" className="brand">M<span>e</span>t<span>a</span></Link></h1>
                             <ul className={`nav-links ${collapsed}`}>
                                 <li className="animate-link"><a href="#">Home</a></li>
@@ -71,9 +71,73 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu }) 
                 </div>
             </div>
         </section>
-        <section className="section-services">
-            odsajfhasdofhasdj
-        </section>            
+        <section className="section-content">
+            <div className="container">
+                <div className="title-content">
+                    <span className="mark-title"></span>
+                    <p>Services</p>
+                </div>
+                <div className="content-services">
+                    <div className="service-options">
+                        <div className="services-icon">
+                            <FontAwesomeIcon icon={faUser} size={"6x"}/>
+                        </div>
+                        <div className="services-title">
+                            <h2>User Account</h2>
+                        </div>
+                        <div className="services-desc">
+                            <p>Create an user account to manage all your tickets.</p>
+                        </div>
+                    </div>
+                    <div className="service-options">
+                        <div className="services-icon">
+                            <FontAwesomeIcon icon={faBuilding} size={"6x"}/>
+                        </div>
+                        <div className="services-title">
+                            <h2>Company Account</h2>
+                        </div>
+                        <div className="services-desc">
+                            <p>
+                                Create an company account to be able to create other
+                                account under the name of your caompany and manage all your tickets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section className="section-content">
+            <div className="container">
+                <div className="title-content">
+                    <span className="mark-title"></span>
+                    <p>About</p>
+                </div>
+                <div className="content-about">
+                    <div></div>
+                    <div></div>
+                </div>
+
+            </div>
+        </section> 
+
+        <section className="section-content">
+            <div className="container">
+                <div className="title-content">
+                    <span className="mark-title"></span>
+                    <p>Donation</p>
+                </div>
+                <div className="content-donation">
+                    <div></div>
+                    <div></div>
+                </div>
+
+            </div>
+        </section> 
+
+        <footer>
+        </footer>            
     </div>    
 )
 

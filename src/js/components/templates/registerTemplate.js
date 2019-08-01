@@ -23,11 +23,11 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                 <a href="#" className={classCompany} onClick={showCompany}>Company</a>
             </div>
                 
-            {!!visibilityUser && <div className="content-register"> 
-                <div className="alignTitleContent">
-                    <h2>User</h2>
-                </div>
-                <form onSubmit={registerUser} method='POST' noValidate>
+            {!!visibilityUser &&                 
+                <form onSubmit={registerUser} method='POST' noValidate className="form-container">
+                    <div className="alignContent">
+                        <p>User</p>
+                    </div>
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName" handleChange={handleFirstNameUser} value={userFirstName}/>
@@ -63,13 +63,13 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                         <Link to="/login">Login</Link>
                     </div>          
                 </form>
-            </div>} 
+            } 
 
-            {!!visibilityCompany && <div className="other-register">
-                <div className="alignTitleContent">
-                    <h2>Company</h2>
-                </div>
-                <form onSubmit={registerCompany} method='POST' noValidate>
+            {!!visibilityCompany &&                
+                <form onSubmit={registerCompany} method='POST' noValidate className="form-container">
+                    <div className="alignContent">
+                        <p>Company</p>
+                    </div>
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName" handleChange={handleFirstNameCompany} value={companyFirstName}/>
@@ -105,7 +105,7 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                         <Link to="/login">Login</Link>
                     </div>          
                 </form>
-            </div>}
+            }
         </div>                
     </div>    
 )

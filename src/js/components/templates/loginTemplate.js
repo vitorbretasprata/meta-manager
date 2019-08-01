@@ -6,12 +6,11 @@ import ReactLoading from 'react-loading';
 import FormError from "../utils/formError";
 
 const LoginTemplate = ({ loginFunc, failedLogin, messageError, isLoading, valueEmail, valuePassword, handleEmail, handlePass, pswValid, emailValid, pswMSG, emailMSG, handleRemember }) => ( 
-    <div className="centerDiv">
+    <div>
         {!!failedLogin && <Failed message={`Failed to login: ${messageError}`}/>}
-        <div className="content-login">
-            <form onSubmit={loginFunc} noValidate>
+            <form onSubmit={loginFunc} noValidate className="form-container">
                 <div className="alignContent">
-                    <h2>Login</h2>
+                    <p>Login</p>
                 </div>
                 <Input type="email" placeholder="Email Address" name="email" id="emailLogin" value={valueEmail} handleChange={handleEmail} />
                 <FormError isError={!emailValid} errorMsg={emailMSG} />
@@ -30,7 +29,6 @@ const LoginTemplate = ({ loginFunc, failedLogin, messageError, isLoading, valueE
                     <Link to="/register">Register</Link> | <Link to="/resetPassword">Reset Password</Link>
                 </div>          
             </form>
-        </div>  
     </div>       
        
 )

@@ -7,9 +7,9 @@ const ResetTemplate = ({ loginFunc, errorMessage, currentValue, failed, ResetPas
     <div className="centerDiv"> 
     {!!failed && <Failed message={errorMessage}/>}       
         <div id="main" className="content-reset">
-            <form onSubmit={loginFunc}>
-                <div className="alignTitleContent">
-                    Reset Password
+            <form onSubmit={loginFunc} className="form-container">
+                <div className="alignContent">
+                    <p>Reset Password</p>
                 </div>
                 <div className="alignContent textColor">
                     {message}

@@ -63,7 +63,7 @@ class EditApp extends Component {
                     }
                 }
 
-                const response = await Axios.get(process.env.MAIN_TICKETS + "getTicket/" + ID, config);
+                const response = await Axios.get("https://ticket-manager-backend.herokuapp.com/api/tickets/getTicket/" + ID, config);
                 const { ticket } = response.data;
 
                 response.data.ticket.Comments.map(UserComment => {
@@ -124,7 +124,7 @@ class EditApp extends Component {
                 Category: category
             }            
 
-            await Axios.put(process.env.MAIN_TICKETS + "alterTicket/" + ID, body, config);
+            await Axios.put("https://ticket-manager-backend.herokuapp.com/api/tickets/alterTicket/" + ID, body, config);
             
             this.setState({
                 Loading: false,

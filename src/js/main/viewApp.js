@@ -100,7 +100,7 @@ class ViewApp extends Component {
             textComment: ""
         });
 
-        await Axios.put(process.env.MAIN_TICKETS + "addComment/" + ID, { Description:  textComment }, config);
+        await Axios.put("https://ticket-manager-backend.herokuapp.com/api/tickets/addComment/" + ID, { Description:  textComment }, config);
 
         this.getList();        
     }
@@ -128,7 +128,7 @@ class ViewApp extends Component {
                 }
             }
         
-            const response = await Axios.get(process.env.MAIN_TICKETS + "getTicket/" + ID, config);
+            const response = await Axios.get("https://ticket-manager-backend.herokuapp.com/api/tickets/getTicket/" + ID, config);
     
             const { ticket } = response.data;
             const { Comments } = response.data.ticket;

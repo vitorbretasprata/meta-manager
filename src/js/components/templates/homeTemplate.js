@@ -5,6 +5,8 @@ import FormError from "../utils/formError";
 import { Link } from 'react-router-dom';
 import { AuthConsumer } from '../../main/AuthContext';
 import { Collapse } from 'reactstrap';
+import { FaLinkedin, FaGithub, FaMedium, FaStackOverflow } from 'react-icons/fa';
+import { Link as Anchor } from "react-scroll";
 
 const SubMenu = () => (
     <div className="sub-menu">
@@ -23,12 +25,30 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
                     <div className="container">
                         <nav className={isScrolled ? 'nav-scrolled' : ''}>
                             <h1><Link to="/" className="brand">M<span>e</span>t<span>a</span></Link></h1>
-                            <ul className={`nav-links ${collapsed}`}>
-                                <li className="animate-link"><a href="#">Home</a></li>
-                                <li className="animate-link"><a href="#">Services</a></li>
-                                <li className="animate-link"><a href="#">About</a></li>
-                                <li className="animate-link"><a href="#">Donation</a></li>
-                                <li className="animate-link"><a href="#">Contacts</a></li>
+                            <ul className={`nav-links ${collapsed}`}>                                 
+                                <li className="animate-link">
+                                    <Anchor activeClass="active-link" to="home" spy={true} smooth={true} offset={5} duration={500} delay={100}>
+                                        Home
+                                    </Anchor>                  
+                                </li>
+
+                                <li className="animate-link">
+                                    <Anchor activeClass="active-link" to="services" spy={true} smooth={true} offset={5} duration={500} delay={100}>
+                                        Services
+                                    </Anchor>                  
+                                </li>
+
+                                <li className="animate-link">
+                                    <Anchor activeClass="active-link" to="about" spy={true} smooth={true} offset={5} duration={500} delay={100}>
+                                        About
+                                    </Anchor>                  
+                                </li>                                
+
+                                <li className="animate-link">
+                                    <Anchor activeClass="active-link" to="contact" spy={true} smooth={true} offset={5} duration={500} delay={100}>
+                                        Contact
+                                    </Anchor>                  
+                                </li>                                
                                 {!!context.simpleAuth() ? (
                                     <li onMouseLeave={handleLeave}>
                                         <a href="#" onMouseEnter={handleHover}>
@@ -60,7 +80,7 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
             </AuthConsumer>
         </header>  
 
-        <section className="section-intro">            
+        <section className="section-intro" id="home">            
             <div className="content-intro">
                 <div className="content-title">An application to manager tasks</div>
                 <div className="content-description">
@@ -75,7 +95,7 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
             </div>
                        
         </section>
-        <section className="section-content">
+        <section className="section-content" id="services">
             <div className="container">
                 <div className="title-content">
                     <span className="mark-title"></span>
@@ -116,7 +136,7 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
             </div>
         </section>
 
-        <section className="section-content">
+        <section className="section-content" id="about">
             <div className="container">
                 <div className="title-content">
                     <span className="mark-title"></span>
@@ -141,30 +161,16 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
                 </div>
 
             </div>
-        </section> 
+        </section>         
 
-        <section className="section-content">
-            <div className="container">
-                <div className="title-content">
-                    <span className="mark-title"></span>
-                    <p>Donation</p>
-                </div>
-                <div className="content-margin row">
-                    <div className="col-sm-10 col-md-5 col-lg-5"></div>
-                    <div className="col-sm-10 col-md-5 col-lg-5"></div>
-                </div>
-
-            </div>
-        </section> 
-
-        <section className="section-content padding">
+        <section className="section-content padding" id="contact">
             <div className="container">
                 <div className="title-content">
                     <span className="mark-title"></span>
                     <p>Contacts</p>
                 </div>
                 <div className="message-title">Send Message</div>
-                {!!messageSent && <div>Message sent!</div>}
+                {!!messageSent && <div className="message">Message sent!</div>}
                 <div className="row">                                                   
                     <div className="col-sm-12 col-md-6 col-lg-6">
                         <FormError isError={!firstValid} errorMsg={firstError} /> 
@@ -212,21 +218,18 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
                     <div className="col-md-4">
                         <h2 className="footer-heading text-uppercase mb-4 weight">Professional Contacts</h2>
                         <p className="professional-links">
-                            <a href="#">
-                                <FontAwesomeIcon icon={faLink} />
+                            <a href="https://www.linkedin.com/in/vitor-prata-a899b16b/">
+                                <FaLinkedin size="2em" />
                             </a>
-                            <a href="#">
-                                <FontAwesomeIcon icon={faLink} />
+                            <a href="https://github.com/vitorbretasprata">
+                                <FaGithub size="2em" />
                             </a>
-                            <a href="#">
-                                <FontAwesomeIcon icon={faLink} />
+                            <a href="https://pt.stackoverflow.com/users/115436/vitor-prata">
+                                <FaStackOverflow  size="2em" />
                             </a>
-                            <a href="#">
-                                <FontAwesomeIcon icon={faLink} />
-                            </a>
-                            <a href="#">
-                                <FontAwesomeIcon icon={faLink} />
-                            </a>
+                            <a href="https://medium.com/@vitorbretasprata">
+                                <FaMedium  size="2em"/>
+                            </a>                            
                         </p>
 
                     </div>

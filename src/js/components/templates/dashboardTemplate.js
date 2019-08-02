@@ -66,7 +66,7 @@ class DashboardTemplate extends Component {
                 Status: target.filterState.value
             }
 
-            const response = await Axios.post(process.env.MAIN_TICKETS + "filter", query, config);
+            const response = await Axios.post("https://ticket-manager-backend.herokuapp.com/api/tickets/filter", query, config);
             const { tickets } = response.data;
 
             this.setState({
@@ -95,7 +95,7 @@ class DashboardTemplate extends Component {
                 }
             }            
             
-            await Axios.delete(process.env.MAIN_TICKETS + "deleteTicket/" + id, config);
+            await Axios.delete("https://ticket-manager-backend.herokuapp.com/api/tickets/deleteTicket/" + id, config);
 
             this.loadData();
     
@@ -119,7 +119,7 @@ class DashboardTemplate extends Component {
                 }
             }            
     
-            const response = await Axios.get(process.env.MAIN_TICKETS + "getTickets", config);  
+            const response = await Axios.get("https://ticket-manager-backend.herokuapp.com/api/tickets/getTickets", config);  
             const { tickets } = response.data;
 
             this.setState({

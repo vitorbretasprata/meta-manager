@@ -71,7 +71,7 @@ class CreateApp extends Component {
                 Category: category 
             }
 
-            await Axios.post(process.env.MAIN_TICKETS + "createTicket", body, config);
+            await Axios.post("https://ticket-manager-backend.herokuapp.com/api/tickets/createTicket", body, config);
 
             this.setState({
                 Loading: false,

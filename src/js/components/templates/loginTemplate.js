@@ -7,28 +7,29 @@ import FormError from "../utils/formError";
 
 const LoginTemplate = ({ loginFunc, failedLogin, messageError, isLoading, valueEmail, valuePassword, handleEmail, handlePass, pswValid, emailValid, pswMSG, emailMSG, handleRemember }) => ( 
     <div>
-        {!!failedLogin && <Failed message={`Failed to login: ${messageError}`}/>}
-            <form onSubmit={loginFunc} noValidate className="form-container">
-                <div className="alignContent">
-                    <p>Login</p>
-                </div>
-                <Input type="email" placeholder="Email Address" name="email" id="emailLogin" value={valueEmail} handleChange={handleEmail} />
-                <FormError isError={!emailValid} errorMsg={emailMSG} />
-                <Input type="password" placeholder="Password" name="password" id="passwordLogin" value={valuePassword} handleChange={handlePass} />
-                <FormError isError={!pswValid} errorMsg={pswMSG} />
-                <div className="custom-control custom-checkbox selects">
-                    <input type="checkbox" className="custom-control-input" id="rememberMe" name="rememberMe" onChange={handleRemember}/>
-                    <label className="custom-control-label textColor" htmlFor="rememberMe">Remember me</label>
-                </div>
-                <div className="form-group">
-                    <button className="btn btn-dark loginButton" type="submit">
-                        {isLoading ? <ReactLoading type="spin" id="loading" color="white" height={25} width={25}/> : "Submit"}
-                    </button>          
-                </div>  
-                <div className="alignContent">
-                    <Link to="/register">Register</Link> | <Link to="/resetPassword">Reset Password</Link>
-                </div>          
-            </form>
+        <form onSubmit={loginFunc} noValidate className="form-container">
+            {!!failedLogin && <Failed message={`Failed to login: ${messageError}`}/>}
+
+            <div className="alignContent">
+                <p>Login</p>
+            </div>
+            <Input type="email" placeholder="Email Address" name="email" id="emailLogin" value={valueEmail} handleChange={handleEmail} />
+            <FormError isError={!emailValid} errorMsg={emailMSG} />
+            <Input type="password" placeholder="Password" name="password" id="passwordLogin" value={valuePassword} handleChange={handlePass} />
+            <FormError isError={!pswValid} errorMsg={pswMSG} />
+            <div className="custom-control custom-checkbox selects">
+                <input type="checkbox" className="custom-control-input" id="rememberMe" name="rememberMe" onChange={handleRemember}/>
+                <label className="custom-control-label textColor" htmlFor="rememberMe">Remember me</label>
+            </div>
+            <div className="form-group">
+                <button className="btn btn-dark loginButton" type="submit">
+                    {isLoading ? <ReactLoading type="spin" id="loading" color="white" height={25} width={25}/> : "Submit"}
+                </button>          
+            </div>  
+            <div className="alignContent">
+                <Link to="/register">Register</Link> | <Link to="/resetPassword">Reset Password</Link>
+            </div>          
+        </form>
     </div>       
        
 )

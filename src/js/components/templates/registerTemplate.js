@@ -15,7 +15,6 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
     companyFirstNameValid, companyLastNameValid, companyEmailValid, companyLoginValid, companyPasswordValid, companyConfirmValid,
     companyFirstNameError, companyLastNameError, companyEmailError, companyLoginError, companyPasswordError, companyConfirmError }) => (
     <div className="centerDiv">
-        {!!failed && <Failed message={failedMessage}/>}    
         
         <div id="main">
             <div className='tab-btn'>
@@ -24,10 +23,11 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
             </div>
                 
             {!!visibilityUser &&                 
-                <form onSubmit={registerUser} method='POST' noValidate className="form-container">
+                <form onSubmit={registerUser} method='POST' noValidate className="form-container">                    
                     <div className="alignContent">
                         <p>User</p>
                     </div>
+                    {!!failed && <Failed message={failedMessage}/>}    
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName" handleChange={handleFirstNameUser} value={userFirstName}/>
@@ -70,6 +70,7 @@ const registerTemplate = ({ registerUser, registerCompany, failed, failedMessage
                     <div className="alignContent">
                         <p>Company</p>
                     </div>
+                    {!!failed && <Failed message={failedMessage}/>}    
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <Input type="text" placeholder="First Name" id="firstNameRegister" name="firstName" handleChange={handleFirstNameCompany} value={companyFirstName}/>

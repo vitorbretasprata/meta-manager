@@ -891,6 +891,20 @@ input[type=checkbox] {
     border: 1px solid rgb(184, 184, 184);
 }
 
+.you-failed {
+    margin: 1rem 0;
+    color: #811919;
+}
+
+.active-link {
+
+}
+
+a:not([href]):not([tabindex]),
+a:not([href]):not([tabindex]):hover {
+    color: #eee;
+}
+
 .panels {
     padding: 50px;
     font-weight: 500;

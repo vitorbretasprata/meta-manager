@@ -79,6 +79,11 @@ class AuthProvider extends Component{
                     sessionStorage.setItem('token_id', checked.token);
                     sessionStorage.setItem("user_name", checked.name);
                 }
+
+                this.setState({
+                    UserName: localStorage.getItem("user_name") || sessionStorage.getItem("user_name"),
+                    isAuth: true
+                });
             } 
 
         } catch (error) {

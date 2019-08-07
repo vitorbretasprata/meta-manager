@@ -24,26 +24,26 @@ class SideBar extends Component {
         return (
             <div className="sideBarDiv">
                 <div className="sideBar">
-                    <ul className="sideBarIcons">
-                        <li>
+                    <div className="sideBarIcons">
+                        <div>
                             <Link to="/home">
                                 <FontAwesomeIcon icon={faHome} size="2x"/>
                             </Link>
-                        </li>
-                        <li>
+                        </div>
+                        <div>
                             <Link to="/dashboard">
                                 <FontAwesomeIcon icon={faTable} size="2x"/>
                             </Link>
-                        </li>                        
-                        <li>
+                        </div>                        
+                        <div>
                             <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="users" toggle={this.toggle}>
                                 Coming soon!
                             </Tooltip>
                             <a href="#" id="users">
                                 <FontAwesomeIcon icon={faUser} size="2x"/>
                             </a>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
                 <div className="sideBarContent">
                     {this.props.children}

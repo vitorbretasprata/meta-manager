@@ -234,7 +234,7 @@ class DashboardTemplate extends Component {
                                 <td>{ticket.Category}</td>
                                 <td>{ticket.Status}</td>
                                 <td>
-                                    <div className="icons d-flex justify-content-around">
+                                    <div className="d-flex icons">
                                         <div>
                                             <Link to={
                                             { 

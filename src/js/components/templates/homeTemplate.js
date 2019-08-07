@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortDown, faUser, faBuilding, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faSortDown, faUser, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import FormError from "../utils/formError";
 import { Link } from 'react-router-dom';
 import { AuthConsumer } from '../../main/AuthContext';
@@ -10,12 +10,12 @@ import { Link as Anchor } from "react-scroll";
 
 const SubMenu = () => (
     <div className="sub-menu">
-        <div><Link to="/Login">Log in</Link></div>
-        <div><Link to="/Register">Register</Link></div>
+       <Link to="/Login">Log in</Link>
+       <Link to="/Register">Register</Link>
     </div> 
-)  
+) 
 
-const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, isScrolled, inputMessage,
+const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage,
      handleMessage, inputEmail, handleEmail, inputLast, handleLast, inputFirst, handleFirst,
      firstValid, firstError, lastValid, lastError, emailValid, emailError, messageError, messageValid, sendMessage, messageSent }) => (
     <div className="home-page">
@@ -50,18 +50,21 @@ const HomeTemplate = ({ toggle, collapsed, handleLeave, handleHover, subMenu, is
                                     </Anchor>                  
                                 </li>                                
                                 {!!context.simpleAuth() ? (
-                                    <li onMouseLeave={handleLeave}>
-                                        <a href="#" onMouseEnter={handleHover}>
-                                            {context.userName} <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
+                                    <li>
+                                        <a href="#">
+                                            {context.state.UserName} <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
                                         </a>
-                                        {!!subMenu && <SubMenu />}
+                                        <div className="sub-menu">
+                                            <Link to="/dashboard">Dashboard</Link>
+                                            <button onClick={context.logout}>Log out</button>
+                                        </div> 
                                     </li>                                    
                                 ) : (
-                                    <li onMouseLeave={handleLeave}>
-                                        <a href="#" onMouseEnter={handleHover}>
+                                    <li>
+                                        <a href="#">
                                             Enter <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
                                         </a>
-                                        {!!subMenu && <SubMenu />}
+                                        <SubMenu logout={context.logout} />
                                     </li>
                                 )}                                
                             </ul>

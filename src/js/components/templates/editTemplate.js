@@ -8,8 +8,9 @@ import FormError from "../utils/formError";
 const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, changeImportance, changeStatus,
             termTicket, changeDate, descriptionTicket, editTicket, cancelEdit, changeClient, changeDesc, method, selectedStatus, selectedCategory, selectedImportance, Title, titleValid, descValid, titleError, descError}) => (
     <div className="container-fluid">
-        <h2 className="paddingTitle">{Title}</h2>
-        <form onSubmit={editTicket} method={method}>                
+        <form onSubmit={editTicket} method={method}> 
+            <h2 className="paddingTitle">{Title}</h2>
+               
             <div className="ticketInfo row">
                 <div className="col-sm-12 col-md-6 col-lg-6">
                     <div className="labels">
@@ -37,7 +38,7 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                             <DatePicker 
                                 name="date"
                                 id="term"
-                                className="sizeInput editInputs form-control"
+                                className="sizeInput form-control"
                                 selected={termTicket}
                                 onChange={changeDate}
                             />                                            
@@ -99,10 +100,10 @@ const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, 
                     <textarea className="form-control" rows="8" value={descriptionTicket} name="description" onChange={changeDesc}>
                     </textarea>
                 </div>
-                <div className="d-flex justify-content-start">
-                    <button type="submit" className="marginButtons btn btn-dark">Save</button>
+                <div className="d-flex justify-content-start margin-top-buttons">
+                    <button type="submit" className="btn btn-dark">Save</button>
                     
-                    <Link to={cancelEdit} className="marginButtons btn btn-dark">Cancel</Link>
+                    <Link to={cancelEdit} className="left-margin btn btn-dark">Cancel</Link>
                 </div>    
             </div>                
             

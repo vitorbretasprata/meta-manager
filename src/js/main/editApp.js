@@ -124,7 +124,7 @@ class EditApp extends Component {
                 Category: category
             }            
 
-            await Axios.put("https://ticket-manager-backend.herokuapp.com/api/tickets/alterTicket/" + ID, body, config);
+            await Axios.put("https://ticket-manager-backend.herokuapp.com/api/tickets/editTicket/" + ID, body, config);
             
             this.setState({
                 Loading: false,

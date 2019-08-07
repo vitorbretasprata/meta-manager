@@ -37,8 +37,8 @@ const ViewTemplate = ({ titleTicket, importanceTicket, authorTicket, clientTicke
                     </p>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <Link to={linkToEdit} className="marginButtons btn btn-dark">Edit</Link>
-                    <button onClick={deleteTicket} className="marginButtons btn btn-dark">Delete</button>
+                    <Link to={linkToEdit} className="right-margin btn btn-dark">Edit</Link>
+                    <button onClick={deleteTicket} className="btn btn-dark">Delete</button>
                 </div>    
             </div>
             

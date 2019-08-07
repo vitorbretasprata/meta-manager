@@ -6,15 +6,12 @@ class HomeApp extends Component {
         super(props);
     
         this.toggle = this.toggle.bind(this);
-        this.handleHover = this.handleHover.bind(this);
-        this.handleLeave = this.handleLeave.bind(this);
         this.handleText = this.handleText.bind(this);
         this.checkMessage = this.checkMessage.bind(this);
 
         this.state = {
             scrolled: false,
             collapsed: '',
-            showSubMenu: false,
             first: '',
             last: '',
             email: '',
@@ -136,14 +133,7 @@ class HomeApp extends Component {
     componentWillUnmount() {
        window.removeEventListener('scroll', this.handleScroll);
     }
-
-    handleHover = (e) => {
-        this.setState({ showSubMenu: true });
-    };
-      
-    handleLeave = (e) => {
-        this.setState({ showSubMenu: false });
-    };
+    
 
     render(){    
         const { first, last, message, email, messageSent} = this.state;
@@ -152,9 +142,6 @@ class HomeApp extends Component {
             <HomeTemplate 
                 toggle={this.toggle} 
                 collapsed={this.state.collapsed} 
-                handleHover={this.handleHover} 
-                handleLeave={this.handleLeave} 
-                subMenu={this.state.showSubMenu} 
                 isScrolled={this.state.scrolled}
                 inputEmail={email}
                 inputFirst={first}

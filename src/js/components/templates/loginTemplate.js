@@ -18,8 +18,8 @@ const LoginTemplate = ({ loginFunc, failedLogin, messageError, isLoading, valueE
             <Input type="password" placeholder="Password" name="password" id="passwordLogin" value={valuePassword} handleChange={handlePass} />
             <FormError isError={!pswValid} errorMsg={pswMSG} />
             <div className="custom-control custom-checkbox selects">
-                <input type="checkbox" className="custom-control-input" id="rememberMe" name="rememberMe" onChange={handleRemember}/>
-                <label className="custom-control-label textColor" htmlFor="rememberMe">Remember me</label>
+                <input type="checkbox" className="form-control-input check-position" id="rememberMe" name="rememberMe" onChange={handleRemember}/>
+                <label className="form-control-label text-color text-position" htmlFor="rememberMe">Remember me</label>
             </div>
             <div className="form-group">
                 <button className="btn btn-dark loginButton" type="submit">

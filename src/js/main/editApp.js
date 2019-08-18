@@ -3,6 +3,7 @@ import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 import SideBar from './sideBar';
+import DashboardNavBar from '../components/dashboardNavBar';
 import Error from '../components/error';
 
 class EditApp extends Component {
@@ -63,7 +64,7 @@ class EditApp extends Component {
                     }
                 }
 
-                const response = await Axios.get("https://ticket-manager-backend.herokuapp.com/api/tickets/getTicket/" + ID, config);
+                const response = await Axios.get("http://localhost:2000/api/tickets/getTicket/" + ID, config);
                 const { ticket } = response.data;
 
                 response.data.ticket.Comments.map(UserComment => {
@@ -124,7 +125,7 @@ class EditApp extends Component {
                 Category: category
             }            
 
-            await Axios.put("https://ticket-manager-backend.herokuapp.com/api/tickets/editTicket/" + ID, body, config);
+            await Axios.put("http://localhost:2000/api/tickets/editTicket/" + ID, body, config);
             
             this.setState({
                 Loading: false,
@@ -205,9 +206,19 @@ class EditApp extends Component {
 
         if(val.Error != ""){
             return(
-                <SideBar>
-                    <Error errorMessage={val.Error} />
-                </SideBar>
+
+                <div className="main-dashboard">
+                    <DashboardNavBar />                
+                    <SideBar
+                        title="Edit Ticket"
+                        dashboardClass=""
+                        ticketsClass="active-link"
+                    />
+
+                    <div className="dashboard-content">   
+                        <Error errorMessage={val.Error} />
+                    </div>                
+                </div>
             )           
         } else if(SuccessEdit){
             return (
@@ -215,30 +226,39 @@ class EditApp extends Component {
             )
         } else {
             return ( 
-                <SideBar>
-                    <EditTemplate 
-                        method="PUT"
-                        editTicket={this.checkInputTickets}
-                        titleTicket={val.title}
-                        importanceTicket={val.importance}
-                        authorTicket={val.author}
-                        clientTicket={val.client}
-                        termTicket={new Date(val.term)}                    
-                        descriptionTicket={val.description}    
-                        cancelEdit='/dashboard'
-                        Title="Edit Ticket"
-                        changeDate={this.handleDate}
-                        changeTitle={this.handleText}
-                        changeClient={this.handleText}
-                        changeDesc={this.handleText}
-                        changeStatus={e => this.handleSelect(e, 'status')}
-                        changeImportance={e => this.handleSelect(e, 'importance')}
-                        changeCategory={e => this.handleSelect(e, 'category')}
-                        selectedImportance={val.importance}
-                        selectedStatus={val.status}
-                        selectedCategory={val.category}
+
+                <div className="main-dashboard">
+                    <DashboardNavBar />                
+                    <SideBar
+                        title="Edit Ticket"
+                        dashboardClass=""
+                        ticketsClass="active-link"
                     />
-                </SideBar>                                  
+
+                    <div className="dashboard-content">   
+                        <EditTemplate 
+                            method="PUT"
+                            editTicket={this.checkInputTickets}
+                            titleTicket={val.title}
+                            importanceTicket={val.importance}
+                            authorTicket={val.author}
+                            clientTicket={val.client}
+                            termTicket={new Date(val.term)}                    
+                            descriptionTicket={val.description}    
+                            cancelEdit='/tickets'
+                            changeDate={this.handleDate}
+                            changeTitle={this.handleText}
+                            changeClient={this.handleText}
+                            changeDesc={this.handleText}
+                            changeStatus={e => this.handleSelect(e, 'status')}
+                            changeImportance={e => this.handleSelect(e, 'importance')}
+                            changeCategory={e => this.handleSelect(e, 'category')}
+                            selectedImportance={val.importance}
+                            selectedStatus={val.status}
+                            selectedCategory={val.category}
+                        />
+                    </div>                
+                </div>                                 
             )
         }
     }

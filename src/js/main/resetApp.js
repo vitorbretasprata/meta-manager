@@ -29,7 +29,7 @@ class ResetApp extends Component{
             e.preventDefault();           
             const email = e.target.email.value;
 
-            const response = await Axios.post("https://ticket-manager-backend.herokuapp.com/api/auth/checkEmail", { email });
+            const response = await Axios.post("http://localhost:2000/api/auth/checkEmail", { email });
 
             this.setState({
                 resetCode: response.data.Code,
@@ -86,7 +86,7 @@ class ResetApp extends Component{
                 });
             } else {
 
-                await Axios.put("https://ticket-manager-backend.herokuapp.com/api/auth/resetPassword", 
+                await Axios.put("http://localhost:2000/api/auth/resetPassword", 
                     { 
                         email: target.email.value,
                         password: target.password.value

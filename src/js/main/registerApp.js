@@ -95,7 +95,7 @@ class RegisterApp extends Component {
                 Role: 'admin'
             }
 
-            const response = await Axios.post("https://ticket-manager-backend.herokuapp.com/api/auth/register", userInfo);
+            const response = await Axios.post("http://localhost:2000/api/auth/register", userInfo);
 
             const checked = checkError(response);
 
@@ -146,7 +146,7 @@ class RegisterApp extends Component {
                 Role: 'user'
             }
 
-            const response = await Axios.post("https://ticket-manager-backend.herokuapp.com/api/auth/register", userInfo);
+            const response = await Axios.post("http://localhost:2000/api/auth/register", userInfo);
 
             const checked = checkError(response);
 

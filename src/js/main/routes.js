@@ -13,6 +13,7 @@ import EditApp from './editApp';
 import CreateApp from './createApp';
 import ResetApp from './resetApp';
 import history from '../components/utils/history';
+import TicketsApp from './ticketsApp';
 
 class Routes extends Component {    
     render(){        
@@ -26,7 +27,8 @@ class Routes extends Component {
                         <Route path='/register' component={RegisterApp} />
                         <Route path='/' component={HomeApp} exact />
                         <Route path='/home' component={HomeApp} />
-                        <ProtectedRoute path='/dashboard' component={DashboardApp} />  
+                        <ProtectedRoute path='/dashboard' component={DashboardApp} />
+                        <ProtectedRoute path='/tickets' component={TicketsApp} />    
                         <ProtectedRoute path='/view' component={ViewApp} />
                         <ProtectedRoute path='/edit' component={EditApp} />
                         <ProtectedRoute path='/create' component={CreateApp} />                                                                      

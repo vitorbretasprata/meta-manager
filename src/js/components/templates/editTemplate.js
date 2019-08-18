@@ -6,11 +6,9 @@ import { Category, Importance, Status } from '../utils/consts';
 import FormError from "../utils/formError";
 
 const EditTemplate = ({ titleTicket, clientTicket, changeTitle, changeCategory, changeImportance, changeStatus,
-            termTicket, changeDate, descriptionTicket, editTicket, cancelEdit, changeClient, changeDesc, method, selectedStatus, selectedCategory, selectedImportance, Title, titleValid, descValid, titleError, descError}) => (
+            termTicket, changeDate, descriptionTicket, editTicket, cancelEdit, changeClient, changeDesc, method, selectedStatus, selectedCategory, selectedImportance, titleValid, descValid, titleError, descError}) => (
     <div className="container-fluid">
-        <form onSubmit={editTicket} method={method}> 
-            <h2 className="paddingTitle">{Title}</h2>
-               
+        <form onSubmit={editTicket} method={method}>                
             <div className="ticketInfo row">
                 <div className="col-sm-12 col-md-6 col-lg-6">
                     <div className="labels">

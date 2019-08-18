@@ -3,6 +3,7 @@ import EditTemplate from '../components/templates/editTemplate';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'; 
 import SideBar from './sideBar';
+import DashboardNavBar from '../components/dashboardNavBar';
 import Error from '../components/error';
 
 class CreateApp extends Component {
@@ -71,7 +72,7 @@ class CreateApp extends Component {
                 Category: category 
             }
 
-            await Axios.post("https://ticket-manager-backend.herokuapp.com/api/tickets/createTicket", body, config);
+            await Axios.post("http://localhost:2000/api/tickets/createTicket", body, config);
 
             this.setState({
                 Loading: false,
@@ -151,9 +152,18 @@ class CreateApp extends Component {
 
         if(val.Error){
             return (
-                <SideBar>
-                    <Error errorMessage={val.Error} />
-                </SideBar>
+                <div className="main-dashboard">
+                    <DashboardNavBar />                
+                    <SideBar
+                        title="New Ticket"
+                        dashboardClass=""
+                        ticketsClass="active-link"
+                    />
+
+                    <div className="dashboard-content">   
+                        <Error errorMessage={val.Error} />
+                    </div>                
+                </div>
             )
         } else if(SuccessAdd){
             return (
@@ -161,32 +171,40 @@ class CreateApp extends Component {
             )
         } else  if(this.props.location.state == undefined){
             return (
-                <SideBar>
-                    <EditTemplate 
-                        method="POST"
-                        editTicket={this.checkInputTickets}
-                        titleTicket={val.title}
-                        importanceTicket={val.importance}
-                        authorTicket={val.author}
-                        clientTicket={val.client}
-                        termTicket={val.term}
-                        stateTicket={val.status}
-                        Title="New Ticket"
-                        descriptionTicket={val.description}                
-                        cancelEdit='/dashboard'                    
-                        changeDate={this.handleDate}
-                        changeTitle={this.handleText}
-                        changeClient={this.handleText}
-                        changeDesc={this.handleText}
-                        changeStatus={e => this.handleSelect(e, 'status')}
-                        changeImportance={e => this.handleSelect(e, 'importance')}
-                        changeCategory={e => this.handleSelect(e, 'category')}
-                        descValid={val.ticketValid.description}
-                        descError={val.ticketError.description}
-                        titleError={val.ticketError.title}
-                        titleValid={val.ticketValid.title}
+                <div className="main-dashboard">
+                    <DashboardNavBar />                
+                    <SideBar
+                        title="New Ticket"
+                        dashboardClass=""
+                        ticketsClass="active-link"
                     />
-                </SideBar>                
+
+                    <div className="dashboard-content"> 
+                        <EditTemplate 
+                            method="POST"
+                            editTicket={this.checkInputTickets}
+                            titleTicket={val.title}
+                            importanceTicket={val.importance}
+                            authorTicket={val.author}
+                            clientTicket={val.client}
+                            termTicket={val.term}
+                            stateTicket={val.status}
+                            descriptionTicket={val.description}                
+                            cancelEdit='/tickets'                    
+                            changeDate={this.handleDate}
+                            changeTitle={this.handleText}
+                            changeClient={this.handleText}
+                            changeDesc={this.handleText}
+                            changeStatus={e => this.handleSelect(e, 'status')}
+                            changeImportance={e => this.handleSelect(e, 'importance')}
+                            changeCategory={e => this.handleSelect(e, 'category')}
+                            descValid={val.ticketValid.description}
+                            descError={val.ticketError.description}
+                            titleError={val.ticketError.title}
+                            titleValid={val.ticketValid.title}
+                        />  
+                    </div>                
+                </div>              
             )
         } 
     }

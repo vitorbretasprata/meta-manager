@@ -4,6 +4,7 @@ import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
 import Failed from '../components/failed'
 import SideBar from './sideBar';
+import DashboardNavBar from '../components/dashboardNavBar';
 
 class ViewApp extends Component {
     constructor(){
@@ -100,7 +101,7 @@ class ViewApp extends Component {
             textComment: ""
         });
 
-        await Axios.put("https://ticket-manager-backend.herokuapp.com/api/tickets/addComment/" + ID, { Description:  textComment }, config);
+        await Axios.put("http://localhost:2000/api/tickets/addComment/" + ID, { Description:  textComment }, config);
 
         this.getList();        
     }
@@ -128,7 +129,7 @@ class ViewApp extends Component {
                 }
             }
         
-            const response = await Axios.get("https://ticket-manager-backend.herokuapp.com/api/tickets/getTicket/" + ID, config);
+            const response = await Axios.get("http://localhost:2000/api/tickets/getTicket/" + ID, config);
     
             const { ticket } = response.data;
             const { Comments } = response.data.ticket;
@@ -169,9 +170,18 @@ class ViewApp extends Component {
 
         if(val.Error){
             return (
-                <SideBar>
-                    <Failed message={val.Error} />
-                </SideBar>               
+                <div className="main-dashboard">
+                    <DashboardNavBar />                
+                    <SideBar
+                        title="Ticket"
+                        dashboardClass=""
+                        ticketsClass="active-link"
+                    />
+
+                    <div className="dashboard-content">   
+                        <Failed message={val.Error} />
+                    </div>
+                </div>              
             )
         } else if(val.Deleted){
             return (
@@ -197,30 +207,40 @@ class ViewApp extends Component {
             });
             
             return (
-                <SideBar>
-                    <ViewTemplate            
-                    titleTicket={val.Title}
-                    importanceTicket={val.Importance}
-                    authorTicket={val.Author}
-                    clientTicket={val.Client}
-                    termTicket={TermFormated}
-                    dateTicket={DateCreatedFormated}
-                    stateTicket={val.Status}
-                    descriptionTicket={val.Description}
-                    commentsTicket={Comments}
-                    deleteTicket={this.deleteTicket}
-                    addComment={this.open}
-                    isOpen={this.state.open}
-                    newComment={this.saveComment}
-                    categoryTicket={val.Category}
-                    linkToEdit={{ 
-                        pathname: '/edit',
-                        state: { ID: this.props.location.state.ID }
-                    }}
-                    textComment={val.textComment}
-                    handleComment={e => this.handleText(e, "textComment")}
+                <div className="main-dashboard">
+                    <DashboardNavBar />                
+                    <SideBar
+                        title="Ticket"
+                        dashboardClass=""
+                        ticketsClass="active-link"
                     />
-                </SideBar>                
+
+                    <div className="dashboard-content">   
+                        <ViewTemplate            
+                            titleTicket={val.Title}
+                            importanceTicket={val.Importance}
+                            authorTicket={val.Author}
+                            clientTicket={val.Client}
+                            termTicket={TermFormated}
+                            dateTicket={DateCreatedFormated}
+                            stateTicket={val.Status}
+                            descriptionTicket={val.Description}
+                            commentsTicket={Comments}
+                            deleteTicket={this.deleteTicket}
+                            addComment={this.open}
+                            isOpen={this.state.open}
+                            newComment={this.saveComment}
+                            categoryTicket={val.Category}
+                            linkToEdit={{ 
+                                pathname: '/edit',
+                                state: { ID: this.props.location.state.ID }
+                            }}
+                            textComment={val.textComment}
+                            handleComment={e => this.handleText(e, "textComment")}
+                        />
+                    </div>
+                </div>
+                    
             )
         }
 

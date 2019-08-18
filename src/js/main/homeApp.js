@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import HomeTemplate from '../components/templates/homeTemplate';
+import checkError from '../components/utils/checkError';
+import Axios from 'axios';
 
 class HomeApp extends Component {
     constructor(props) {
         super(props);
     
         this.toggle = this.toggle.bind(this);
+        this.dropToggle = this.dropToggle.bind(this);
         this.handleText = this.handleText.bind(this);
         this.checkMessage = this.checkMessage.bind(this);
 
         this.state = {
             scrolled: false,
             collapsed: '',
+            dropVisible: '',
             first: '',
             last: '',
             email: '',
@@ -28,7 +32,7 @@ class HomeApp extends Component {
         };
     }
     
-    toggle() {
+    toggle = () => {
         const { collapsed } = this.state;
 
         if(collapsed === '') {
@@ -41,6 +45,20 @@ class HomeApp extends Component {
             }); 
         }
     } 
+
+    dropToggle = () => {
+        const { dropVisible } = this.state;
+        
+        if(dropVisible === '') {
+            this.setState({
+                dropVisible: 'drop-toggle',
+            });           
+        } else {
+            this.setState({
+                dropVisible: '',
+            }); 
+        }
+    }
     
     handleScroll = () => {
         const isTop = window.scrollBy < 100;
@@ -111,15 +129,31 @@ class HomeApp extends Component {
         }
     }
 
-    sendMessage = () => {
+    sendMessage = async () => {
         const { first, last, email, message } = this.state;
 
-        
+        const body = {
+            firstName: first, 
+            lastName: last,
+            email,
+            message
+        }
 
+        const msg = await Axios.post("http://localhost:2000/api/auth/sendEmail", body);
 
-        this.setState({
-            messageSent: true
-        });
+        const checked = checkError(msg);
+
+        if (checked.code) {
+            this.setState({
+                messageSent: true,
+                messageMSG: checked.message
+            });
+        } else {
+            this.setState({
+                messageSent: true,
+                messageMSG: checked.message
+            });
+        }
     }
 
     handleText = e => {
@@ -136,7 +170,7 @@ class HomeApp extends Component {
     
 
     render(){    
-        const { first, last, message, email, messageSent} = this.state;
+        const { first, last, message, email, messageSent, dropVisible, messageMSG } = this.state;
 
         return (
             <HomeTemplate 
@@ -147,12 +181,15 @@ class HomeApp extends Component {
                 inputFirst={first}
                 inputLast={last}
                 inputMessage={message}
+                classToggle={dropVisible}
+                dropToggle={this.dropToggle}
                 handleEmail={this.handleText}
                 handleFirst={this.handleText}
                 handleLast={this.handleText}
                 handleMessage={this.handleText}
                 sendMessage={this.checkMessage}
                 messageSent={messageSent}
+                Msg={messageMSG}
              />
         )
     }

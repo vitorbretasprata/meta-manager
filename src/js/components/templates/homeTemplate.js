@@ -8,16 +8,9 @@ import { Collapse } from 'reactstrap';
 import { FaLinkedin, FaGithub, FaMedium, FaStackOverflow } from 'react-icons/fa';
 import { Link as Anchor } from "react-scroll";
 
-const SubMenu = () => (
-    <div className="sub-menu">
-       <Link to="/Login">Log in</Link>
-       <Link to="/Register">Register</Link>
-    </div> 
-) 
-
-const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage,
+const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage, Msg,
      handleMessage, inputEmail, handleEmail, inputLast, handleLast, inputFirst, handleFirst,
-     firstValid, firstError, lastValid, lastError, emailValid, emailError, messageError, messageValid, sendMessage, messageSent }) => (
+     firstValid, firstError, lastValid, lastError, emailValid, emailError, messageError, messageValid, sendMessage, messageSent, dropToggle, classToggle }) => (
     <div className="home-page">
         <header className={isScrolled ? 'header-scrolled' : ''}>            
             <AuthConsumer>
@@ -51,20 +44,23 @@ const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage,
                                 </li>                                
                                 {!!context.simpleAuth() ? (
                                     <li>
-                                        <a href="#">
-                                            {context.state.UserName} <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
+                                        <a onClick={dropToggle}>
+                                            {context.state.UserName} <FontAwesomeIcon icon={faSortDown} className="dropdown-arrow"/>
                                         </a>
-                                        <div className="sub-menu">
+                                        <div className={`sub-menu ${classToggle}`}>
                                             <Link to="/dashboard">Dashboard</Link>
                                             <button onClick={context.logout}>Log out</button>
                                         </div> 
                                     </li>                                    
                                 ) : (
                                     <li>
-                                        <a href="#">
-                                            Enter <FontAwesomeIcon icon={faSortDown} className="drop-arrow"/>
+                                        <a onClick={dropToggle}>
+                                            Enter <FontAwesomeIcon icon={faSortDown} className="dropdown-arrow"/>
                                         </a>
-                                        <SubMenu logout={context.logout} />
+                                        <div className={`sub-menu ${classToggle}`}>
+                                            <Link to="/Login">Log in</Link>
+                                            <Link to="/Register">Register</Link>
+                                        </div>                                        
                                     </li>
                                 )}                                
                             </ul>
@@ -173,7 +169,7 @@ const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage,
                     <p>Contacts</p>
                 </div>
                 <div className="message-title">Send Message</div>
-                {!!messageSent && <div className="message">Message sent!</div>}
+                {!!messageSent && <div className="message">{Msg}</div>}
                 <div className="row">                                                   
                     <div className="col-sm-12 col-md-6 col-lg-6">
                         <FormError isError={!firstValid} errorMsg={firstError} /> 

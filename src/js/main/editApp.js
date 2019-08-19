@@ -222,7 +222,7 @@ class EditApp extends Component {
             )           
         } else if(SuccessEdit){
             return (
-                <Redirect to="/dashboard" />
+                <Redirect to="/tickets" />
             )
         } else {
             return ( 

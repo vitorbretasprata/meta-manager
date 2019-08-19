@@ -167,7 +167,7 @@ class CreateApp extends Component {
             )
         } else if(SuccessAdd){
             return (
-                <Redirect to='/dashboard' />
+                <Redirect to='/tickets' />
             )
         } else  if(this.props.location.state == undefined){
             return (

@@ -1,19 +1,59 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
 import Axios from 'axios';
+import checkError from './utils/checkError';
 
 class LineGraph extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            failed: true,
+            messageError: ''
+        }
+    }
     chartRef = React.createRef();
 
+    _getToken = () => {
+        return sessionStorage.getItem("token_id") || localStorage.getItem("token_id");
+    }
 
-    getQauntity = async () => {
-        const qtd = await Axios.get("");
+    getQuantity = async () => {
 
-        return qtd;
+        try {
+            const token = this._getToken();
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+    
+            const qtd = await Axios.get("http://localhost:2000/api/tickets/getQuantity", config);
+    
+            const checked = checkError(qtd);
+    
+            if (checked.code) {
+                this.setState({
+                    failed: true,
+                    messageError: checked.message
+                });
+            }
+    
+            return checked;
+
+
+        } catch (error) {
+            this.setState({
+                failed: true,
+                messageError: error.message
+            })
+        }
+
+        
     }
     
     componentDidMount() {
-        const quantity = this.getQauntity();
+        const quantity = this.getQuantity();
 
         const myChartRef = this.chartRef.current.getContext("2d");
         

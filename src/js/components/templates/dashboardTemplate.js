@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortDown, faTicketAlt, faCalendar, faCross, faStickyNote, faExclamationCircle, faNetworkWired, faNewspaper, faCopy, faPlusCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FaOdnoklassniki, FaNewspaper } from 'react-icons/fa';
+import { faTicketAlt, faCalendar, faStickyNote, faExclamationCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import LineGraph from '../lineGraph';
 
 const DashboardTemplate = ({ newTicket, completed, active, deadline}) => (
     <div className="container-fluid">
@@ -84,10 +84,10 @@ const DashboardTemplate = ({ newTicket, completed, active, deadline}) => (
                         </div>
                     </div>
                 </div>                
-            </div>
-
-            
+            </div>            
         </div>
+
+        <LineGraph/>
     </div>
 )
 

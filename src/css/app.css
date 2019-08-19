@@ -192,6 +192,15 @@ nav ul li a:last-child {
     }
 }
 
+.graph-container {
+    background: white;
+    padding: 30px 20px 10px 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 0px -5px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 10px 0px -5px rgba(0,0,0,0.3);
+    box-shadow: 0px 10px 0px -5px rgba(0,0,0,0.3);
+}
+
 .sign a {
     margin: 0 1.5rem;
     padding: 1rem 2rem;
@@ -345,6 +354,10 @@ nav ul li a:last-child {
         transform: translateX(-100%);
         left: 0;
         transition: transform .25s ease-in;  
+    }
+
+    .graph-container {
+        width: 80vw;
     }
     
     nav {

@@ -9,22 +9,7 @@ class LineGraph extends Component {
         super();
         this.state = {
             failed: true,
-            messageError: '',
-            months: {
-                1: "Jan",
-                2: "Fev",
-                3: "Mar",
-                4: "Apr",
-                5: "May",
-                6: "Jun",
-                7: "Jul",
-                8: "Ago",
-                9: "Sept",
-                10: "Oct",
-                11: "Nov",
-                12: "Dec"
-            }              
-            
+            messageError: ''                       
         }
     }
     chartRef = React.createRef();
@@ -33,44 +18,11 @@ class LineGraph extends Component {
         return sessionStorage.getItem("token_id") || localStorage.getItem("token_id");
     }
 
-    getQuantity = async () => {
-
-        try {
-            const token = this._getToken();
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            }
-    
-            const qtd = await Axios.get("http://localhost:2000/api/tickets/getQuantity", config);
-    
-            const checked = checkError(qtd);            
-    
-            if (checked.code) {
-                this.setState({
-                    failed: true,
-                    messageError: checked.message
-                });
-            }
-            
-            const quantity = await this.setGraph(checked.result);
-            console.log(quantity);
-            return quantity;
-
-        } catch (error) {
-            this.setState({
-                failed: true,
-                messageError: error.message
-            })
-        }       
-    }
-
     setGraph = (tickets) => {
         let month = new Date().getMonth() + 1;
         let MonthValues = {};
         let arrMonthValues = [];
-        let arrMonth = ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Ago", "Sept", "Oct", "Nov", "Dec"];
+        let arrMonth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec"];
         let arrMonthNum = [];
         let arrMonthsSorted = [];
         let ct = 12;
@@ -107,15 +59,50 @@ class LineGraph extends Component {
         let firstMonth = arrMonthsSorted.pop();
         arrMonthsSorted.unshift(firstMonth);
 
-        return {
+        const result = {
             arrMonthValues: arrMonthValues.reverse(),
             arrMonthsSorted: arrMonthsSorted.reverse()
         }
+
+        return result;
+    }
+
+    getQuantity = async () => {
+
+        try {
+            const token = this._getToken();
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+    
+            const qtd = await Axios.get("http://localhost:2000/api/tickets/getQuantity", config);
+    
+            const checked = checkError(qtd);            
+    
+            if (checked.code) {
+                this.setState({
+                    failed: true,
+                    messageError: checked.message
+                });
+            }
+
+            const arr = this.setGraph(checked.result);
+            console.log(arr);
+
+            return arr;
+
+        } catch (error) {
+            this.setState({
+                failed: true,
+                messageError: error.message
+            });
+        }       
     }
     
-    componentDidMount() {
-        const quantity = this.getQuantity();
-        console.log(quantity)
+    async componentDidMount () {
+        const quantity = await this.getQuantity();
 
         const myChartRef = this.chartRef.current.getContext("2d");
         
@@ -127,12 +114,21 @@ class LineGraph extends Component {
                 datasets: [
                     {
                         label: "Tickets Completed",
+                        backgroundColor: 'rgba(0, 200, 0, 0.75)',
                         data: quantity.arrMonthValues,
                     }
                 ]
             },
             options: {
-                //Customize chart options
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
             }
         });
     }

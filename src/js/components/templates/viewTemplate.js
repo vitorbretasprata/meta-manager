@@ -17,12 +17,12 @@ const ViewTemplate = ({ titleTicket, importanceTicket, authorTicket, clientTicke
                     <div className="information col-sm-12  col-md-6 col-lg-6">
                         <span>Status: {stateTicket} </span> 
                         <span>Author: {authorTicket}</span>  
-                        <span>Client: {clientTicket}</span> 
+                        <span>Customer: {clientTicket}</span> 
                     </div>
                     <div className="information col-sm-12  col-md-6 col-lg-6">
                         <span>Category: {categoryTicket}</span> 
                         <span>Term: {termTicket}</span>  
-                        <span>Date of creation: {dateTicket}</span> 
+                        <span>Creation date: {dateTicket}</span> 
                     </div>
                 </div>
                      

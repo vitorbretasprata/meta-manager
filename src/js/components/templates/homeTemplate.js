@@ -81,11 +81,9 @@ const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage, Msg,
 
         <section className="section-intro" id="home">            
             <div className="content-intro">
-                <div className="content-title">An application to manager tasks</div>
+                <div className="content-title">A simple application to manager tasks</div>
                 <div className="content-description">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s.
+                    If you feel like managing your tasks, register now. It's free!!!
                 </div>
                 <div className="get-started">
                     <Link to="/login">Login</Link>
@@ -202,7 +200,7 @@ const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage, Msg,
                 <div className="row mb-5">
                     <div className="col-md-4">
                         <h2 className="footer-heading text-uppercase mb-4 weight">About me</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit aliquid quibusdam fugit architecto.</p>
+                        <p>I am a simple programmer passionate with learning new things.</p>
                     </div>
                     <div className="col-md-3 ml-auto">
                         <h2 className="footer-heading text-uppercase mb-4 weight">Quick Links</h2>
@@ -210,7 +208,6 @@ const HomeTemplate = ({ toggle, collapsed, isScrolled, inputMessage, Msg,
                             <li><a href="#">Home</a></li>
                             <li><a href="#">Services</a></li>
                             <li><a href="#">About</a></li>
-                            <li><a href="#">Donation</a></li>
                             <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
